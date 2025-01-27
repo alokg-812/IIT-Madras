@@ -18,7 +18,7 @@
   * most realistics estimate
 
 ### Calculating complexities:
-```
+```py
     a = 10
     b = 20
     s = a + b
@@ -27,7 +27,7 @@
 **Complexity = `O(1)`**
 
 Complexity for single loop
-```
+```py
     s = 0
     for i in range(n):
     	s = s + 1
@@ -35,7 +35,7 @@ Complexity for single loop
 **Complexity = `O(n)`**
 
 Complexity for nested two loop
-```
+```py
     s = 0
     for i in range(n):
         for j in range(n):
@@ -44,7 +44,7 @@ Complexity for nested two loop
 **Complexity = `O(n²)`**
 
 Complexity for nested three loop
-```
+```py
     s = 0
     for i in range(n):
         for j in range(n):
@@ -54,7 +54,7 @@ Complexity for nested three loop
 **Complexity = `O(n³)`** 
 
 Complexity for combination of all
-```
+```py
     s = 0
     for i in range(n):
     	s = s + 1
@@ -72,7 +72,7 @@ Complexity for combination of all
 
 
 Complexity for recursive solution
-```
+```py
     def factorial(n)
     	if (n == 0):
     		return 1
@@ -86,7 +86,7 @@ Recurrence relation? `T(n) = T(n-1)+O(1) = 1+1+1...n times`
  
 
 Complexity for recursive solution
-```
+```py
     def merge(A,B):
         #statement block for merging two sorted array
     def mergesort(A):
@@ -105,7 +105,7 @@ Recurrence relation - `T(n)=2T(n/2) + O(n)`
 ## Searching Algorithms:
 ### Naive Approach:
 Searching through all values:
-```
+```py
     def naiveSearch(val,ls):
         for x in ls:
             if x == val:
@@ -122,7 +122,7 @@ Searching through all values:
 
 ### Binary Search Approach:
 Binary search is an efficient search algorithm used to find the position of a target value within a sorted list. The algorithm compares the target value to the middle element of the list. If the target value is equal to the middle element, the search is complete. Otherwise, the algorithm recursively searches either the left or right half of the list, depending on whether the target value is greater or less than the middle element.
-```
+```py
 # Searching in a sorted list
 def binary_search(sorted_list, target):
     low = 0
@@ -160,7 +160,7 @@ print(recursive_binary_search(ls, 11))
 
 ## Sorting Algorithms:
 ### Selection Sort:
-```
+```py
     def selectionsort(L):
         n = len(L)
         if n < 1:
@@ -179,7 +179,7 @@ print(recursive_binary_search(ls, 11))
 
 
 ### Insertion Sort:
-```
+```py
     def insertionsort(L):
         n = len(L)
         if n < 1:
@@ -199,7 +199,7 @@ print(recursive_binary_search(ls, 11))
 ### Merge Sort:
 Merge sort is a popular sorting algorithm that uses the divide-and-conquer technique. It works by recursively dividing an list into two halves, sorting each half separately, and then merging them back together into a single sorted list.
 
-```
+```py
     def merge(A,B): # Merge two sorted list A and B
         (m,n) = (len(A),len(B))
         (C,i,j) = ([],0,0)
