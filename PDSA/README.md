@@ -242,6 +242,26 @@ Merge sort is a popular sorting algorithm that uses the divide-and-conquer techn
 `Worst Case: O(nlogn)`
 `Average Case: O(nlogn)`
 
+# Sorting and Searching Algorithms
+---
+
+## Searching Algorithms
+
+| Algorithm      | Best Time Complexity   | Average Time Complexity | Worst Time Complexity | Space Complexity |
+|----------------|-------------------------|--------------------------|-----------------------|-------------------|
+| **Linear Search (Naive)** | O(1)        | O(n)                    | O(n)                 | O(1)             |
+| **Binary Search** (on sorted data) | O(1) | O(log n)               | O(log n)             | O(1)             |
+---
+## Sorting Algorithms
+
+| Algorithm      | Best Time Complexity   | Average Time Complexity | Worst Time Complexity | Space Complexity |
+|----------------|-------------------------|--------------------------|-----------------------|-------------------|
+| **Merge Sort** | O(n log n)             | O(n log n)              | O(n log n)           | O(n)             |
+| **Quick Sort** | O(n log n)             | O(n log n)              | O(n²)                | O(log n)         |
+| **Selection Sort** | O(n²)              | O(n²)                   | O(n²)                | O(1)             |
+| **Insertion Sort** | O(n)               | O(n²)                   | O(n²)                | O(1)             |
+
+---
 # WEEK 3:
 
 # WEEK 4:
