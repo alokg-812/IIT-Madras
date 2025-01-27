@@ -124,21 +124,34 @@ Searching through all values:
 Binary search is an efficient search algorithm used to find the position of a target value within a sorted list. The algorithm compares the target value to the middle element of the list. If the target value is equal to the middle element, the search is complete. Otherwise, the algorithm recursively searches either the left or right half of the list, depending on whether the target value is greater or less than the middle element.
 ```
 # Searching in a sorted list
-    def binary_search(sorted_list, target):
-        low = 0
-        high = len(sorted_list) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if sorted_list[mid] == target:
-                return mid
-            elif sorted_list[mid] < target:
-                low = mid + 1
-            else:
-                high = mid - 1
+def binary_search(sorted_list, target):
+    low = 0
+    high = len(sorted_list) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if sorted_list[mid] == target:
+            return mid
+        elif sorted_list[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+
+# Searching in the list through recursion
+def recursive_binary_search(sorted_list, target):
+    if len(sorted_list) == 0:
         return -1
-    
-    ls = [1,3,5,7,9,11,13,15]
-    print(binary_search(ls, 11))
+    mid = len(sorted_list) // 2
+    if sorted_list[mid] == target:
+        return mid
+    elif sorted_list[mid] < target:
+        return recursive_binary_search(sorted_list[mid+1:], target)
+    else:
+        return recursive_binary_search(sorted_list[:mid], target)
+
+ls = [1,3,5,7,9,11,13,15]
+print(binary_search(ls, 11))
+print(recursive_binary_search(ls, 11))
 ```
 `Best Case: O(1)`
 `Worst Case: O(logn)`
@@ -147,8 +160,87 @@ Binary search is an efficient search algorithm used to find the position of a ta
 
 ## Sorting Algorithms:
 ### Selection Sort:
+```
+    def selectionsort(L):
+        n = len(L)
+        if n < 1:
+            return(L)
+        for i in range(n):
+            minpos = i
+            for j in range(i+1,n):
+                if L[j] < L[minpos]:
+                    minpos = j
+            (L[i],L[minpos]) = (L[minpos],L[i])
+        return(L)
+```
+`Best Case: O(n²)`
+`Worst Case: O(n²)`
+`Average Case: O(n²)`
+
+
 ### Insertion Sort:
+```
+    def insertionsort(L):
+        n = len(L)
+        if n < 1:
+            return(L)
+        for i in range(n):
+            j = i
+            while(j > 0 and L[j] < L[j-1]):
+                (L[j],L[j-1]) = (L[j-1],L[j])
+                j = j-1
+        return(L)
+```
+`Best Case: O(n)`
+`Worst Case: O(n²)`
+`Average Case: O(n²)`
+
+
 ### Merge Sort:
+Merge sort is a popular sorting algorithm that uses the divide-and-conquer technique. It works by recursively dividing an list into two halves, sorting each half separately, and then merging them back together into a single sorted list.
+
+```
+    def merge(A,B): # Merge two sorted list A and B
+        (m,n) = (len(A),len(B))
+        (C,i,j) = ([],0,0)
+        
+        #Case 1 :- When both lists A and B have elements for comparing
+        while i < m and j < n:
+            if A[i] <= B[j]:
+                C.append(A[i])
+                i += 1
+            else:
+                C.append(B[j])
+                j += 1
+        
+        #Case 2 :- If list B is over, shift all elements of A to C 
+        while i < m:
+            C.append(A[i])
+            i += 1
+        
+        #Case 3 :- If list A is over, shift all elements of B to C 
+        while j < n:
+            C.append(B[j])
+            j += 1
+        
+        # Return sorted merged list   
+        return C
+    
+    
+    
+    # Recursively divide the problem into sub-problems to sort the input list L    
+    def mergesort(L): 
+        n = len(L)
+        if n <= 1: #If the list contains only one element or is empty return the list.
+            return(L)
+        Left_Half = mergesort(L[:n//2]) #Recursively sort the left half of the list
+        Right_Half = mergesort(L[n//2:]) #Recursively sort the rightt half of the list
+        Sorted_Merged_List = merge(Left_Half, Right_Half) # Merge two sorted list Left_Half and Right_Half
+        return(Sorted_Merged_List)
+```
+`Best Case: O(nlogn)`
+`Worst Case: O(nlogn)`
+`Average Case: O(nlogn)`
 
 # WEEK 3:
 
