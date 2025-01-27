@@ -102,6 +102,53 @@ Recurrence relation - `T(n)=2T(n/2) + O(n)`
 
 **Complexity `O(nlogn)`**
 
+## Searching Algorithms:
+### Naive Approach:
+Searching through all values:
+```
+    def naiveSearch(val,ls):
+        for x in ls:
+            if x == val:
+                return True
+        return False
+        
+    ls = [1,3,5,7,9,11,13,15]
+    print(naiveSearch(8,ls))
+    print(naiveSearch(13,ls))
+```
+`Best Case: O(n)`
+`Worst Case: O(n)`
+`Average Case: O(n)`
+
+### Binary Search Approach:
+Binary search is an efficient search algorithm used to find the position of a target value within a sorted list. The algorithm compares the target value to the middle element of the list. If the target value is equal to the middle element, the search is complete. Otherwise, the algorithm recursively searches either the left or right half of the list, depending on whether the target value is greater or less than the middle element.
+```
+# Searching in a sorted list
+    def binary_search(sorted_list, target):
+        low = 0
+        high = len(sorted_list) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if sorted_list[mid] == target:
+                return mid
+            elif sorted_list[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return -1
+    
+    ls = [1,3,5,7,9,11,13,15]
+    print(binary_search(ls, 11))
+```
+`Best Case: O(1)`
+`Worst Case: O(logn)`
+`Average Case: O(logn)`
+
+
+## Sorting Algorithms:
+### Selection Sort:
+### Insertion Sort:
+### Merge Sort:
 
 # WEEK 3:
 
