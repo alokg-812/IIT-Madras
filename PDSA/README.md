@@ -309,6 +309,105 @@ Qs. When to Use QuickSort??
 - When average-case performance is important
 - For large datasets
 - When memory usage is a concern
+## Comparision of Sorting Algorithms
+
+| Parameter      | Best Case   | Average Case | Worst Case | In-place | Stable |
+|----------------|-------------------------|--------------------------|-----------------------|-------------------|-------------------|
+| **Selection Sort** | O(n²)              | O(n²)                   | O(n²)                | Yes             | No               |
+| **Insertion Sort** | O(n)               | O(n²)                   | O(n²)                | Yes             | Yes              |
+| **Merge Sort** | O(nlogn)               | O(nlogn)                | O(nlogn)             | No              | Yes              |
+| **Quick Sort** | O(nlogn)               | O(nlogn)                | O(n²)                | Yes             | No               |
+
+## Linked List:
+
+### Why Not Use Arrays?
+Before understanding linked lists, let's see the disadvantages of arrays:
+- **Fixed Size**: Once an array is created, its size cannot be changed.
+- **Memory Waste**: If we allocate extra space, it might remain unused.
+- **Insertion & Deletion**: Adding or removing elements in the middle requires shifting elements, which is slow.
+- **Contiguous Memory**: Arrays require continuous memory allocation, which may not always be available.
+
+### What is a Linked List?
+A linked list is a data structure where elements (called **nodes**) are linked using pointers.
+Each node has two parts:
+1. **Data**: Stores the actual value.
+2. **Next**: Stores the address of the next node.
+
+### Representation of a Node
+A node in a linked list looks like this:
+```
+[ Data | Address ] --> [ Data | Address ] --> [ Data | NULL ]
+```
+- The last node points to `NULL`, indicating the end of the list.
+![image](https://github.com/user-attachments/assets/614c702b-b134-4a8a-b982-054af5c23fc8)
+
+### Types of Linked Lists
+1. **Singly Linked List**: Each node points to the next node.
+2. **Doubly Linked List**: Each node has pointers to both previous and next nodes.
+3. **Circular Linked List**: The last node points back to the first node.
+
+### Implementing a Singly Linked List in Python
+Let's implement a basic singly linked list in Python:
+
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data  # Store data
+        self.next = None  # Initialize next as NULL
+
+class LinkedList:
+    def __init__(self):
+        self.head = None  # Initialize head as NULL
+
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = new_node
+    
+    def display(self):
+        temp = self.head
+        while temp:
+            print(temp.data, end=' -> ')
+            temp = temp.next
+        print('NULL')
+
+# Example usage
+ll = LinkedList()
+ll.insert_at_end(10)
+ll.insert_at_end(20)
+ll.insert_at_end(30)
+ll.display()
+```
+
+#### Explanation
+- We create a `Node` class with `data` and `next`.
+- We create a `LinkedList` class with a `head` pointer.
+- `insert_at_end(data)`: Adds a new node at the end.
+- `display()`: Prints the linked list.
+
+**Output:**
+```
+10 -> 20 -> 30 -> NULL
+```
+
+### Advantages of Linked List
+- **Dynamic Size**: No need to specify size in advance.
+- **Efficient Insertions/Deletions**: No shifting required.
+- **Memory Utilization**: No extra unused memory.
+
+### Disadvantages of Linked List
+- **Extra Memory**: Requires extra space for pointers.
+- **Slower Access**: Cannot access elements using index directly.
+
+### Conclusion
+Linked lists overcome array limitations but have their own drawbacks. They are useful for scenarios where frequent insertions and deletions are required.
+
+
 # WEEK 4:
 # WEEK 5:
 # WEEK 6:
