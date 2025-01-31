@@ -264,6 +264,51 @@ Merge sort is a popular sorting algorithm that uses the divide-and-conquer techn
 ---
 # WEEK 3:
 
+##### What is QuickSort?
+QuickSort is a highly efficient sorting algorithm that uses a divide-and-conquer strategy to sort elements in an array or list. It's known for its speed and is widely used in practice.
+##### How QuickSort Works:
+1. Choose a **pivot**: Select an element from the array as the pivot.
+2. **Partitioning**: Rearrange the array so that:
+   * All elements less than the pivot are on its left
+   * All elements greater than the pivot are on its right
+3. **Recursion**: Apply the same process to the sub-arrays on the left and right of the pivot.
+
+##### Key Features-
+- **Average Time Complexity**: `O(nlogn)`
+- **Worst Case Time Complexity**: `O(n²)` (rare, occurs with poor pivot choices)
+- **Space Complexity**: `O(logn)`
+- **In-place sorting**: Requires little additional memory
+
+Pseudocode:
+```py
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1
+    for j in range(low, high):
+        if arr[j] < pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]  # swap
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]  # swap
+    return i + 1
+
+def quickSort(arr, low, high):
+    if low < high:
+        pivot = partition(arr, low, high)
+        quickSort(arr, low, pivot - 1)
+        quickSort(arr, pivot + 1, high)
+```
+* Advantages:
+* - Fast on average
+  - Efficient for large datasets
+  - In-place sorting (doesn't require much extra memory)
+* Disadvantages:
+* - Worst-case performance is poor
+  - Not stable (may change the relative order of equal elements)
+
+Qs. When to Use QuickSort??
+- When average-case performance is important
+- For large datasets
+- When memory usage is a concern
 # WEEK 4:
 # WEEK 5:
 # WEEK 6:
