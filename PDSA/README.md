@@ -407,6 +407,105 @@ ll.display()
 ### Conclusion
 Linked lists overcome array limitations but have their own drawbacks. They are useful for scenarios where frequent insertions and deletions are required.
 
+### Inbuilt `list` in Python-
+- Python lists are not implemented as flexible linked lists.
+- Underlying interpretation maps the list to an array:
+  * Assign a fixed block when you create a list.
+  * Double the size if the list overflows the array.
+- Keep track of the last position of the list in the array:
+  * `l.append()` and `l.pop()` are constant time, amortised — `O(1)`.
+  * Insertion/deletion require time `O(n)`
+- Effectively, Python lists behave more like arrays than lists.
+
+#### The Numpy library provides arrays as a basic type:
+```py
+    import numpy as np
+    zeromatrix = np.zeros(shape=(3,3))
+    print(zeromatrix)
+
+    **Output:**
+    [[0. 0. 0.]
+     [0. 0. 0.]
+     [0. 0. 0.]]
+```
+
+## Dictionaries, Hash Functions, and HashMaps
+
+### Why Not Use Arrays or Lists?
+Arrays and lists have limitations when storing key-value pairs like names and roll numbers:
+- **Index-based Access**: Arrays/lists use integer indices, so searching by name is inefficient.
+- **Slow Lookup**: Searching an item requires iterating over the entire list.
+- **No Direct Mapping**: We need a structure that efficiently maps keys to values.
+
+### What is a Dictionary?
+A **dictionary** (also known as a hashmap) is a data structure that stores `key-value` pairs. It allows efficient retrieval, insertion, and deletion of data.
+
+#### Representation of a Dictionary
+A dictionary in Python is represented as:
+```python
+{
+    "Alice": 101,
+    "Bob": 102,
+    "Charlie": 103
+}
+```
+`Each key(name) maps to a unique value (roll number)`
+
+### Hash Functions & HashMaps
+A **hash function** converts a key into an index in an array. This index stores the value, ensuring quick lookups.
+
+#### Example Implementation of a Dictionary in Python
+```python
+class HashMap:
+    def __init__(self):
+        self.map = {}  # Using Python dictionary for simplicity
+
+    def insert(self, key, value):
+        self.map[key] = value
+    
+    def get(self, key):
+        return self.map.get(key, "Key not found")
+    
+    def display(self):
+        for key, value in self.map.items():
+            print(f"{key} -> {value}")
+
+# Example usage
+students = HashMap()
+students.insert("Alice", 101)
+students.insert("Bob", 102)
+students.insert("Charlie", 103)
+
+students.display()
+print(students.get("Alice"))
+```
+
+### Explanation
+- We create a `HashMap` class using Python’s dictionary.
+- `insert(key, value)`: Adds a key-value pair.
+- `get(key)`: Retrieves the value for a key.
+- `display()`: Prints all key-value pairs.
+
+**Output:**
+```
+Alice -> 101
+Bob -> 102
+Charlie -> 103
+101
+```
+
+## Advantages of Dictionaries (HashMaps)
+- **Fast Lookup**: Searching is `O(1)` on average.
+- **Efficient Insertion/Deletion**: No need to shift elements.
+- **Flexible Keys**: Supports any immutable data type as keys.
+
+## Disadvantages of Dictionaries (HashMaps)
+- **Memory Overhead**: Uses extra space for hashing.
+- **Collision Handling**: Needs strategies like chaining or open addressing.
+
+### Conclusion
+Dictionaries and hashmaps provide an efficient way to store and retrieve data using key-value pairs, overcoming the limitations of arrays and lists.
+
 
 # WEEK 4:
 # WEEK 5:
