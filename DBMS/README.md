@@ -135,9 +135,11 @@ A **key** is an attribute or a set of attributes that uniquely identifies tuples
 - **Difference (-)**: Finds tuples in one table but not in another.
 - **Cartesian Product (×)**: Returns all possible row combinations.
 - **Join (⨝)**: Combines rows based on matching conditions.
+![image](https://github.com/user-attachments/assets/a6df4099-72f7-4792-a30c-47fea0b4f3d3)
 
 ### **Aggregate Operators**
 - `COUNT()`, `SUM()`, `AVG()`, `MIN()`, `MAX()`.
+
 
 ## SQL Clauses and Their Execution Order
 
