@@ -566,6 +566,81 @@ Matching is a subset of edges in which **no two edges share a common vertex**.
 
 - **Example**: In a job hiring scenario, suppose we have a set of applicants and a set of job positions, where an edge represents a valid job assignment. A **maximum matching** ensures that as many applicants as possible get jobs without conflicts.
 
+## Lecture 2: Working with Graphs
+
+1. Graph Representation: _Avoid reflexive graphs_ (no self-loops).
+2. Computing with Adjacency Matrix
+
+_Adjacency Matrix Representation:_
+```python
+[[0, 1, 1, 0, 0],
+ [0, 0, 0, 1, 1],
+ [0, 0, 0, 1, 1],
+ [0, 0, 0, 0, 1],
+ [0, 0, 0, 0, 0]]
+```
+* **Key points:**
+  * `AMat[i, j] == 1` means there is an edge from i to j.
+  * Symmetric Matrix for undirected graphs.
+
+* Finding Neighbours:
+```python
+def neighbours(AMat, i):
+    nbrs = []
+    rows, cols = AMat.shape
+    for j in range(cols):
+        if AMat[i, j] == 1:
+            nbrs.append(j)
+    return nbrs
+```
+Example: `neighbours(A, 7) # Output: [4, 8]`
+
+3. Checking Reachability
+
+Example: Finding if Delhi (0) is reachable from Madurai (9).
+
+Challenges: Avoiding infinite loops (e.g., 9 → 8 → 9 → 8 ...).
+
+Graph Traversal Algorithms:
+
+Breadth-First Search (BFS) - Marks nodes in layers.
+
+Depth-First Search (DFS) - Explores paths deeply before backtracking.
+
+4. Adjacency List Representation
+
+Graph Representation Using Dictionary:
+
+V = [0,1,2,3,4]
+E = [(0, 1), (0, 2), (1, 3), (1, 4), (2, 4), (2, 3), (3, 4)]
+size = len(V)
+AList = {}
+for i in range(size):
+    AList[i] = []
+for (i,j) in E:
+    AList[i].append(j)
+print(AList)
+
+Output Adjacency List:
+
+{0: [1, 2], 1: [3, 4], 2: [4, 3], 3: [4], 4: []}
+
+Lecture 3: Breadth-First Search (BFS)
+
+Introduction to BFS:
+
+Explores graph level by level.
+
+Uses Queue (FIFO) structure.
+
+Applications:
+
+Finding shortest paths in an unweighted graph.
+
+Checking connectivity in a graph.
+
+
+
 ---
 
 
