@@ -211,3 +211,37 @@ SELECT * FROM Students ORDER BY Marks DESC LIMIT 3;
 - **Null Values**: `IS NULL`, `IS NOT NULL` for missing data.
 - **Handling Duplicates**: `DISTINCT` keyword.
 ---
+### String Operations
+
+Pattern matching can be performed on strings using the `LIKE` operator. We describe patterns using two special characters:
+
+- **Percent (`%`)**: Matches any substring.
+- **Underscore (`_`)**: Matches any single character.
+
+Patterns are **case-sensitive**, meaning uppercase and lowercase characters must match exactly.
+
+#### Examples:
+
+- `'Intro%'` matches any string beginning with **"Intro"**.
+- `'%Comp%'` matches any string containing **"Comp"** as a substring.
+  - Example matches: `'Intro to Computer Science'`, `'Computational Biology'`.
+- `'___'` matches any string of **exactly three characters**.
+- `'__%'` matches any string of **at least three characters**.
+
+### SQL Pattern Matching
+
+SQL expresses patterns using the `LIKE` comparison operator. 
+
+### Example Query:
+Find the names of all departments whose building name includes the substring 'Watson':
+```sql
+SELECT dept_name FROM department WHERE building LIKE '%Watson%';
+```
+
+### Escape Characters in SQL
+To include special pattern characters (`%` and `_`) as literals in patterns, SQL allows the specification of an **escape character** using the `ESCAPE` keyword.
+
+**Examples:**
+
+- `LIKE 'ab\%cd%' ESCAPE '\'` matches all strings beginning with **"ab%cd"**.
+- `LIKE 'ab\\cd%' ESCAPE '\'` matches all strings beginning with **"ab\cd"**.
