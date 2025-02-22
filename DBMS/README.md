@@ -228,7 +228,7 @@ Patterns are **case-sensitive**, meaning uppercase and lowercase characters must
 - `'___'` matches any string of **exactly three characters**.
 - `'__%'` matches any string of **at least three characters**.
 
-### SQL Pattern Matching
+## SQL Pattern Matching
 
 SQL expresses patterns using the `LIKE` comparison operator. 
 
@@ -238,10 +238,21 @@ Find the names of all departments whose building name includes the substring 'Wa
 SELECT dept_name FROM department WHERE building LIKE '%Watson%';
 ```
 
-### Escape Characters in SQL
+## Escape Characters in SQL
 To include special pattern characters (`%` and `_`) as literals in patterns, SQL allows the specification of an **escape character** using the `ESCAPE` keyword.
 
 **Examples:**
 
 - `LIKE 'ab\%cd%' ESCAPE '\'` matches all strings beginning with **"ab%cd"**.
 - `LIKE 'ab\\cd%' ESCAPE '\'` matches all strings beginning with **"ab\cd"**.
+
+## IN Operator
+
+- The `IN` operator allows you to specify multiple values in a `WHERE` clause.
+- It is a shorthand for multiple `OR` conditions.
+
+### Example Query:
+Retrieve the names of instructors belonging to specific departments:
+```sql
+SELECT name FROM instructor WHERE dept_name IN ('Comp. Sci.', 'Biology');
+```
