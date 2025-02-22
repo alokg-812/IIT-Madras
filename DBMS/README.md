@@ -211,7 +211,8 @@ SELECT * FROM Students ORDER BY Marks DESC LIMIT 3;
 - **Null Values**: `IS NULL`, `IS NOT NULL` for missing data.
 - **Handling Duplicates**: `DISTINCT` keyword.
 ---
-### String Operations
+
+## String Operations
 
 Pattern matching can be performed on strings using the `LIKE` operator. We describe patterns using two special characters:
 
@@ -220,7 +221,7 @@ Pattern matching can be performed on strings using the `LIKE` operator. We descr
 
 Patterns are **case-sensitive**, meaning uppercase and lowercase characters must match exactly.
 
-#### Examples:
+### Examples:
 
 - `'Intro%'` matches any string beginning with **"Intro"**.
 - `'%Comp%'` matches any string containing **"Comp"** as a substring.
@@ -238,13 +239,43 @@ Find the names of all departments whose building name includes the substring 'Wa
 SELECT dept_name FROM department WHERE building LIKE '%Watson%';
 ```
 
-## Escape Characters in SQL
+### Escape Characters in SQL
 To include special pattern characters (`%` and `_`) as literals in patterns, SQL allows the specification of an **escape character** using the `ESCAPE` keyword.
 
-**Examples:**
+### Examples:
 
 - `LIKE 'ab\%cd%' ESCAPE '\'` matches all strings beginning with **"ab%cd"**.
 - `LIKE 'ab\\cd%' ESCAPE '\'` matches all strings beginning with **"ab\cd"**.
+
+## REGEXP_LIKE for Advanced Pattern Matching
+
+The `REGEXP_LIKE` function allows for more advanced pattern matching using regular expressions.
+
+### Syntax:
+```sql
+SELECT column_name FROM table_name WHERE REGEXP_LIKE(column_name, 'pattern', 'flags');
+```
+- **`pattern`**: The regular expression pattern to match.
+- **`flags`** (optional): Controls case-sensitivity and multi-line matching.
+
+### Example Queries:
+
+1. Find all department names that start with 'Comp':
+   ```sql
+   SELECT dept_name FROM department WHERE REGEXP_LIKE(dept_name, '^Comp');
+   ```
+2. Find all course titles that contain either 'Data' or 'Machine':
+   ```sql
+   SELECT course_title FROM courses WHERE REGEXP_LIKE(course_title, 'Data|Machine');
+   ```
+3. Find instructor names that contain digits:
+   ```sql
+   SELECT name FROM instructor WHERE REGEXP_LIKE(name, '[0-9]');
+   ```
+4. Case-insensitive search for names containing 'science':
+   ```sql
+   SELECT dept_name FROM department WHERE REGEXP_LIKE(dept_name, 'science', 'i');
+   ```
 
 ## IN Operator
 
@@ -255,4 +286,108 @@ To include special pattern characters (`%` and `_`) as literals in patterns, SQL
 Retrieve the names of instructors belonging to specific departments:
 ```sql
 SELECT name FROM instructor WHERE dept_name IN ('Comp. Sci.', 'Biology');
+```
+
+## Set Operations
+
+SQL supports set operations such as `UNION`, `INTERSECT`, and `EXCEPT` to combine query results.
+
+### Examples:
+
+- **Find courses that ran in Fall 2009 or in Spring 2010:**
+  ```sql
+  (SELECT course_id FROM section WHERE sem = 'Fall' AND year = 2009)
+  UNION
+  (SELECT course_id FROM section WHERE sem = 'Spring' AND year = 2010);
+  ```
+- **Find courses that ran in both Fall 2009 and Spring 2010:**
+  ```sql
+  (SELECT course_id FROM section WHERE sem = 'Fall' AND year = 2009)
+  INTERSECT
+  (SELECT course_id FROM section WHERE sem = 'Spring' AND year = 2010);
+  ```
+- **Find courses that ran in Fall 2009 but not in Spring 2010:**
+  ```sql
+  (SELECT course_id FROM section WHERE sem = 'Fall' AND year = 2009)
+  EXCEPT
+  (SELECT course_id FROM section WHERE sem = 'Spring' AND year = 2010);
+  ```
+
+### Notes:
+- `UNION`, `INTERSECT`, and `EXCEPT` automatically **eliminate duplicates**.
+- To **retain duplicates**, use `UNION ALL`, `INTERSECT ALL`, and `EXCEPT ALL`.
+- If a tuple appears `m` times in `r` and `n` times in `s`, then:
+  - It appears **m + n** times in `r UNION ALL s`.
+  - It appears **min(m, n)** times in `r INTERSECT ALL s`.
+  - It appears **max(0, m - n)** times in `r EXCEPT ALL s`.
+
+## Null Values
+
+- A `NULL` value represents **unknown data** or **nonexistent data**.
+- Any arithmetic operation involving `NULL` results in `NULL`.
+  - Example: `5 + NULL` returns `NULL`.
+
+### Checking for NULL values:
+- Use `IS NULL` to check for `NULL` values.
+- Example: Find all instructors with `NULL` salaries:
+  ```sql
+  SELECT name FROM instructor WHERE salary IS NULL;
+  ```
+- **Important:** `NULL` **cannot** be compared using `=`, `<`, or `<>` operators.
+
+### Three-Valued Logic:
+- **TRUE, FALSE, UNKNOWN**
+- Any comparison with `NULL` results in `UNKNOWN`.
+  - Example: `5 < NULL`, `NULL <> NULL`, `NULL = NULL` → all return `UNKNOWN`.
+
+### Logical Operations:
+- **OR**: `(UNKNOWN OR TRUE) = TRUE`, `(UNKNOWN OR FALSE) = UNKNOWN`, `(UNKNOWN OR UNKNOWN) = UNKNOWN`
+- **AND**: `(TRUE AND UNKNOWN) = UNKNOWN`, `(FALSE AND UNKNOWN) = FALSE`, `(UNKNOWN AND UNKNOWN) = UNKNOWN`
+- **NOT**: `NOT UNKNOWN = UNKNOWN`
+
+- A `WHERE` clause treating `UNKNOWN` as `FALSE` ensures only `TRUE` results are selected.
+
+## Join Operations
+
+### Natural Join
+A natural join is a type of join that matches columns with the same name in both tables.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+NATURAL JOIN table2;
+```
+
+### Outer Join
+An Outer Join returns all the rows from one table and the matching rows from the other table. If there is no match, `NULL` values are returned for the missing rows.
+
+#### Left Outer Join
+Returns all rows from the left table and the matching rows from the right table. If there is no match, `NULL` values are returned.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+LEFT JOIN table2 ON table1.columnX = table2.columnY;
+```
+
+#### Right Outer Join
+Returns all rows from the right table and the matching rows from the left table. If there is no match, `NULL` values are returned.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+RIGHT JOIN table2 ON table1.columnX = table2.columnY;
+```
+
+#### Full Outer Join
+Returns all rows from both tables. If there is no match, `NULL` values are returned.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+FULL JOIN table2 ON table1.columnX = table2.columnY;
 ```
