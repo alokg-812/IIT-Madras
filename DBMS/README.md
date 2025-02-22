@@ -391,3 +391,190 @@ SELECT table1.column1, table2.column2
 FROM table1
 FULL JOIN table2 ON table1.columnX = table2.columnY;
 ```
+
+## Unique Construct
+- The `unique` construct tests whether a subquery has any duplicate tuples in its result.
+- It evaluates to `true` if a given subquery contains no duplicates.
+
+### Query: Find all courses that were offered at most once in 2009
+```sql
+SELECT T.course_id
+FROM course AS T
+WHERE UNIQUE (
+    SELECT R.course_id
+    FROM section AS R
+    WHERE R.year = 2009
+    AND T.course_id = R.course_id
+);
+```
+
+## Subqueries in the FROM Clause
+- SQL allows a subquery expression to be used in the `FROM` clause.
+
+### Query: Find the average instructor salaries of those departments where the average salary is greater than $42,000
+```sql
+SELECT dept_name, avg_salary
+FROM (
+    SELECT dept_name, AVG(salary) AS avg_salary
+    FROM instructor
+    GROUP BY dept_name
+) AS dept_avg
+WHERE avg_salary > 42000;
+```
+
+- Note: We do not need to use the `HAVING` clause.
+
+### Alternative way to write the above query
+```sql
+SELECT dept_name, avg_salary
+FROM (
+    SELECT dept_name, AVG(salary) AS avg_salary
+    FROM instructor
+    GROUP BY dept_name
+) AS dept_avg
+WHERE avg_salary > 42000;
+```
+
+## The WITH Clause
+- The `WITH` clause provides a way of defining a temporary relation whose definition is available only to the query in which the `WITH` clause occurs.
+
+### Query: Find all departments with the maximum budget
+```sql
+WITH max_budget(value) AS (
+    SELECT MAX(budget)
+    FROM department
+)
+SELECT department.name
+FROM department, max_budget
+WHERE department.budget = max_budget.value;
+```
+
+## Modifications of the Database
+
+### Deletion
+- Delete all instructors
+```sql
+delete from instructor;
+```
+
+- Delete all instructors from the Finance department
+```sql
+delete from instructor
+where dept_name = 'Finance';
+```
+
+- Delete all tuples in the instructor relation for those instructors associated with a department located in the Watson building
+```sql
+delete from instructor
+where dept_name IN (
+    select dept_name
+    from department
+    where building = 'Watson'
+);
+```
+
+- Delete all instructors whose salary is less than the average salary of instructors
+```sql
+delete from instructor
+where salary < (
+    select avg(salary)
+    from instructor
+);
+```
+
+**Problem:** As we delete tuples from `instructor`, the average salary changes.
+
+**Solution used in SQL:**
+1. First, compute `avg(salary)` and find all tuples to delete.
+2. Next, delete all tuples found above (without recomputing avg or retesting the tuple).
+
+### Insertion
+- Add a new tuple to `course`
+```sql
+insert into course
+values ('CS-437', 'Database Systems', 'Comp. Sci.', 4);
+```
+
+- Or equivalently:
+```sql
+insert into course (course_id, title, dept_name, credits)
+values ('CS-437', 'Database Systems', 'Comp. Sci.', 4);
+```
+
+- Add a new tuple to `student` with `tot_creds` set to `NULL`
+```sql
+insert into student
+values ('3003', 'Green', 'Finance', NULL);
+```
+
+- Add all instructors to the `student` relation with `tot_creds` set to `0`
+```sql
+insert into student
+select ID, name, dept_name, 0
+from instructor;
+```
+
+- The `SELECT FROM WHERE` statement is evaluated fully before any of its results are inserted into the relation. Otherwise, queries like:
+```sql
+insert into table1 select * from table1;
+```
+would cause problems.
+
+### Updates
+- Increase salaries of instructors whose salary is over $100,000 by 3%, and all others by 5%.
+
+- Write two update statements:
+```sql
+update instructor
+set salary = salary * 1.03
+where salary > 100000;
+
+update instructor
+set salary = salary * 1.05
+where salary <= 100000;
+```
+
+- **The order is important.**
+
+- Can be done better using the `CASE` statement:
+```sql
+update instructor
+set salary = CASE
+    WHEN salary <= 100000 THEN salary * 1.05 
+    ELSE salary * 1.03 
+END;
+```
+
+### Recomputing and Updating `tot_creds` for Students
+- Recompute and update `tot_creds` value for all students
+```sql
+UPDATE student S
+SET tot_creds = (
+    SELECT SUM(credits)
+    FROM takes, course
+    WHERE takes.course_id = course.course_id
+    AND S.ID = takes.ID
+    AND takes.grade <> 'F'
+    AND takes.grade IS NOT NULL
+);
+```
+
+- Sets `tot_creds` to `NULL` for students who have not taken any course:
+```sql
+UPDATE student
+SET tot_creds = (
+    CASE
+        WHEN (SELECT SUM(credits) FROM takes, course
+              WHERE takes.course_id = course.course_id
+              AND student.ID = takes.ID
+              AND takes.grade <> 'F'
+              AND takes.grade IS NOT NULL) IS NOT NULL
+        THEN (SELECT SUM(credits) FROM takes, course
+              WHERE takes.course_id = course.course_id
+              AND student.ID = takes.ID
+              AND takes.grade <> 'F'
+              AND takes.grade IS NOT NULL)
+        ELSE 0
+    END
+);
+```
