@@ -204,7 +204,7 @@ Restricts the number of rows returned.
 ```sql
 SELECT * FROM Students ORDER BY Marks DESC LIMIT 3;
 ```
-### **Other SQL Concepts**
+### **Other SQL Concepts(discussed below in detail)**
 - **Renaming (AS)**: Assigns a new name to a column or table.
 - **String Matching**: Uses `LIKE`, `%`, `_` for pattern matching.
 - **Set Operations**: `UNION`, `INTERSECT`, `EXCEPT`.
