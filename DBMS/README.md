@@ -1,3 +1,5 @@
+# Week 1: Introduction to DataBase
+
 # Week 2: Module Outline PPD
 
 ## Topics Covered:
@@ -578,3 +580,23 @@ SET tot_creds = (
     END
 );
 ```
+
+# Week 3:
+
+# Week 4:
+
+# Week 5:
+
+# Week 6: 
+
+# Week 7:
+
+# Week 8:
+
+# Week 9:
+
+# Week 10:
+
+# Week 11:
+
+# Week 12:
