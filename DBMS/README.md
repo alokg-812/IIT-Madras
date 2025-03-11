@@ -349,50 +349,9 @@ SQL supports set operations such as `UNION`, `INTERSECT`, and `EXCEPT` to combin
 
 - A `WHERE` clause treating `UNKNOWN` as `FALSE` ensures only `TRUE` results are selected.
 
-## Join Operations
+# Week 3:
 
-### Natural Join
-A natural join is a type of join that matches columns with the same name in both tables.
-
-#### Syntax:
-```sql
-SELECT table1.column1, table2.column2
-FROM table1
-NATURAL JOIN table2;
-```
-
-### Outer Join
-An Outer Join returns all the rows from one table and the matching rows from the other table. If there is no match, `NULL` values are returned for the missing rows.
-
-#### Left Outer Join
-Returns all rows from the left table and the matching rows from the right table. If there is no match, `NULL` values are returned.
-
-#### Syntax:
-```sql
-SELECT table1.column1, table2.column2
-FROM table1
-LEFT JOIN table2 ON table1.columnX = table2.columnY;
-```
-
-#### Right Outer Join
-Returns all rows from the right table and the matching rows from the left table. If there is no match, `NULL` values are returned.
-
-#### Syntax:
-```sql
-SELECT table1.column1, table2.column2
-FROM table1
-RIGHT JOIN table2 ON table1.columnX = table2.columnY;
-```
-
-#### Full Outer Join
-Returns all rows from both tables. If there is no match, `NULL` values are returned.
-
-#### Syntax:
-```sql
-SELECT table1.column1, table2.column2
-FROM table1
-FULL JOIN table2 ON table1.columnX = table2.columnY;
-```
+## Lect 2: Intermediate SQL 2
 
 ## Unique Construct
 - The `unique` construct tests whether a subquery has any duplicate tuples in its result.
@@ -581,7 +540,52 @@ SET tot_creds = (
 );
 ```
 
-# Week 3:
+## Lect 3: Intermediate SQL 3:
+## Join Operations
+
+### Natural Join
+A natural join is a type of join that matches columns with the same name in both tables.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+NATURAL JOIN table2;
+```
+
+### Outer Join
+An Outer Join returns all the rows from one table and the matching rows from the other table. If there is no match, `NULL` values are returned for the missing rows.
+
+#### Left Outer Join
+Returns all rows from the left table and the matching rows from the right table. If there is no match, `NULL` values are returned.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+LEFT JOIN table2 ON table1.columnX = table2.columnY;
+```
+
+#### Right Outer Join
+Returns all rows from the right table and the matching rows from the left table. If there is no match, `NULL` values are returned.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+RIGHT JOIN table2 ON table1.columnX = table2.columnY;
+```
+
+#### Full Outer Join
+Returns all rows from both tables. If there is no match, `NULL` values are returned.
+
+#### Syntax:
+```sql
+SELECT table1.column1, table2.column2
+FROM table1
+FULL JOIN table2 ON table1.columnX = table2.columnY;
+```
+
 
 # Week 4:
 
