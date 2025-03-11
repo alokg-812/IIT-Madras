@@ -548,9 +548,8 @@ SET tot_creds = (
 > The join operations are typically used as subquery expressions in the from clause
 
 ![image](https://github.com/user-attachments/assets/a8eaf4d8-9788-452a-aba9-3d1af6e35bb6)
+![image](https://github.com/user-attachments/assets/90de0ffc-7ce3-428c-8b3c-b582fc4e9c36)
 
-We'll follow this image in all the examples going on for the joins operations:
-![image](https://github.com/user-attachments/assets/7857090c-dfdf-4185-b98f-f78a934b154d)
 
 ### Natural Join
 A natural join is a type of join that matches columns with the same name in both tables.
@@ -605,6 +604,42 @@ FROM table1
 FULL JOIN table2 ON table1.columnX = table2.columnY;
 ```
 
+### View:
+> In some cases, it is not desirable for all users to see the entire logical model (that is, all the actual relations stored in the database.)
+> Consider a person who needs to know an instructors name and department, but not the salary. This person should see a relation described, in SQL, by
+```sql
+select ID, name, dept name
+from instructor
+```
+> A view provides a mechanism to hide certain data from the view of certain users
+> Any relation that is not of the conceptual model but is made visible to a user as a `virtual relation` is called a **view**.
+![image](https://github.com/user-attachments/assets/72533369-edf5-4d10-ade1-407495610809)
+
+```sql
+-- views
+
+select ID, name, dept_name
+from instructor;
+
+
+-- A view of instructors without their salary
+create view faculty as 
+	select ID, name, dept_name
+	from instructor;
+
+
+-- Find all instructors in the Biology department
+select name from faculty where dept_name = 'Biology';
+
+
+-- create view physics fall 2009 as
+  select course.course id, sec id, building, room number
+  from course, section
+  where course.course id = section.course id
+    and course.dept name = ’Physics’
+    and section.semester = ’Fall’
+    and section.year = ’2009’;
+```
 
 # Week 4:
 
