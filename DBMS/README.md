@@ -641,6 +641,78 @@ select name from faculty where dept_name = 'Biology';
     and section.year = ’2009’;
 ```
 
+
+## Lect 4: Intermediate SQl-3:
+> Transactions
+
+> Integrity Constraints
+
+> SQL DataTypes and Schemas
+
+> Authorization
+
+**Trasactions:**
+- Unit of work
+- Atomic transaction
+   * either fully executed or rolled back as if it never occurred
+- Isolation from concurrent transactions
+- Transactions begin implicitly
+   * Ended by commit work or rollback work
+- But default on most databases: each SQL statement commits automatically
+   * Can turn off auto commit for a session (for example, using API)
+   * In SQL:1999, can use: begin atomic ... end
+      * Not supported on most databases
+
+**Integrity Constraints:**
+- Integrity constraints guard against accidental damage to the database, by ensuring that
+authorized changes to the database do not result in a loss of data consistency.
+
+* `not null`
+* `primary key`
+* `unique`
+* `check(P)`, where P is a predicate
+
+```sql
+	create table section (
+		course id varchar(8),
+		sec id varchar(8),
+		semester varchar(6),
+		year numeric(4,0),
+		building varchar(15),
+		room number varchar(7),
+		time slot id varchar(4),
+		primary key (course id, sec id, semester, year),
+		`check` (semester in (’Fall’, ’Winter’, ’Spring’, ’Summer’))
+	);
+```
+
+**Built-in Datatypes in SQL:**
+- `date` Dates, containing a (4 digit) year, month and date
+	- Example: _date_ ‘2005-7-27’
+- `time` Time of day, in hours, minutes and seconds.
+	- Example: _time_ ‘09:00:30’, _time_ ‘09:00:30.75’
+- `timestamp` date plus time of day
+	- Example: _timestamp_ ‘2005-7-27 09:00:30.75’
+- `interval` period of time
+	- Example: _interval_ ‘1’ day
+
+
+**Authorization:**
+Forms of authorization on parts of the database:
+* `Read` - allows reading, but not modification of data
+* `Insert` - allows insertion of new data, but not modification of existing data
+* `Update` - allows modification, but not deletion of data
+* `Delete` - allows deletion of data
+
+Forms of authorization to modify the database schema
+* `Index` - allows creation and deletion of indices
+* `Resources` - allows creation of new relations
+* `Alteration` - allows addition or deletion of attributes in a relation
+* `Drop` - allows deletion of relations
+
+>[!NOTE] The grant statement is used to confer authorization
+> grant <privilege list>
+> on <relation name or view name> to <user list>
 # Week 4:
 
 # Week 5:
