@@ -541,7 +541,16 @@ SET tot_creds = (
 ```
 
 ## Lect 3: Intermediate SQL 3:
-## Join Operations
+## Join Operations:
+> Join operations take two relations and return as a result another relation.
+> A join operation is a Cartesian product which requires that tuples in the two relations match (under some condition).
+> It also specifies the attributes that are present in the result of the join
+> The join operations are typically used as subquery expressions in the from clause
+
+![image](https://github.com/user-attachments/assets/a8eaf4d8-9788-452a-aba9-3d1af6e35bb6)
+
+We'll follow this image in all the examples going on for the joins operations:
+![image](https://github.com/user-attachments/assets/7857090c-dfdf-4185-b98f-f78a934b154d)
 
 ### Natural Join
 A natural join is a type of join that matches columns with the same name in both tables.
@@ -551,6 +560,16 @@ A natural join is a type of join that matches columns with the same name in both
 SELECT table1.column1, table2.column2
 FROM table1
 NATURAL JOIN table2;
+```
+### Cross Join
+The cross join returns the Cartesian product of rows from tables in the join
+• Explicit
+```sql
+select * from employee cross join department;
+```
+• Implicit
+```sql
+select * from employee, department;
 ```
 
 ### Outer Join
