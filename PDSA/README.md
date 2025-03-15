@@ -680,6 +680,8 @@ int main() {
     return 0;
 }
 ```
+![image](https://github.com/user-attachments/assets/8f10c713-24fa-4376-8701-0e2c980acfef)
+
 
 ## Shortest Paths in Weighted Graphs
 
