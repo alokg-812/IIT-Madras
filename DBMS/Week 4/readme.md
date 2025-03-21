@@ -142,3 +142,44 @@
 ![image](https://github.com/user-attachments/assets/11fc1e26-9921-42ea-b0e3-fd1b02c20bd9)
 
 --- 
+
+
+
+
+
+
+## Lect 2: 
+
+#### 1. Introduction to Formal Relational Query Languages
+* **Relational Algebra**: A procedural query language that uses operations like selection, projection, and joins.
+* **Tuple Relational Calculus (TRC)**: A non-procedural language based on predicate calculus, where queries are specified using logical conditions.
+* **Domain Relational Calculus (DRC)**: Another non-procedural approach that operates on attribute values (domains) rather than entire tuples.
+
+
+#### 2. Predicate Logic: `Predicate Logic` or `Predicate Calculus` is an extension of Propositional Logic or `Boolean Algebra`.
+Predicates: Expressions that return `true` or `false` based on input values.
+
+**Example:** `x is greater than 3` → can be written as `P(x)` 
+where:
+P(x) represents the predicate "is greater than 3".
+
+> **_NOTE:_**  
+> P(x) represents the predicate
+> > P(5) becomes **proposition** which yields value `true` and P(2) yields `false`.
+
+
+- Multi-variable predicates can be written as P(x1, x2, ..., xn).
+
+
+#### 3. Quantifiers
+Universal Quantifier (∀): Indicates a property is true for all values in a domain.
+Example: ∀x (x + 2 > x) is true for all real numbers.
+Existential Quantifier (∃): Indicates that a property is true for at least one value in a domain.
+Example: ∃x (x > 10) states that "there exists an x such that x is greater than 10."
+
+
+
+
+
+
+
