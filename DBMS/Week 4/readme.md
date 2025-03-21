@@ -18,33 +18,34 @@
 #### 🔍 1. Select Operation (σ)
 ![image](https://github.com/user-attachments/assets/c9f82308-c9ef-41b8-b84d-d2b85c63c635)
 
-- **Description:** Selects rows from a relation that satisfy a given predicate.
-- **Definition:**
+- **Definition:**  _Selects rows from a relation that satisfy a given condition._
   ```
-  σp(r) = {t | t ∈ r and p(t)}
+  σ p(r) = {t | t ∈ r and p(t)}
   ```
 - **Predicate Formula:**
   - Uses propositional calculus with terms connected by `∧` (and), `∨` (or), `¬` (not).
-  - Example: `σdept_name = 'Physics'(instructor)` selects all instructors from the Physics department.
+  - Example: `σ dept_name = 'Computer Science'` selects all students from the Computer Science department.
+![image](https://github.com/user-attachments/assets/fbd3eb67-bb99-495b-9322-1cadbb8e5be4)
 
 ---
 
 #### 📌 2. Project Operation (Π)
 ![image](https://github.com/user-attachments/assets/60f05e1d-db61-48dc-9b69-0f122f467ef4)
 
-- **Description:** Retrieves specified columns from a relation, removing duplicates.
+- **Description:** _Selects specific columns._
 - **Example:**
   ```
-  ΠID,name,salary (instructor)
+  Π name,dept_name (student)
   ```
-  This eliminates the `dept_name` attribute from the `instructor` relation.
+  This takes only the `dept_name` and `name` attribute from the `student` relation.
+![image](https://github.com/user-attachments/assets/fd8b028c-0f50-423b-a1d8-0608d1162f3a)
 
 ---
 
 #### 🔗 3. Union Operation (∪)
 ![image](https://github.com/user-attachments/assets/884db722-8c7f-42f0-898e-2e73e6fc9674)
 
-- **Definition:**
+- **Definition:** - _Combines two relations with the same schema._
   ```
   r ∪ s = {t | t ∈ r or t ∈ s}
   ```
@@ -53,15 +54,18 @@
   - Attribute domains must be compatible.
 - **Example:**
   ```
-  Πcourse_id(σsemester='Fall'∧year=2009(section)) ∪ Πcourse_id(σsemester='Spring'∧year=2010(section))
+  Π dept_name,name (Student)
+  ∪
+  Π dept_name,course_id (Course)
   ```
+![image](https://github.com/user-attachments/assets/6db235aa-f6ab-4968-b6f0-c85ee053b1b2)
 
 ---
 
 #### ➖ 4. Difference Operation (−)
 ![image](https://github.com/user-attachments/assets/f402a8da-9240-46b0-a05c-dd310f1f00b6)
 
-- **Definition:**
+- **Definition:** _Finds rows in one relation but not in another._
   ```
   r − s = {t | t ∈ r and t /∈ s}
   ```
@@ -69,8 +73,11 @@
   - Both relations must have the same arity and compatible attribute domains.
 - **Example:**
   ```
-  Πcourse_id(σsemester='Fall'∧year=2009(section)) − Πcourse_id(σsemester='Spring'∧year=2010(section))
+  Π dept_name(students)) − Π dept_name((courses))
   ```
+
+  ![image](https://github.com/user-attachments/assets/78e4029b-2c5a-454a-a96c-56413de0786d)
+
 
 ---
 
@@ -83,8 +90,15 @@
   ```
   r ∩ s = r - (r - s)
   ```
+- **Example:**
+  ```
+  Π dept_name(students)) ∩ Π dept_name((courses))
+  ```
+![image](https://github.com/user-attachments/assets/005f5eba-ba84-4b01-a5dc-bc2a8936561f)
 
 ---
+
+
 
 #### ✖ 6. Cartesian Product Operation (×)
 ![image](https://github.com/user-attachments/assets/bd7f7dec-26e1-42bf-95f0-883e44c6e9b1)
@@ -93,6 +107,12 @@
 - **Condition:**
   - Attributes of `r(R)` and `s(S)` should be disjoint.
   - If not, renaming must be used.
+- **Example:**
+  ```
+  σ * (students)) X σ * ((courses))
+  ```
+  
+![image](https://github.com/user-attachments/assets/bd8d204e-f804-4eb5-bed7-9997a12bf3dd)
 
 ---
 
@@ -102,11 +122,11 @@
 - **Description:** Allows naming of results and using multiple names for a relation.
 - **Example:**
   ```
-  ρx(E)  → Returns the expression `E` under the name `X`
+  ρ dept_name department_name,
+    name as student_name
+    (Student)
   ```
-  ```
-  ρx(A1, A2, ..., An)(E)  → Renames attributes of `E` to `A1, A2, ..., An`
-  ```
+![image](https://github.com/user-attachments/assets/74df3687-d445-46e4-bfbf-5bff6cec4e87)
 
 ---
 
