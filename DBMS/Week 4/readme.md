@@ -179,7 +179,138 @@ Example: ∃x (x > 10) states that "there exists an x such that x is greater tha
 
 
 
+## Lect 3: Entity RelationShip Model -1:
+**OUTLINE:**
+* Design Process
+* E-R Model
+  * Entity and Entity Set
+  * Relationship
+    * Cardinality
+  * Attributes
+  * Weak Entity Sets 
 
 
+### 🏗 The Design Process
+A `design` should:
+- Meet **functional requirements** (e.g., data storage, retrieval)
+- Follow **technical constraints** (e.g., hardware, storage limits)
+- Ensure **efficiency and optimization**
+- Follow the **best practices** for database modeling
+
+> **Example:** Designing an employee database requires defining employee details, departments, and work relationships.
+
+---
+
+### 🧩 Role of Abstraction-
+Abstraction simplifies complex information by grouping related concepts.
+<br>
+🔹 **Why is abstraction important?**  
+- Humans can only hold **7 ± 2** chunks of information at a time.  
+- **Breaking data into meaningful groups** makes it easier to understand.
+
+📌 **Example:** Binary number `110010101001`  <br>
+- Hard to read!  
+- Convert to **octal**: `(110)(010)(101)(001) → 6251`  
+- Convert to **hexadecimal**: `(1100)(1010)(1001) → CA9`  
 
 
+---
+
+### 🏗 Model Building in Different Domains
+Models simplify `real-world systems` into structured formats.
+
+| **Domain**      | **Examples of Models** |
+|----------------|---------------------|
+| _Physics_   | Time-Distance Equations, Quantum Mechanics |
+| _Chemistry_  | Valency-Bond Structures |
+| _Geography_  | Maps, Projections |
+| _Electrical_ | Circuit Diagrams, Transistor Models |
+| _Architecture_ | Building Plans, 3D Renderings |
+
+📌 **Key Takeaways:**  
+- Models use `decomposition`, `abstraction`, and `hierarchy`.  
+- **New models** are built upon **existing ones**.  
+
+🖼 **Embed Image Here:** *Model Building Process Diagram*
+
+---
+
+## 📊 Design Approach
+Database design follows **3 main phases**:
+
+1️⃣ **Requirement Analysis**  
+   - Identify **user needs**  
+   - Define **data scope**  
+
+2️⃣ **Database Designing**  
+   - **Logical Model**: Defines **attributes** and **relationships**  
+   - **Physical Model**: Specifies **storage structure**  
+
+3️⃣ **Implementation**  
+   - Data **conversion & loading**  
+   - System **testing**  
+
+📌 **Example:**  
+A library management system requires tables for books, authors, and members.
+
+🖼 **Embed Image Here:** *Library Database ER Diagram*
+
+---
+
+## 🏛 Entity-Relationship (ER) Model
+The **ER Model** represents **real-world data** using:
+- **Entities** (things or objects)
+- **Attributes** (properties of entities)
+- **Relationships** (associations between entities)
+
+### 🔹 Entity & Entity Sets
+📌 **Entity**: A real-world object with attributes.  
+📌 **Entity Set**: A group of similar entities.
+
+| **Example Entities** | **Attributes** |
+|---------------------|-----------------|
+| **Student**        | Name, Roll No, Age |
+| **Car**            | Model, Color, Price |
+
+![image](https://github.com/user-attachments/assets/70ac2447-a63e-4a90-9354-c750b995edfd)
+
+
+---
+
+### 🔗 Relationships & Cardinality
+#### **Relationship**
+A **relationship** defines an **association** between two or more entities.
+
+**Types of Relationships:**
+1️⃣ **One-to-One (1:1)** - A student has **one** ID card.  
+2️⃣ **One-to-Many (1:M)** - A teacher teaches **multiple** students.  
+3️⃣ **Many-to-Many (M:N)** - Students enroll in **multiple** courses.
+
+### **Cardinality Constraints**
+Defines **how many instances** of one entity relate to another.
+
+| **Relationship Type** | **Example** |
+|----------------|---------------------------|
+| **1:1**       | Each person has one passport |
+| **1:M**       | A customer places multiple orders |
+| **M:N**       | Students enroll in multiple courses |
+
+![image](https://github.com/user-attachments/assets/5d0446d7-a322-47d9-b5ea-c1432dad857d)
+![image](https://github.com/user-attachments/assets/35f7b3bb-abcc-483a-a1f9-66578b0efb31)
+
+---
+
+### 🔥 Weak Entity Sets
+- A **weak entity** **depends** on a **strong entity**.
+- It **lacks a primary key** and uses a **foreign key**.
+- Example:  
+  - **Bank Account (Strong Entity)** → Account Number  
+  - **Transaction (Weak Entity)** → Linked to **Account**  
+
+---
+
+#### 🏁 Summary
+✔ The **ER Model** helps in **database design**  <br> 
+✔ **Entities, attributes, and relationships** define the **data structure**  <br>
+✔ **Cardinality constraints** ensure **data integrity**  <br>
+✔ **Weak entities** depend on strong entities for identification  
