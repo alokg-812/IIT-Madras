@@ -193,5 +193,23 @@ Start: 1, End: 4
 Start: 5, End: 7
 Start: 8, End: 9
 ```
+
+-> Time & Space Complexity
+
+| Operation | Complexity |
+|-----------|------------|
+| Sorting jobs by end time | `O(n log n)` |
+| Iterating over sorted jobs | `O(n)` |
+| **Total Time Complexity** | ✅ `O(n log n)` |
+| Space | `O(1)` (or `O(n)` if we store the selected jobs) |
+
+- Applications of Interval Scheduling in Real life:
+  * CPU job scheduling
+  * Classroom allocations
+  * Meeting room bookings
+  * Ad slot placements
+  * Bandwidth allocation
+![image](https://github.com/user-attachments/assets/1fce043f-8eae-4846-a8e8-a8dbf94c036b)
+
 ### Lecture 7.3: Greedy Algorithm - Minimizing Lateness
 ### Lecture 7.4: Greedy Algorithm - Huffman Coding
