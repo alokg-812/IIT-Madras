@@ -54,10 +54,10 @@ ______
 ______
 
 # Week 7:
-### Lecture 7.1: Balanced Search Trees
-### Lecture 7.2: Greedy Algorithm - Interval Scheduling
-### Lecture 7.3: Greedy Algorithm - Minimizing Lateness
-### Lecture 7.4: Greedy Algorithm - Huffman Coding
+### Lecture 7.1: [Balanced Search Trees](https://github.com/alokg-812/IIT-Madras/edit/main/PDSA/Week%207/readme.md#lecture-71-balanced-search-trees)
+### Lecture 7.2: [Greedy Algorithm - Interval Scheduling](https://github.com/alokg-812/IIT-Madras/edit/main/PDSA/Week%207/readme.md#lecture-72-greedy-algorithm---interval-scheduling)
+### Lecture 7.3: [Greedy Algorithm - Minimizing Lateness](https://github.com/alokg-812/IIT-Madras/edit/main/PDSA/Week%207/readme.md#lecture-73-greedy-algorithm---minimizing-lateness)
+### Lecture 7.4: [Greedy Algorithm - Huffman Coding](https://github.com/alokg-812/IIT-Madras/edit/main/PDSA/Week%207/readme.md#lecture-74-greedy-algorithm---huffman-coding)
 _____
 
 # Week 8:
