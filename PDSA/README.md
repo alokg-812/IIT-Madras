@@ -90,7 +90,7 @@ ____
 # Week 11:
 ### Lecture 11.1 - [Linear Programming](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-111---linear-programming)
 ### Lecture 11.2 - [Linear Programming-Production Planning](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-112---linear-programming-production-planning)
-### Lecture 11.3 - Linear Programming-Bandwidth Allocation
+### Lecture 11.3 - [Linear Programming-Bandwidth Allocation](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-113---linear-programming-bandwidth-allocation)
 ### Lecture 11.4 - Network Flows
 ### Lecture 11.5 - Reductions
 ### Lecture 11.6 - Intractability-Checking Algorithms
