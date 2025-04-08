@@ -6,12 +6,12 @@ _____
 [Detailed Notes](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#readme)
 ### Lecture 2.1 - Analysis of Algorithms
 ### Lecture 2.2 - Comparing Orders of Magnitude
-### Lecture 2.3 - Calculating Complexity
+### Lecture 2.3 - [Calculating Complexity](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#how-to-compare)
 ### Lecture 2.4 - [Searching in a List](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#searching-algorithms)
-### Lecture 2.5 - Selection Sort
-### Lecture 2.6 - Inserting Sort
-### Lecture 2.7 - Merge Sort
-### Lecture 2.8 - Analysis of Merge Sort
+### Lecture 2.5 - [Selection Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#selection-sort)
+### Lecture 2.6 - [Inserting Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#insertion-sort)
+### Lecture 2.7 - [Merge Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#merge-sort)
+### Lecture 2.8 - [Analysis of Merge Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#sorting-algorithms-1)
 _____
 
 # Week 3:
