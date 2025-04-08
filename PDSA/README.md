@@ -78,13 +78,13 @@ _______
 ___
 
 # Week 10:
-### Lecture 10.1 - String Matching
-### Lecture 10.2 - String Matching-Boyer-Moore Algorithm
-### Lecture 10.3 - String Matching-Rabin-Karp Algorithm
-### Lecture 10.4 - String Matching Using Automata
-### Lecture 10.5 - String Matching-Knuth-Morris-Pratt Algorithm
-### Lecture 10.6 - String Matching-Tries
-### Lecture 10.7 - String Matching-Regular Expresssions
+### Lecture 10.1 - [String Matching(https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-101---string-matching)
+### Lecture 10.2 - [String Matching-Boyer-Moore Algorithm](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-102---string-matching-boyer-moore-algorithm)
+### Lecture 10.3 - [String Matching-Rabin-Karp Algorithm](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-103---string-matching-rabin-karp-algorithm)
+### Lecture 10.4 - [String Matching Using Automata](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-104---string-matching-using-automata)
+### Lecture 10.5 - [String Matching-Knuth-Morris-Pratt Algorithm](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-105---string-matching-knuth-morris-pratt-algorithm)
+### Lecture 10.6 - [String Matching-Tries](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-106---string-matching-tries)
+### Lecture 10.7 - [String Matching-Regular Expresssions](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-107---string-matching-regular-expresssions)
 ____
 
 # Week 11:
