@@ -51,42 +51,14 @@ Approach: Divide and Conquer
 - **Conquer** by recursively solving for each half.
 - **Combine** by merging and counting inversions between left and right halves (cross-inversions).
 
+* [Python program](https://github.com/alokg-812/IIT-Madras/blob/main/PDSA/Week%208/counting_inversion.py)
 ```python
-def mergeAndCount(A, B):
-    (m, n) = (len(A), len(B))
-    (C, i, j, k, count) = ([], 0, 0, 0, 0)
-    
-    while k < m + n:
-        if i == m:
-            C.append(B[j])
-            j += 1
-        elif j == n:
-            C.append(A[i])
-            i += 1
-        elif A[i] < B[j]:
-            C.append(A[i])
-            i += 1
-        else:
-            C.append(B[j])
-            j += 1
-            count += m - i  # All remaining elements in A are greater
-        k += 1
-        
-    return (C, count)
-
-def inversionCount(A):
-    n = len(A)
-    if n <= 1:
-        return (A, 0)
-    (L, countL) = inversionCount(A[:n // 2])
-    (R, countR) = inversionCount(A[n // 2:])
-    (B, countB) = mergeAndCount(L, R)
-    return (B, countL + countR + countB)
-
-# Example usage
 L = [2, 4, 3, 1, 5]
 print(inversionCount(L)[1])  # Output: 4
 ```
+![image](https://github.com/user-attachments/assets/6668d61e-12b6-49ef-b6da-b5da811fcb4d)   <br>
+*Given array*
+
 ![image](https://github.com/user-attachments/assets/e146a37d-a76b-46f6-9544-4558f31efa5f)
 *The array is divided into two halves and both halves are sorted individually*
 
