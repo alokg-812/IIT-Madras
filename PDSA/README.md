@@ -69,12 +69,12 @@ _____
 _______
 
 # Week 9:
-### Lecture 9.1 - Dynamic Programming
-### Lecture 9.2 : Memoization 
-### Lecture 9.3 : Grid Paths
-### Lecture 9.4 : Common Subwords and SUbsequences
-### Lecture 9.5 : Edit Distance
-### Lecture 9.6 : Matrix Multiplication
+### Lecture 9.1 - [Dynamic Programming](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%209#lecture-91---dynamic-programming)
+### Lecture 9.2 : [Memoization](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%209#lecture-92--memoization)
+### Lecture 9.3 : [Grid Paths](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%209#lecture-93--grid-paths)
+### Lecture 9.4 : [Common Subwords and SUbsequences](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%209#lecture-94--common-subwords-and-subsequences)
+### Lecture 9.5 : [Edit Distance](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%209#lecture-95--edit-distance)
+### Lecture 9.6 : [Matrix Multiplication](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%209#lecture-96--matrix-multiplication)
 ___
 
 # Week 10:
