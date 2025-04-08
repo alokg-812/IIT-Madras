@@ -15,13 +15,13 @@ _____
 _____
 
 # Week 3:
-### Lecture 3.1 - Quicksort
-### Lecture 3.2 - Analysis of Quicksort
-### Lecture 3.4 - Concluding remarks on sorting algorithms
-### Lecture 3.5 - Difference between Lists and Arrays (Theory)
-### Lecture 3.6 - Designing a Flexible List and Operations on the same
-### Lecture 3.7 - Implementation of Lists in Python
-### Lecture 3.8 - Implementation of Dictionaries in Python
+### Lecture 3.1 - [Quicksort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%203#what-is-quicksort)
+### Lecture 3.2 - [Analysis of Quicksort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%203#how-quicksort-works)
+### Lecture 3.4 - [Concluding remarks on sorting algorithms](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%203#comparision-of-sorting-algorithms)
+### Lecture 3.5 - [Difference between Lists and Arrays (Theory)](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%203#why-not-use-arrays)
+### Lecture 3.6 - [Designing a Flexible List and Operations on the same](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%203#representation-of-a-node)
+### Lecture 3.7 - [Implementation of Lists in Python](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%203#implementing-a-singly-linked-list-in-python)
+### Lecture 3.8 - [Implementation of Dictionaries in Python](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%203#dictionaries-hash-functions-and-hashmaps)
 _____
 
 # Week 4:
