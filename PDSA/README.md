@@ -93,7 +93,7 @@ ____
 ### Lecture 11.3 - [Linear Programming-Bandwidth Allocation](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-113---linear-programming-bandwidth-allocation)
 ### Lecture 11.4 - [Network Flows](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-114---network-flows)
 ### Lecture 11.5 - [Reductions](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-115---reductions)
-### Lecture 11.6 - Intractability-Checking Algorithms
+### Lecture 11.6 - [Intractability-Checking Algorithms](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-116---intractability-checking-algorithms)
 ### Lecture 11.7 - Intractability-P and NP
 ____
 
