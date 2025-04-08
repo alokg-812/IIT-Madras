@@ -78,7 +78,7 @@ _______
 ___
 
 # Week 10:
-### Lecture 10.1 - [String Matching(https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-101---string-matching)
+### Lecture 10.1 - [String Matching](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-101---string-matching)
 ### Lecture 10.2 - [String Matching-Boyer-Moore Algorithm](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-102---string-matching-boyer-moore-algorithm)
 ### Lecture 10.3 - [String Matching-Rabin-Karp Algorithm](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-103---string-matching-rabin-karp-algorithm)
 ### Lecture 10.4 - [String Matching Using Automata](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-104---string-matching-using-automata)
