@@ -61,11 +61,11 @@ ______
 _____
 
 # Week 8:
-### Lecture 8.1 : Divide & Conquer- Counting Inversions
-### Lecture 8.2 : Divide & Conquer- Closest Pair of points
-### Lecture 8.3 : Divide & Conquer- Integer Multiplication
-### Lecture 8.4 : Divide & Conquer- Recursion Trees
-### Lecture 8.5 : Divide & Conquer- Quick Select
+### Lecture 8.1 : [Divide & Conquer- Counting Inversions](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%208#lecture-81--divide--conquer--counting-inversions)
+### Lecture 8.2 : [Divide & Conquer- Closest Pair of points](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%208#lecture-82--divide--conquer--closest-pair-of-points)
+### Lecture 8.3 : [Divide & Conquer- Integer Multiplication](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%208#lecture-83--divide--conquer--integer-multiplication)
+### Lecture 8.4 : [Divide & Conquer- Recursion Trees](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%208#lecture-84--divide--conquer--recursion-trees)
+### Lecture 8.5 : [Divide & Conquer- Quick Select](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%208#lecture-85--divide--conquer--quick-select)
 _______
 
 # Week 9:
