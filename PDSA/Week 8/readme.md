@@ -130,5 +130,52 @@ _Output:`4.12`_
 
 
 ## Lecture 8.3 : Divide & Conquer- Integer Multiplication
+
+Given two large integers `x` and `y` with `n` digits each, multiply them `efficiently`.
+
+### Traditional Method
+
+- Multiply digit by digit  
+- `Time Complexity: O(n^2)`  
+
+### Karatsuba’s Fast Multiplication Algorithm
+
+Karatsuba reduces the number of recursive calls:
+
+Steps:
+1. Break x and y into two halves:  
+  `x = xh * 10^m + xl`   <br>
+  `y = yh * 10^m + yl`
+
+2. Then:
+```text
+  x * y = p * 10^n + (r - p - q) * 10^(n/2) + q
+  where:
+    p = xh * yh
+    q = xl * yl
+    r = (xh + xl) * (yh + yl)
+```
+> 💡 **Note**: Recurrence Relation: <br>
+> Naïve: `T(n) = 4T(n/2) + O(n) → O(n²)` <br>
+> Karatsuba: `T(n) = 3T(n/2) + O(n)` <br>
+Time Complexity: `O(n^log₂(3)) ≈ O(n^¹.⁵⁹)` <br>
+
+[Python Code](https://github.com/alokg-812/IIT-Madras/blob/main/PDSA/Week%208/karatsubas_multiplication.py)
+```python
+print(Fast_Multiply(3456, 8902, 4))
+```
+_Output:_
+```yaml
+30765312.0
+```
+![image](https://github.com/user-attachments/assets/ee3c75d9-5f02-4df9-a225-a61aa0871b6a)
+_Recurrance 1_
+
+![image](https://github.com/user-attachments/assets/41ccee1e-a873-45eb-9666-b4836851f9ad)
+_Recurrance 2_
+
+_Output:_
+![image](https://github.com/user-attachments/assets/6211b041-3d48-4b18-a706-32260f1699e0)
+
 ## Lecture 8.4 : Divide & Conquer- Recursion Trees
 ## Lecture 8.5 : Divide & Conquer- Quick Select
