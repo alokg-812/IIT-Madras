@@ -168,13 +168,13 @@ _Output:_
 ```yaml
 30765312.0
 ```
-![image](https://github.com/user-attachments/assets/ee3c75d9-5f02-4df9-a225-a61aa0871b6a)
+![image](https://github.com/user-attachments/assets/ee3c75d9-5f02-4df9-a225-a61aa0871b6a) <br>
 _Recurrance 1_
 
-![image](https://github.com/user-attachments/assets/41ccee1e-a873-45eb-9666-b4836851f9ad)
+![image](https://github.com/user-attachments/assets/41ccee1e-a873-45eb-9666-b4836851f9ad)  <br>
 _Recurrance 2_
 
-_Output:_
+_Output:_ <br>
 ![image](https://github.com/user-attachments/assets/6211b041-3d48-4b18-a706-32260f1699e0)
 
 ## Lecture 8.4 : Divide & Conquer- Recursion Trees
