@@ -9,7 +9,7 @@ _____
 ### Lecture 2.3 - [Calculating Complexity](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#how-to-compare)
 ### Lecture 2.4 - [Searching in a List](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#searching-algorithms)
 ### Lecture 2.5 - [Selection Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#selection-sort)
-### Lecture 2.6 - [Inserting Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#insertion-sort)
+### Lecture 2.6 - [Insertion Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#insertion-sort)
 ### Lecture 2.7 - [Merge Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#merge-sort)
 ### Lecture 2.8 - [Analysis of Merge Sort](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%202#sorting-algorithms-1)
 _____
