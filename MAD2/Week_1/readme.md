@@ -27,7 +27,8 @@
 
 ---
 
-## 1. Review of MAD-I
+## lECT 1:
+### 1. Review of MAD-I
 
 - **Definition of an App**: A program that lets users interact with computing systems and perform useful tasks.
 - **Architecture**:
@@ -37,7 +38,7 @@
 
 ---
 
-## 2. Review of the Web Application Development Model
+### 2. Review of the Web Application Development Model
 
 - **Presentation**: HTML (content), CSS (style)
 - **Logic Layer**: Backend (e.g., Flask with Python)
@@ -53,7 +54,7 @@
 
 ---
 
-## 3. Moving Forward
+### 3. Moving Forward
 
 - Advanced frontend with **JavaScript** and **VueJS**
 - JAMStack (JavaScript, APIs, Markup)
@@ -65,7 +66,7 @@
 
 ---
 
-## 4. JavaScript Overview
+### 4. JavaScript Overview
 
 - History and Origins
 - JS Execution Environments:
@@ -75,7 +76,7 @@
 
 ---
 
-## 5. JavaScript Origins
+## lECT 2. JavaScript Origins
 
 - Created in **1995** for Netscape Navigator
 - Designed as a **glue language**
@@ -84,7 +85,7 @@
 
 ---
 
-## 6. JavaScript Power and Ajax
+### 1. JavaScript Power and Ajax
 
 - **2005**: Google Maps and Suggest demonstrated dynamic capabilities
 - **Ajax** coined by Garrett (Asynchronous JavaScript and XML)
@@ -92,17 +93,20 @@
 
 ---
 
-## 7. Standardization - ECMAScript
+### 2. Standardization - ECMAScript
 
+- Move beyond Netscape needed
 - Maintained by **ECMA** (Standard 262)
+- `ECMA - European Computer Manufacturers Association`
 - ECMAScript versions define language features
-- Significant improvements in **ES6 (2015)** and yearly updates since
+- Significant improvements in **ES6 (2015)** and yearly updates since then
+- _Feature Readiness_ oriented approach.
 
 ---
 
-## 8. Versions and Compatibility
+### 3. Versions and Compatibility
 
-- ES6 is broadly supported
+- **ES6** is broadly supported with most features of modern languages(modules, scoping, class, etc.)
 - Compatibility strategies:
   - Drop old browsers
   - Use polyfills
@@ -111,15 +115,15 @@
 
 ---
 
-## 9. JavaScript Usage and Environment
+### 4. JavaScript Usage and Environment
 
 - Originally not designed for terminal use
 - Needs to be embedded in HTML for frontend use
-- Use Node.js to run JavaScript from the command line
+- Use `Node.js` to run JavaScript from the command line
 
 ---
 
-## 10. DOM - Document Object Model
+### 5. DOM - Document Object Model
 
 - JS manipulates webpage structure via DOM
 - Inputs: clicks, forms, mouse events
@@ -127,7 +131,7 @@
 
 ---
 
-## 11. JavaScript Syntax Overview
+## LECT 3: JavaScript Syntax Overview
 
 - Program structure, comments, expressions
 - Identifiers and keywords
@@ -136,7 +140,7 @@
 
 ---
 
-## 12. Data Types and Strings
+### 1. Data Types and Strings
 
 - **Primitive Types**: `undefined`, `null`, `boolean`, `number`, `string`, `bigint`, `symbol`
 - **Objects**: Collections of key-value pairs
