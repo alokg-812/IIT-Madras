@@ -173,7 +173,7 @@ cd Documents
 
 ## 🧮 Simple Commands in Linux – Part 1
 
-1. 🕓 `date` – Displays the current system date and time.
+#### 1. 🕓 `date` – Displays the current system date and time.
 
 **eg#:**
 ```yaml
@@ -181,7 +181,7 @@ alok@AlokThinkbook:/mnt/c/Users/alokg/Desktop/madras/SC/week1$ date
 Sat May 18 10:45:32 IST 2025
 ```
 
-2. 📅 `cal` – Displays a simple calendar of the current or specified month/year.
+#### 2. 📅 `cal` – Displays a simple calendar of the current or specified month/year.
 **eg#:**
 ```yaml
 alok@AlokThinkbook:/mnt/c/Users/alokg/Desktop/madras/SC/week1$ cal
@@ -197,16 +197,16 @@ Su Mo Tu We Th Fr Sa
 > for specific month:
 ``alok@AlokThinkbook:/mnt/c/Users/alokg/Desktop/madras/SC/week1$ cal 12 2023``
 
-3. 🧠 `free` – Shows system memory usage, including RAM and swap space.
+#### 3. 🧠 `free` – Shows system memory usage, including RAM and swap space.
 ![image](https://github.com/user-attachments/assets/a8e13900-47cd-460f-b524-d1ddf8e6f198)
 
-4. 👥 `groups` – Lists the groups the current user belongs to.
+#### 4. 👥 `groups` – Lists the groups the current user belongs to.
 ![image](https://github.com/user-attachments/assets/0bfab86f-883f-4af3-97ad-17b946bc682f)
 
-5. 🗃️ `file` – Displays the type of a file, not just by extension, but by checking actual content.
+#### 5. 🗃️ `file` – Displays the type of a file, not just by extension, but by checking actual content.
 ![image](https://github.com/user-attachments/assets/970eba2e-f4f7-4e13-8c25-332c854f719f)
 
-6. 🧱 `File Types & Permissions` - When you run:
+#### 6. 🧱 `File Types & Permissions` - When you run:
 ![image](https://github.com/user-attachments/assets/120e18f5-b4e8-4c27-8027-82e4a21c4256)
 
 - Breakdown of Fields:
