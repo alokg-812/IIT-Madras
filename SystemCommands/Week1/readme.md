@@ -64,7 +64,7 @@ alok@AlokThinkbook:/mnt/c/Users/alokg/Desktop/madras/SC/week1$ man ls
 
 ![image](https://github.com/user-attachments/assets/97fbab4a-ed59-46c3-9b45-2447f09e1598)
 
-🗂️ Man Page Sections
+- 🗂️ Man Page Sections
 The Linux manual is organized into sections. You can specify the section when needed:
 
 | Section | Description                   |
