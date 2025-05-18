@@ -1,32 +1,24 @@
-# Week 1:
-#### Basic commands:
+# [Week 1:](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md)
+  - Command Line Environment:
+    - [Getting started with the terminal](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#getting-started-with-the-terminal)
+    - [Basic commands to begin](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#-basic-commands-to-begin)
+    - [Understanding the terminal prompt](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#%EF%B8%8F-understanding-the-terminal-prompt)
+    - [Manual pages](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#the-man-command--manual-pages)
+    - [File System Overview](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#file-system-overview-traversing-the-tree)
+    - [Absolute vs Relative Path](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#absolute-vs-relative-paths)
+    - [Important linux directories](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#-important-linux-directories)
+    - [The `usr` hierarchy](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#the-usr-hierarchy)
+    - [The `var` hierarchy](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#the-var-hierarchy)
+    - [Shareable & Unshareable Directories](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#shareable-vs-unshareable-directories)
 
-1. `pwd`:
-2. `ls`:
-3. `ps`:
-4. `uname`:
-5. clear:
-6. exit::
-
-![image](https://github.com/user-attachments/assets/e7f51a5b-0a9c-4fd0-b40d-4cf11099038d)
-
-
-
-### File system: traversing the tree
-- `/` is the `root` of the file system.
-- `/` is also the `delimiter` for sub-directories
-- `.` is `current directory`
-- `..` is `parent directory`
-> Path for traversal can be absolute or relative
-
-**eg#1:**
-```bash
-alok@AlokThinkbook:/mnt/c/Users/alokg/mnt/c/Users/alokg/Desktop/madras/SC cd .. // this will take us to the parent directory
-```
-
-
-![image](https://github.com/user-attachments/assets/f2802527-4e1f-4ebd-90f2-c803fd1e9278)
-![image](https://github.com/user-attachments/assets/1c57ba43-c03f-4f85-953e-dc1b4ec3d28a)
+  - Simple commands in Linux -1
+    - [date](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#1--date--displays-the-current-system-date-and-time)
+    - [cal](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#2--cal--displays-a-simple-calendar-of-the-current-or-specified-monthyear)
+    - [free](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#3--free--shows-system-memory-usage-including-ram-and-swap-space)
+    - [groups](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#4--groups--lists-the-groups-the-current-user-belongs-to)
+    - [file](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#5-%EF%B8%8F-file--displays-the-type-of-a-file-not-just-by-extension-but-by-checking-actual-content)
+    - [file types and permissions](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/readme.md#6--file-types--permissions---when-you-run)
+      
 
 
 
@@ -40,12 +32,5 @@ alok@AlokThinkbook:/mnt/c/Users/alokg/mnt/c/Users/alokg/Desktop/madras/SC cd .. 
 
 
 
-
-
-
-
-
-
-
-
-
+    
+  - Simple commands in Linux -2
