@@ -47,4 +47,13 @@ The file your command creates can be empty. <br>
 
 ---
 
+#### GRPA 4:
+
+Create two folders named dir1 and dir2 in the current working directory. <br>
+Try to write a single line bash command to perform the above task.
+
+[Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week1/GRPA/GrPA4.bash)
+
+---
+
 
