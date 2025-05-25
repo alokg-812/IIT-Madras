@@ -15,5 +15,6 @@
 ---
 
 ## GrPA3:
+- Print the username associated with the current session.
 
 ### [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/GRPA/grpa3.bash)
