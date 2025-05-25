@@ -1,3 +1,7 @@
+## GrPA1:
+
+### [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/GRPA/grpa1.bash)
+
 ## GrPA2:
 - `dir_1` and `dir_2` are directories in current working directory.
 - Create a `symbolic(soft) link` to the file `file_1` present in `dir_1` and store it as `file_2` in `dir_2`.
