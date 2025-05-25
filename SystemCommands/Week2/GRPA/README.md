@@ -1,6 +1,9 @@
 ## GrPA1:
+- Print the absolute path where the command wget is located.
 
 ### [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/GRPA/grpa1.bash)
+
+---
 
 ## GrPA2:
 - `dir_1` and `dir_2` are directories in current working directory.
@@ -9,8 +12,8 @@
 
 ### [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/GRPA/grpa2.bash)
 
+---
 
 ## GrPA3:
-
 
 ### [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/GRPA/grpa3.bash)
