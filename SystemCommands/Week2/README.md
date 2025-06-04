@@ -47,3 +47,66 @@ _Editors like vi and emacs support most of these features._
 
 **For more shortcuts:**
 - [nano editor shortcuts](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/nanoEdShortcuts.md)
+
+## vi editor
+- considered to be the most `complex terminal` in linux world.
+- **Reason:** It has acquired so many features in the recent times that it has some commands in even multiple pages.
+- _If known this editor completely, no other editor needed to be learnt._
+- `vim`, the latest vi editor is available in all the Operating Systems.
+- 3 major modes of vi editor:
+  - `command mode`
+  - `insert mode`
+  - `ex mode`
+
+#### 1. **Command Mode**
+
+* **Default mode when you open `vi`**.
+* In this mode, **you can navigate, delete, copy, paste, and manipulate text**, but **cannot type text directly**.
+* To **return to Command Mode** from any other mode, press:
+
+  * ✅ `Esc` key
+
+#### 2. **Insert Mode**
+
+* In this mode, you can **type and insert text into the file**.
+* You enter insert mode using any of the following keys:
+
+  | Key | Function                               |
+  | --- | -------------------------------------- |
+  | `i` | Insert before the cursor               |
+  | `I` | Insert at the beginning of the line    |
+  | `a` | Append after the cursor                |
+  | `A` | Append at the end of the line          |
+  | `o` | Open a new line below the current line |
+  | `O` | Open a new line above the current line |
+
+#### 3. **Ex Mode (Colon Mode)**
+
+* Used for **saving, quitting, and executing advanced commands**.
+* You enter it by pressing:
+
+  * ✅ `:` (colon)
+* Once in this mode, you can type commands like:
+
+  * `:w` to save
+  * `:q` to quit
+  * `:wq` to save and quit
+  * `:x`, `:q!`, etc.
+
+#### Table:
+
+| Mode         | Enter With                   | Used For                             |
+| ------------ | ---------------------------- | ------------------------------------ |
+| Command Mode | `Esc`                        | Navigation, copy, delete, etc.       |
+| Insert Mode  | `i`, `I`, `a`, `A`, `o`, `O` | Typing and editing text              |
+| Ex Mode      | `:`                          | Saving, quitting, executing commands |
+
+
+
+
+
+
+
+
+
+- 
