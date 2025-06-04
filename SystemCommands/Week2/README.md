@@ -102,11 +102,9 @@ _Editors like vi and emacs support most of these features._
 | Ex Mode      | `:`                          | Saving, quitting, executing commands |
 
 
+## emacs editor
+- The `Emacs` is faster, powerful, and simple in terms of usage because of its simple user interface.
+- Unlike the vi editor, the Emacs editor does `not` use an insert mode, and it is by default in editing mode
+   - i.e., whatever you type will directly be written to the buffer, unless you manually enter command mode by using keyboard shortcuts
 
 
-
-
-
-
-
-- 
