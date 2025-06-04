@@ -26,6 +26,21 @@ Command line editors allow users to edit text files directly on remote or superc
 _Editors like vi and emacs support most of these features._
 
 
-#### The ed Editor: Basics and Commands
+### The ed Editor: Basics and Commands
 - The `ed editor` is a basic line editor found on all Unix-like systems.
 - It operates without a visual interface, using commands to navigate and edit files. Addresses (like line numbers, '.', '$', '%', '+', '-') specify which lines commands act upon. Common commands include printing, editing, saving, and quitting.
+
+### `ed` / `ex` Commands Reference
+
+| Command | Description                           |
+|---------|---------------------------------------|
+| `f`     | Show name of file being edited        |
+| `p`     | Print the current line                |
+| `a`     | Append at the current line            |
+| `c`     | Change the line                       |
+| `d`     | Delete the current line               |
+| `i`     | Insert line at the current position   |
+| `j`     | Join lines                            |
+| `s`     | Search for regex pattern              |
+| `m`     | Move current line to position         |
+| `u`     | Undo latest change                    |
