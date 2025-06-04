@@ -23,14 +23,5 @@
 
 
 
-
-
-
-
-
-
-
-
-
     
   - Simple commands in Linux -2
