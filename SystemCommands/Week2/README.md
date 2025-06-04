@@ -44,3 +44,6 @@ _Editors like vi and emacs support most of these features._
 | `s`     | Search for regex pattern              |
 | `m`     | Move current line to position         |
 | `u`     | Undo latest change                    |
+
+**For more shortcuts:**
+- [nano editor shortcuts](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/nanoEdShortcuts.md)
