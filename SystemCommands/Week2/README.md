@@ -118,6 +118,8 @@ _Editors like vi and emacs support most of these features._
 
 ### IP Address Ranges:
 
+![image](https://github.com/user-attachments/assets/f8af7a9d-3a58-43dd-8132-7df8240c1da4)
+
 These IP ranges are `reserved` for private use:
 
 | Class | CIDR Notation  | Range Example | Use Case                      |
@@ -145,7 +147,7 @@ CS Lab --> Gateway 1-2 --> Gateway 2-3 --> Admin Dept
 - This process is called `routing`. A router/gateway decides the best path to reach the destination.
 
 
-## 3. IP and Port Numbers
+## IP and Port Numbers
 
 **Ques:** What is a Port?
 
@@ -164,7 +166,7 @@ So:
 * `IP Address` = House Address
 * `Port Number` = Room Number
 
-### 💡 Important Port-Protocol Pairs:
+### Important Port-Protocol Pairs:
 
 | Port | Protocol | Service                    |
 | ---- | -------- | -------------------------- |
@@ -202,6 +204,8 @@ A `firewall` is like a bouncer who decides which connections are allowed.
 Your firewall must *allow port 22* if you want to connect via SSH to your machine from outside.
 
 ## Server Protection Layers
+
+![image](https://github.com/user-attachments/assets/d29c0f98-37b6-4a88-a45e-604bf66b5726)
 
 To protect a public server, **multiple layers of security** are used:
 
