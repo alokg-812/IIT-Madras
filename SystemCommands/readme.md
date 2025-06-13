@@ -25,3 +25,8 @@
 
     
   - Simple commands in Linux -2
+
+
+# [Week 2:](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week2/readme.md)
+
+# [Week 3:](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/readme.md)
