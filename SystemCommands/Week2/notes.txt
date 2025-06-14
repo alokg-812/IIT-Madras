@@ -1,0 +1,2 @@
+This is my vi practice file.
+It contains commands from week 2 content.
