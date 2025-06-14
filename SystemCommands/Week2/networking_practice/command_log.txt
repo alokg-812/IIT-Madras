@@ -1,0 +1,4 @@
+ping google.com
+nslookup iitm.ac.in
+traceroute iitm.ac.in
+ping google.com
