@@ -146,18 +146,17 @@
 - **Functions**: First-class objects
 - Strings use **Unicode**, often UTF-16 encoding
 
----
 
-## 13. Operators and Comparisons
+### 2. Operators and Comparisons
 
 - Basic arithmetic and string operations
 - Type coercion:
   - `==` allows coercion
   - `===` strict comparison (no coercion)
 
----
 
-## 14. Variables and Scoping
+
+### 3. Variables and Scoping
 
 - Variable declarations:
   - `let`: block-scoped, mutable
@@ -165,9 +164,7 @@
   - `var`: function-scoped, avoid using
 - Scope determines where the variable is accessible
 
----
-
-## 15. Control Flow
+### 4. Control Flow
 
 - **Conditional Statements**: `if`, `else`
 - **Loops**: `for`, `while`
@@ -176,11 +173,21 @@
 
 ---
 
-## 16. Functions and Notation
+### 5. Functions and Notation
 
 - **Declaration**:
   ```js
   function add(x, y) {
     return x + y;
   }
-```
+  ```
+
+
+## LECTURE 4:
+Basic Frontend Usage
+
+* **Frontend Javscript**: must be invoked from HTML Pages.
+  - In context of `Document`.
+  - Will not execute if loaded `directly`.
+* **Scripting Language**: no compilation step.
+* **Loosely Structured**: no specific header, body, etc like in c/c++.
