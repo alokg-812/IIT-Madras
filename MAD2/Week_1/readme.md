@@ -164,23 +164,6 @@
   - `var`: function-scoped, avoid using
 - Scope determines where the variable is accessible
 
-### 4. Control Flow
-
-- **Conditional Statements**: `if`, `else`
-- **Loops**: `for`, `while`
-- **Flow Control**: `break`, `continue`
-- **Switch-case** for multiple condition matching
-
----
-
-### 5. Functions and Notation
-
-- **Declaration**:
-  ```js
-  function add(x, y) {
-    return x + y;
-  }
-  ```
 
 
 ## LECTURE 4:
@@ -191,3 +174,53 @@ Basic Frontend Usage
   - Will not execute if loaded `directly`.
 * **Scripting Language**: no compilation step.
 * **Loosely Structured**: no specific header, body, etc like in c/c++.
+
+### Identifiers
+- **Reserved Words:** 
+  - `await`, `break`, `case`, `catch`, `class`, `const`, `continue`, `debugger`, ..., `yield`.(total of 36)
+- **Literals:(Values)**
+  - `null`, `undefined`, `true`, `false`, `NaN`, `Infinity`
+- **Others to avoid:**
+  - `eval`, `arguments`, `caller`, `length`, `package`, `prototype`, `public`, etc...
+
+### Variables and Scoping
+- Any non-reserved identifier can be used as a `placeholder` or `variable`
+- **Scope**:
+  - Should the variable be visible everywhere in all scripts or only in a specific area?
+  - Namespaces and limiting scope
+- `let`, `const` are used for declaring variables
+  - Unlike Python, variables MUST be declared
+  - Unlike C, their type need NOT be declared
+  - `var` was originally used for declaring variables, but has function level scope - avoid
+
+### Control Flow
+- **Conditional Statements**: `if`, `else`
+- **Loops**: `for`, `while`
+- **Flow Control**: `break`, `continue`
+- **Switch-case** for multiple condition matching
+- **Try-catch** for error handling
+
+### Functions
+
+#### Regular Function
+- **Function Declaration**: `function name(parameters) { body }`
+#### Named variable Function
+- **Function Expression**: `let name = function(parameters) { body }`
+#### Arrow Function
+- **Function Expression**: `let name = (parameters) =>{}`
+
+#### IIFEs
+- **Immediately Invoked Function Expression**: Avoided in modern days because of their poor readability.
+```js
+(function(){ return 'Hello World'}) // declare and invoked
+```
+
+## LECTURE 6 DOM
+
+### Interaction
+* `console.log()` is very limited
+* But JS was designed for document manipulation
+* **Inputs from DOM:** Mouse, text, clicks
+* **Outputs to DOM:** Manipulations of text, colours, etc.
+
+[Example-code]()
