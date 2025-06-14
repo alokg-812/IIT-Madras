@@ -1,0 +1,20 @@
+
+; <<>> DiG 9.18.30-0ubuntu0.22.04.2-Ubuntu <<>> iitm.ac.in
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 35303
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;iitm.ac.in.			IN	A
+
+;; AUTHORITY SECTION:
+iitm.ac.in.		1800	IN	SOA	dns1.iitm.ac.in. root.dns1.iitm.ac.in. 2025060601 10800 3600 1814400 86400
+
+;; Query time: 237 msec
+;; SERVER: 10.255.255.254#53(10.255.255.254) (UDP)
+;; WHEN: Sat Jun 07 19:30:45 IST 2025
+;; MSG SIZE  rcvd: 85
+
