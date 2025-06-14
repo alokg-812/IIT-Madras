@@ -40,13 +40,14 @@
 
 ### 2. Review of the Web Application Development Model
 
-- **Presentation**: HTML (content), CSS (style)
-- **Logic Layer**: Backend (e.g., Flask with Python)
-- **MVC Architecture**:
-  - **Model-View-Controller** structure
+- **Presentation**: HTML for semantic content, CSS for styling purposes
+- **Logic Layer**: Backend logic highly flexible (we used Python with Flask)
+- **Application Architecture**:
+  - `Model-View-Controller`: Good compromise between understandability and flexibility
 - **System Architecture**:
-  - REST principles, session management
-  - APIs to separate data from view
+  - `REST principles`, session management
+  - `APIs` to separate data from view
+  - `Restful APIs` useful for basic understanding, but not strict adhere to *REST*
 - **Other considerations**:
   - Security, authentication, validation
   - RBAC (Role-Based Access Control)
@@ -56,13 +57,15 @@
 
 ### 3. Moving Forward
 
-- Advanced frontend with **JavaScript** and **VueJS**
-- JAMStack (JavaScript, APIs, Markup)
-- Other topics:
-  - Async messaging, Email
-  - PWAs, SPAs
+- Advanced frontend with `JavaScript`.
+- `VueJS` for frontend framework.
+- `JAMStack` (JavaScript, APIs, Markup)
+- Other topics of interest:
+  - Asynchronous messaging, Email
+  - Mobile/ Standalone Apps: PWAs/ SPAs
   - Performance & optimization
-  - REST alternatives
+  - Alternatives of REST
+  - etc...
 
 ---
 
@@ -83,7 +86,6 @@
 - Tied with Java applets (hence name)
 - Initially limited in scope and speed
 
----
 
 ### 1. JavaScript Power and Ajax
 
@@ -91,7 +93,6 @@
 - **Ajax** coined by Garrett (Asynchronous JavaScript and XML)
 - Enabled fluid, desktop-like web applications
 
----
 
 ### 2. Standardization - ECMAScript
 
@@ -102,7 +103,6 @@
 - Significant improvements in **ES6 (2015)** and yearly updates since then
 - _Feature Readiness_ oriented approach.
 
----
 
 ### 3. Versions and Compatibility
 
@@ -113,15 +113,13 @@
   - Use transpilers (e.g., BabelJS)
   - Package browsers with apps (e.g., Electron)
 
----
 
 ### 4. JavaScript Usage and Environment
 
-- Originally not designed for terminal use
+- Not Originally meant for designed scripting
 - Needs to be embedded in HTML for frontend use
 - Use `Node.js` to run JavaScript from the command line
 
----
 
 ### 5. DOM - Document Object Model
 
@@ -129,6 +127,8 @@
 - Inputs: clicks, forms, mouse events
 - Outputs: dynamic styles, content updates, drawings
 
+#### References:
+* [exploringjs.com](https://exploringjs.com/js/index.html) detailed reference material, focused on language, not frontend or GUI - very up to date.
 ---
 
 ## LECT 3: JavaScript Syntax Overview
@@ -138,7 +138,6 @@
 - Statements (executed for effect)
 - Expressions (evaluated to a value)
 
----
 
 ### 1. Data Types and Strings
 
