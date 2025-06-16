@@ -11,6 +11,7 @@
 - Add `first 2 lines` of half1.txt to the file master.txt at the end(starting at a new line). Then,
 - Append the last 3 lines of the file half2.txt to the file master.txt at the end(starting at a new line).
 - Append the lines in the sequence mentioned.
+> [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa2.bash)
 
 # GrPA 3
 
