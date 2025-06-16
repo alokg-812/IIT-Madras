@@ -48,3 +48,4 @@ Note: stderr will not be displayed
 # GrPA 7
 - Add the string `EOF alpha` at the end of the file(starting at a new line) `alpha.txt`. Then,
 - Append the contents of the file numbers.txt at the end of the file(starting at a new line) alpha.txt. alpha.txt and numbers.txt are located in the current working directory.
+> [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa7.bash)
