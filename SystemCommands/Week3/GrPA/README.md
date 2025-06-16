@@ -18,6 +18,7 @@
 - Print to the output containing the `name of the shell` being used, its `PID` and the `flags` in the following format:
 - ``Shell:<shell>|PID:<pid>|Flags:<flags>``
 - There are no spaces in the string
+> [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa3.bash)
 
 # GrPA 4
 - An observer wrote a script named `createTwingle` that produces a file twingle containing names of all the visible stars present in the sky at that instant. 
