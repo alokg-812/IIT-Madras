@@ -6,6 +6,10 @@
 > 💡Hint: Multiple files can be given as argument to ‘cat’ command.
 <br>
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa1.bash)
+<br>
+
+<br>
+
 # GrPA 2
 
 - There are three files `master.txt`, `half1.txt` and `half2.txt` in the current working directory.
@@ -14,12 +18,17 @@
 - Append the lines in the sequence mentioned.
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa2.bash)
 
+<br>
+<br>
 # GrPA 3
 
 - Print to the output containing the `name of the shell` being used, its `PID` and the `flags` in the following format:
 - ``Shell:<shell>|PID:<pid>|Flags:<flags>``
 - There are no spaces in the string
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa3.bash)
+
+<br>
+<br>
 
 # GrPA 4
 - An observer wrote a script named `createTwingle` that produces a file twingle containing names of all the visible stars present in the sky at that instant. 
@@ -33,6 +42,8 @@ Note: stderr will not be displayed
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa4.bash)
 
 
+<br>
+<br>
 
 # GrPA 5
 
@@ -41,6 +52,8 @@ Note: stderr will not be displayed
 <br>
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa5.bash)
 
+<br>
+<br>
 
 # GrPA 6
 - The script test will print some text to the `standard output`, it can be run similar to any other command and does not accept any arguments.
@@ -50,6 +63,8 @@ Note: stderr will not be displayed
 <br>
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa6.bash)
 
+<br>
+<br>
 # GrPA 7
 - Add the string `EOF alpha` at the end of the file(starting at a new line) `alpha.txt`. Then,
 - Append the contents of the file numbers.txt at the end of the file(starting at a new line) alpha.txt. alpha.txt and numbers.txt are located in the current working directory.
