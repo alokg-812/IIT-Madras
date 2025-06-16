@@ -35,6 +35,7 @@ Note: stderr will not be displayed
 
 - Print the `number of directories` in the current working directory. Do not print anything else.
 > 💡Hint: One solution is to make use of 'ls', 'wc' and pipes('|').
+> [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa5.bash)
 
 
 # GrPA 6
