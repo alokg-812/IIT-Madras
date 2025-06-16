@@ -5,7 +5,9 @@
 
 > 💡Hint: Multiple files can be given as argument to ‘cat’ command.
 <br>
+
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa1.bash)
+
 <br>
 
 <br>
@@ -16,6 +18,7 @@
 - Add `first 2 lines` of half1.txt to the file master.txt at the end(starting at a new line). Then,
 - Append the last 3 lines of the file half2.txt to the file master.txt at the end(starting at a new line).
 - Append the lines in the sequence mentioned.
+
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa2.bash)
 
 <br>
@@ -25,6 +28,7 @@
 - Print to the output containing the `name of the shell` being used, its `PID` and the `flags` in the following format:
 - ``Shell:<shell>|PID:<pid>|Flags:<flags>``
 - There are no spaces in the string
+
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa3.bash)
 
 <br>
@@ -39,6 +43,7 @@ Note: stderr will not be displayed
 
 > 💡Hint: Try to use operators discussed in the lectures to give a single line solution for the task.
 <br>
+
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa4.bash)
 
 
@@ -50,6 +55,7 @@ Note: stderr will not be displayed
 - Print the `number of directories` in the current working directory. Do not print anything else.
 > 💡Hint: One solution is to make use of 'ls', 'wc' and pipes('|').
 <br>
+
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa5.bash)
 
 <br>
@@ -61,6 +67,7 @@ Note: stderr will not be displayed
 
 > 💡Hint: To solve it in one line check the man page of tee command for appending to the file. 
 <br>
+
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa6.bash)
 
 <br>
@@ -68,4 +75,7 @@ Note: stderr will not be displayed
 # GrPA 7
 - Add the string `EOF alpha` at the end of the file(starting at a new line) `alpha.txt`. Then,
 - Append the contents of the file numbers.txt at the end of the file(starting at a new line) alpha.txt. alpha.txt and numbers.txt are located in the current working directory.
+
+<br>
+
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa7.bash)
