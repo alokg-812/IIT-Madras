@@ -4,3 +4,42 @@
 - *file1* and *file2* are located in the current working directory.
 
 > 💡Hint: Multiple files can be given as argument to ‘cat’ command.
+
+# GrPA 2
+
+- There are three files `master.txt`, `half1.txt` and `half2.txt` in the current working directory.
+- Add `first 2 lines` of half1.txt to the file master.txt at the end(starting at a new line). Then,
+- Append the last 3 lines of the file half2.txt to the file master.txt at the end(starting at a new line).
+- Append the lines in the sequence mentioned.
+
+# GrPA 3
+
+- Print to the output containing the `name of the shell` being used, its `PID` and the `flags` in the following format:
+- ``Shell:<shell>|PID:<pid>|Flags:<flags>``
+- There are no spaces in the string
+
+# GrPA 4
+- An observer wrote a script named `createTwingle` that produces a file twingle containing names of all the visible stars present in the sky at that instant. 
+- Every line in the file twingle is the `name of a star`. In your current directory the file twingle may or may not be present.
+- If the file twingle is present in the directory then `print the number of lines` in the file, else `execute` the command createTwingle it will create the file twingle in the current working directory then print the number of lines in the file twingle.
+
+> 💡Hint: Try to use operators discussed in the lectures to give a single line solution for the task.
+
+
+Note: stderr will not be displayed
+
+# GrPA 5
+
+- Print the `number of directories` in the current working directory. Do not print anything else.
+> 💡Hint: One solution is to make use of 'ls', 'wc' and pipes('|').
+
+
+# GrPA 6
+- The script test will print some text to the `standard output`, it can be run similar to any other command and does not accept any arguments.
+- Your task is to `print the output` after running test on the screen and also append the output at the end(starting at new line) of the file log.  - File log is located in the current working directory.
+
+> 💡Hint: To solve it in one line check the man page of tee command for appending to the file. 
+
+# GrPA 7
+- Add the string `EOF alpha` at the end of the file(starting at a new line) `alpha.txt`. Then,
+- Append the contents of the file numbers.txt at the end of the file(starting at a new line) alpha.txt. alpha.txt and numbers.txt are located in the current working directory.
