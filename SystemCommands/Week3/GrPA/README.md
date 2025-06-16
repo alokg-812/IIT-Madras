@@ -4,6 +4,7 @@
 - *file1* and *file2* are located in the current working directory.
 
 > 💡Hint: Multiple files can be given as argument to ‘cat’ command.
+<br>
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa1.bash)
 # GrPA 2
 
@@ -25,16 +26,19 @@
 - Every line in the file twingle is the `name of a star`. In your current directory the file twingle may or may not be present.
 - If the file twingle is present in the directory then `print the number of lines` in the file, else `execute` the command createTwingle it will create the file twingle in the current working directory then print the number of lines in the file twingle.
 
+Note: stderr will not be displayed
+
 > 💡Hint: Try to use operators discussed in the lectures to give a single line solution for the task.
+<br>
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa4.bash)
 
 
-Note: stderr will not be displayed
 
 # GrPA 5
 
 - Print the `number of directories` in the current working directory. Do not print anything else.
 > 💡Hint: One solution is to make use of 'ls', 'wc' and pipes('|').
+<br>
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa5.bash)
 
 
@@ -43,6 +47,7 @@ Note: stderr will not be displayed
 - Your task is to `print the output` after running test on the screen and also append the output at the end(starting at new line) of the file log.  - File log is located in the current working directory.
 
 > 💡Hint: To solve it in one line check the man page of tee command for appending to the file. 
+<br>
 > [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa6.bash)
 
 # GrPA 7
