@@ -43,6 +43,7 @@ Note: stderr will not be displayed
 - Your task is to `print the output` after running test on the screen and also append the output at the end(starting at new line) of the file log.  - File log is located in the current working directory.
 
 > 💡Hint: To solve it in one line check the man page of tee command for appending to the file. 
+> [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa6.bash)
 
 # GrPA 7
 - Add the string `EOF alpha` at the end of the file(starting at a new line) `alpha.txt`. Then,
