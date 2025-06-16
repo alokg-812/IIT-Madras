@@ -1,0 +1,2 @@
+Overwriting file1
+Another line added
