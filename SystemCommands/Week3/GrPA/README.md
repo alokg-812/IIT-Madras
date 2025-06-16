@@ -4,7 +4,7 @@
 - *file1* and *file2* are located in the current working directory.
 
 > 💡Hint: Multiple files can be given as argument to ‘cat’ command.
-
+> [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa1.bash)
 # GrPA 2
 
 - There are three files `master.txt`, `half1.txt` and `half2.txt` in the current working directory.
