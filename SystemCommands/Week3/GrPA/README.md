@@ -26,6 +26,7 @@
 - If the file twingle is present in the directory then `print the number of lines` in the file, else `execute` the command createTwingle it will create the file twingle in the current working directory then print the number of lines in the file twingle.
 
 > 💡Hint: Try to use operators discussed in the lectures to give a single line solution for the task.
+> [▶️Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week3/GrPA/grpa4.bash)
 
 
 Note: stderr will not be displayed
