@@ -85,7 +85,7 @@ ___
 ### Lecture 10.5 - [String Matching-Knuth-Morris-Pratt Algorithm](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-105---string-matching-knuth-morris-pratt-algorithm)
 ### Lecture 10.6 - [String Matching-Tries](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-106---string-matching-tries)
 ### Lecture 10.7 - [String Matching-Regular Expresssions](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2010#lecture-107---string-matching-regular-expresssions)
-____
+
 
 # Week 11:
 ### Lecture 11.1 - [Linear Programming](https://github.com/alokg-812/IIT-Madras/tree/main/PDSA/Week%2011#lecture-111---linear-programming)
