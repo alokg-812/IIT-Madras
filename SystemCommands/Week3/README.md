@@ -143,7 +143,7 @@ A powerful Linux security module.
 
 ---
 
-# 🧰 **8. Networking Tools Explained**
+# 8. Networking Tools Explained
 
 | Tool         | Purpose                                  | Example                 |
 | ------------ | ---------------------------------------- | ----------------------- |
@@ -159,11 +159,10 @@ A powerful Linux security module.
 
 ---
 
-# 💻 **9. High Performance Computing (HPC)**
-
+# 9. High Performance Computing (HPC)
 When working with **supercomputers or clusters**, like the ones used in IITs or research centers:
 
-### 🧠 Basics:
+### Basics:
 
 * You don’t run programs directly—you submit them as **jobs**.
 * Jobs are queued and managed by **schedulers** (like SLURM, PBS).
@@ -172,8 +171,9 @@ When working with **supercomputers or clusters**, like the ones used in IITs or 
 
 💡 Check [www.top500.org](https://www.top500.org) to see the world’s fastest computers.
 
----
 
-Would you like a **Markdown version** of this detailed explanation or notes for revision purposes?
+# Lecture 2:
 
-Or should I make a **summary cheat sheet** too for quick recall?
+- Only `administrators(sudoers)` can install| upgrade| remove packages
+- `sudo cat /etc/sudoers` is used to get the privilages provided to users.
+*Ex:* 
