@@ -2,16 +2,16 @@
 
 ## Lecture 1 Combining commands & files
 
-## **1. Networks and IP Addressing**
+## 1. Networks and IP Addressing
 
-## ✅ **Public vs Private Networks**
+### Public vs Private Networks
 
-* A **public network** is accessible from the internet (like your college website).
-* A **private network** is restricted to local machines (like your Wi-Fi at home).
+* A `public network` is accessible from the internet (like your college website).
+* A `private network` is restricted to local machines (like your Wi-Fi at home).
 
-### 🧾 **IP Address Ranges:**
+### IP Address Ranges:
 
-These IP ranges are *reserved* for private use:
+These IP ranges are `reserved` for private use:
 
 | Class | CIDR Notation  | Range Example | Use Case                      |
 | ----- | -------------- | ------------- | ----------------------------- |
@@ -22,9 +22,8 @@ These IP ranges are *reserved* for private use:
 
 🔁 **Loopback address (`127.0.0.1`)** refers to your own machine. Try `ping 127.0.0.1` — it will always respond if your network is working properly.
 
----
 
-# 🌐 **2. Gateways and Routing**
+## 2. Gateways and Routing
 
 Imagine three private networks in a university:
 
@@ -38,17 +37,16 @@ To send a file from CS Lab to Admin Department, data has to "hop" through **gate
 CS Lab --> Gateway 1-2 --> Gateway 2-3 --> Admin Dept
 ```
 
-🛣️ This process is called **routing**. A router/gateway decides the best path to reach the destination.
+This process is called `routing`. A router/gateway decides the best path to reach the destination.
 
----
 
-# 🎯 **3. IP and Port Numbers**
+## 3. IP and Port Numbers
 
-## 🔌 **What is a Port?**
+### What is a Port?
 
-An IP address alone only points to a device. A **port number** tells which service on that device you want to communicate with.
+An IP address alone only points to a device. A `port number` tells which service on that device you want to communicate with.
 
-### 🎯 Example:
+#### Example:
 
 You want to visit a website hosted on IP `123.45.67.89`.
 
@@ -58,10 +56,10 @@ You want to visit a website hosted on IP `123.45.67.89`.
 
 So:
 
-* **IP Address** = House Address
-* **Port Number** = Room Number
+* `IP Address` = House Address
+* `Port Number` = Room Number
 
-### 💡 Important Port-Protocol Pairs:
+### Important Port-Protocol Pairs:
 
 | Port | Protocol | Service                    |
 | ---- | -------- | -------------------------- |
@@ -72,11 +70,10 @@ So:
 | 443  | TCP      | HTTPS – Websites (secure)  |
 | 3306 | TCP      | MySQL – Database server    |
 
----
 
-# 🔑 **4. How to Access Remote Systems**
+## 4. How to Access Remote Systems
 
-### 🛠️ **Tools for Remote Access:**
+### Tools for Remote Access:
 
 | Method             | Example Tools             | Notes                                 |
 | ------------------ | ------------------------- | ------------------------------------- |
@@ -86,64 +83,57 @@ So:
 | Web-based Desktops | Apache Guacamole          | Access desktops through browser       |
 | Commercial Tools   | TeamViewer, AnyDesk, Zoho | Cross-platform GUI remote access      |
 
----
 
-# 🔥 **5. Firewall – The Security Guard**
+## 5. Firewall – The Security Guard
 
-A **firewall** is like a bouncer who decides which connections are allowed.
+A `firewall` is like a bouncer who decides which connections are allowed.
 
-### 🔐 Firewall Checks:
+### Firewall Checks:
 
-* Is this **port** allowed?
-* Is this **IP address** allowed?
-* Is the **protocol (TCP/UDP)** safe?
+* Is this *port* allowed?
+* Is this *IP address* allowed?
+* Is the *protocol (TCP/UDP)* safe?
 
 Your firewall must **allow port 22** if you want to connect via SSH to your machine from outside.
 
----
 
-# 🛡️ **6. Server Protection Layers**
+## 6. Server Protection Layers
+To protect a public server, `multiple layers of security` are used:
 
-To protect a public server, **multiple layers of security** are used:
+1. `Web Application Filter` – Blocks SQL injection, XSS attacks, etc.
+2. `Network Firewall` – Prevents unauthorized network access.
+3. `SELinux` – Internal OS-level control (explained next).
 
-1. **Web Application Filter** – Blocks SQL injection, XSS attacks, etc.
-2. **Network Firewall** – Prevents unauthorized network access.
-3. **SELinux** – Internal OS-level control (explained next).
 
----
-
-# 🧱 **7. SELinux (Security-Enhanced Linux)**
+## 7. SELinux (Security-Enhanced Linux)
 
 A powerful Linux security module.
 
-### 🎯 What it Does:
+### What it Does:
 
 * Prevents unauthorized access by services like Apache or MySQL.
-* Enforces **least privilege**: processes get **only** what they need.
+* Enforces `least privilege`: processes get **only** what they need.
 
-### 🧩 Components:
+#### Components:
 
 * **RBAC (Role-Based Access Control)**:
-
   * `user:role:type:level`
   * Example: `unconfined_u:object_r:user_home_t:s0`
-* **Modes**:
 
+* **Modes**:
   * `disabled` – turned off
   * `permissive` – logs only
   * `enforcing` – actively blocks
 
-### 🔍 Useful Commands:
+#### Useful Commands:
 
-* `ls -lZ file.txt` → show security context of a file.
+* `ls -lZ file.txt` → shows security context of a file.
 * `ps -eZ` → view running processes' contexts.
 * `semanage port -l` → list SELinux port rules.
 
-✅ **Recommended** for any internet-facing Linux server!
+**Recommended** for any internet-facing Linux server!
 
----
-
-# 8. Networking Tools Explained
+## 8. Networking Tools Explained
 
 | Tool         | Purpose                                  | Example                 |
 | ------------ | ---------------------------------------- | ----------------------- |
@@ -157,13 +147,11 @@ A powerful Linux security module.
 | `wireshark`  | Deep packet analysis (use in lab setups) | GUI tool                |
 | `mxtoolbox`  | Online tool to check domain mail configs | visit mxtoolbox.com     |
 
----
 
-# 9. High Performance Computing (HPC)
+## 9. High Performance Computing (HPC)
 When working with **supercomputers or clusters**, like the ones used in IITs or research centers:
 
 ### Basics:
-
 * You don’t run programs directly—you submit them as **jobs**.
 * Jobs are queued and managed by **schedulers** (like SLURM, PBS).
 * Data processing is **done remotely** (don’t download 50GB raw data!).
@@ -176,4 +164,7 @@ When working with **supercomputers or clusters**, like the ones used in IITs or 
 
 - Only `administrators(sudoers)` can install| upgrade| remove packages
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
-*Ex:* 
+*Ex:*
+
+![image](https://github.com/user-attachments/assets/6d8aadbe-f97f-43cc-9c17-6db476d97331)
+![image](https://github.com/user-attachments/assets/51941567-88bd-41d5-a871-98001f96d0d3)
