@@ -160,7 +160,30 @@ When working with **supercomputers or clusters**, like the ones used in IITs or 
 💡 Check [www.top500.org](https://www.top500.org) to see the world’s fastest computers.
 
 
-# Lecture 2:
+## Part 2: Software Management
+### 1.Using package management systems:
+
+#### 👉 Need for a package manager:
+* Tools for installing, updating, removing, managing software
+* Install new / updated software across network
+* Package – File look up, both ways
+* Database of packages on the system including versions
+* Dependency checking
+* Signature verification tools
+* Tools for building packages
+
+#### Package types:
+```
+
+          |- RPM - |
+Package - |
+          |- DEB 
+
+```
+
+#### Package Management using Linux|Ubuntu
+
+
 
 - Only `administrators(sudoers)` can install| upgrade| remove packages
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
@@ -168,3 +191,4 @@ When working with **supercomputers or clusters**, like the ones used in IITs or 
 
 ![image](https://github.com/user-attachments/assets/6d8aadbe-f97f-43cc-9c17-6db476d97331)
 ![image](https://github.com/user-attachments/assets/51941567-88bd-41d5-a871-98001f96d0d3)
+
