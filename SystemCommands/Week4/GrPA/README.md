@@ -28,3 +28,7 @@ Each line in the file employees.csv contains the name, role and division of empl
 
 * Write a command to collect the required details and redirect the output to a file named “info.csv”. `info.csv` should contain the name, role and division (separated by a comma) of each employee (as per the above criteria) on a separate line.
 * [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week4/GrPA/GrPA2.bash)
+
+# GrPA 3:
+* Write a command that will print all the lines not containing the word gnu (case-insensitive) in the file test.txt present in the current working directory.
+* [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week4/GrPA/GrPA3.bash)
