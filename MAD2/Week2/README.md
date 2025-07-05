@@ -202,3 +202,215 @@ A child (object) inheriting traits and behavior from a parent (prototype).
 | ES6 Modules     | Modern browsers | `import/export`          |
 | CommonJS        | Node.js backend | `require/module.exports` |
 | npm             | Package manager | `npm install`            |
+
+
+Sure! Here's a **detailed breakdown of Asynchrony and JSON in JavaScript**, with **real-world analogies**, **code examples**, and **important concepts** from your slide.
+
+---
+
+# 🔄 JavaScript Asynchrony
+
+JavaScript runs in a **single thread**, meaning it can do **only one thing at a time**. But thanks to **asynchronous programming**, JavaScript can handle **long-running operations** (like network requests or file reading) **without freezing the UI or blocking other tasks**.
+
+---
+
+## 🧠 Key Concepts
+
+| Concept          | Description                                                                           | Analogy                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Synchronous**  | Code runs line by line, waits for each line to finish                                 | A queue at a single billing counter — each person must finish before the next        |
+| **Asynchronous** | Code runs without blocking, defers long tasks to be completed later                   | Ordering food at a restaurant — place your order and wait while doing something else |
+| **Call Stack**   | Keeps track of function calls                                                         | Stack of plates: Last in, first out                                                  |
+| **Event Loop**   | Keeps checking if the call stack is empty and pushes next task from the task queue    | A waiter checking if the chef is free to prepare the next dish                       |
+| **Task Queue**   | Stores tasks (like events, timeouts) to be executed after current call stack is empty | A to-do list the system checks once it’s free                                        |
+
+
+## 🕳️ Problem With Synchronous Code
+
+```js
+const fs = require('fs');
+
+const data = fs.readFileSync('file.txt', 'utf8');
+console.log(data);  // Blocks everything until file is read
+```
+
+### ❗ Problem:
+
+If the file is large or slow to load, your entire app `pauses` until it completes.
+
+## ✅ Solution: Asynchronous Code
+
+```js
+const fs = require('fs');
+
+fs.readFile('file.txt', 'utf8', (err, data) => {
+  if (err) console.error(err);
+  else console.log(data);  // This runs later
+});
+```
+
+➡ The program **doesn't wait** for file reading to complete. It sets a callback and **keeps running** other code.
+
+
+## ⏳ Promises (Better Async Syntax)
+
+A Promise is a **placeholder for a value** that may be available now, later, or never.
+
+```js
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("Done!"), 2000);
+});
+
+promise.then(result => console.log(result)); // "Done!" after 2 sec
+```
+
+---
+
+## 💤 async/await: Cleaner Asynchronous Code
+
+```js
+async function getData() {
+  let response = await fetch('https://api.example.com/data');
+  let data = await response.json();
+  console.log(data);
+}
+getData();
+```
+
+➡ Cleaner than chaining `.then()`. It **waits** at each `await` without blocking other code.
+
+## 🔁 Asynchronous Iteration
+
+Used when **each step of a loop waits on an asynchronous task**:
+
+```js
+async function processUsers(users) {
+  for await (let user of users) {
+    await fetchUserData(user);  // waits for each call
+  }
+}
+```
+
+
+## 🧵 Why Callbacks?
+
+Callbacks are functions passed to other functions to run **after a task completes**.
+
+```js
+function sayHello(callback) {
+  setTimeout(() => {
+    console.log("Hello!");
+    callback();
+  }, 1000);
+}
+
+sayHello(() => console.log("Callback called"));
+```
+
+## 🌀 Visual Tools to Understand
+
+* 📽️ [Call Stack and Event Loop (Video)](https://vimeo.com/96425312)
+* 🔍 [Loupe Visualizer](http://latentflip.com/loupe/) — excellent visualizer for JS execution
+
+# 🧾 JSON (JavaScript Object Notation)
+
+JSON is a lightweight **data-interchange format** used for **storing, transmitting, and reading structured data**.
+
+---
+
+## 🌍 Why JSON?
+
+* Common language for APIs
+* Readable by both **humans and machines**
+* Works across languages: Python, Java, JS, etc.
+
+
+## 🧱 JSON Structure
+
+* Objects: `{ "key": "value" }`
+* Arrays: `[ { }, { } ]`
+* Data Types: string, number, boolean, null, array, object
+
+```json
+{
+  "name": "Alok",
+  "age": 21,
+  "skills": ["JavaScript", "Python"],
+  "graduated": false
+}
+```
+
+
+## 🔄 JSON Methods in JS
+
+### 1. `JSON.stringify()`
+
+Converts **JavaScript object** → **JSON string**
+
+```js
+let user = { name: "Alok", age: 21 };
+let jsonString = JSON.stringify(user);
+console.log(jsonString); // '{"name":"Alok","age":21}'
+```
+
+### 2. `JSON.parse()`
+
+Converts **JSON string** → **JavaScript object**
+
+```js
+let jsonString = '{"name":"Alok","age":21}';
+let user = JSON.parse(jsonString);
+console.log(user.name); // "Alok"
+```
+
+## ⚠️ JSON Limitations
+
+* Only supports certain types (no `undefined`, `functions`, `Date`)
+* Cannot handle **circular references**
+* Trailing commas not allowed (unlike JS objects)
+
+## 📦 Real-life Example: API Response
+
+```js
+// API Response
+let response = `{
+  "status": "success",
+  "data": {
+    "name": "Guardian of the Roads",
+    "activeUsers": 3200
+  }
+}`;
+
+// Parse into usable object
+let parsed = JSON.parse(response);
+console.log(parsed.data.name); // Guardian of the Roads
+```
+
+---
+
+## 🛠 JSON in APIs
+
+| Use Case               | What Happens               |
+| ---------------------- | -------------------------- |
+| Sending data to server | `JSON.stringify(userData)` |
+| Receiving API response | `JSON.parse(apiResponse)`  |
+
+# ✅ Summary
+
+### 🔄 Asynchrony
+
+| Term          | What it does                              |
+| ------------- | ----------------------------------------- |
+| `Callback`    | Function called after async task finishes |
+| `Promise`     | Object representing future value          |
+| `async/await` | Syntactic sugar for promises              |
+| `Call Stack`  | Keeps track of running functions          |
+| `Event Loop`  | Controls async behavior                   |
+| `Task Queue`  | Holds pending events/tasks                |
+
+### 🧾 JSON
+
+| Method             | Purpose                          |
+| ------------------ | -------------------------------- |
+| `JSON.stringify()` | Convert JS object to JSON string |
+| `JSON.parse()`     | Convert JSON string to JS object |
