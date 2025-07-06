@@ -172,14 +172,15 @@ When working with **supercomputers or clusters**, like the ones used in IITs or 
 * Signature verification tools
 * Tools for building packages
 
-#### Package types:
-```
+### Package types:
 
-          |- RPM - |
-Package - |
-          |- DEB 
+![image](https://github.com/user-attachments/assets/c38b1ef5-3065-4f34-8c14-e80ed6e44eec)
 
-```
+### Architectures
+![image](https://github.com/user-attachments/assets/87a9173c-0f51-48c6-a8ae-f07aba15019a)
+
+### Tools
+
 
 #### Package Management using Linux|Ubuntu
 
