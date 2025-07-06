@@ -180,11 +180,10 @@ When working with **supercomputers or clusters**, like the ones used in IITs or 
 ![image](https://github.com/user-attachments/assets/87a9173c-0f51-48c6-a8ae-f07aba15019a)
 
 ### Tools
+![image](https://github.com/user-attachments/assets/3c573f0d-2c72-4a03-b28f-37fe0f3f2ddd)
 
 
 #### Package Management using Linux|Ubuntu
-
-
 
 - Only `administrators(sudoers)` can install| upgrade| remove packages
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
