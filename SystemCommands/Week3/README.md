@@ -176,14 +176,34 @@ When working with **supercomputers or clusters**, like the ones used in IITs or 
 
 ![image](https://github.com/user-attachments/assets/c38b1ef5-3065-4f34-8c14-e80ed6e44eec)
 
+* `Ubuntu` is the most widely used system and hence `debian` is the most known package.
+* ```bash
+    alok@AlokThinkbook:/mnt/c/Users/alokg/desktop/iit-madras/systemcommands/week3/practice$ lsb_release -a
+    No LSB modules are available.
+    Distributor ID: Ubuntu
+    Description:    Ubuntu 22.04.5 LTS
+    Release:        22.04
+    Codename:       jammy 
+  ```
+* This system also have the `Ubuntu System`.
+<br>
+
 ### Architectures
+* Linux OPerating System is available for a wide variety of architectures:
 ![image](https://github.com/user-attachments/assets/87a9173c-0f51-48c6-a8ae-f07aba15019a)
+
+* This system has `x86_64` type of architecture:
+```bash
+alok@AlokThinkbook:/mnt/c/Users/alokg/desktop/iit-madras/systemcommands/week3/practice$ uname -a
+Linux AlokThinkbook 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+```
+ 
 
 ### Tools
 ![image](https://github.com/user-attachments/assets/3c573f0d-2c72-4a03-b28f-37fe0f3f2ddd)
 
 
-#### Package Management using Linux|Ubuntu
+#### Package Management using Linux|Ubuntu using apt
 
 - Only `administrators(sudoers)` can install| upgrade| remove packages
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
