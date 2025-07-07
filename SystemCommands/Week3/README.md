@@ -258,6 +258,7 @@ Linux AlokThinkbook 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55
 ## Software Management 2
 
 - Only `administrators(sudoers)` can install| upgrade| remove packages
+- To install all the software/ software updates in the system, one must be a sudoer.
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
 *Ex:*
 
