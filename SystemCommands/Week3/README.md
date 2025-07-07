@@ -214,11 +214,33 @@ Linux AlokThinkbook 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55
 * In this filename in the above line, its shown:
   * type - `DEB`
   * package - `nmap`
-  * versionrevision - `7.91+dfsg1+really7.80+dfsg1-2build1`
+  * version - `7.91+dfsg1+really7.80+dfsg1`
+  * revision - `2build1`
   * architecture - `amd64`
 
+#### Package priorities(Level wise)
+● Each package also lists what kind of priorities it has: <br>
+● `required` : essential to proper functioning of the system (_topmost priority_)<br>
+● `important` : provides functionality that enables the system to run well <br>
+● `standard` : included in a standard system installation <br>
+● `optional(skip is not needed)` : can omit if you do not have enough storage <br>
+● `extra` : could conflict with packages with higher priority, has specialized requirements, install only if needed <br>
 
-
+**eg01#:**
+```
+  alok@AlokThinkbook:/mnt/c/Users/alokg/desktop/iit-madras/systemcommands/week3/practice$ apt-cache show nmap
+  Priority: extra
+```
+**eg02#:**
+```
+  alok@AlokThinkbook:/mnt/c/Users/alokg/desktop/iit-madras/systemcommands/week3/practice$ apt-cache show wget
+  Priority: standard
+```
+**eg03#:**
+```
+  alok@AlokThinkbook:/mnt/c/Users/alokg/desktop/iit-madras/systemcommands/week3/practice$ apt-cache show fortunes
+  Priority: optional
+```
 
 - Only `administrators(sudoers)` can install| upgrade| remove packages
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
