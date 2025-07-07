@@ -265,3 +265,12 @@ Linux AlokThinkbook 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55
 ![image](https://github.com/user-attachments/assets/6d8aadbe-f97f-43cc-9c17-6db476d97331)
 ![image](https://github.com/user-attachments/assets/51941567-88bd-41d5-a871-98001f96d0d3)
 
+* Whenever we install a package, the system knows from which website these packages have to be downloaded for installation, so where are these information stores?
+* _Ans:_ These informations are stored in a folder named `/etc/apt`
+  - files: `sources.list`
+  - folder: `sources.list.d`
+![image](https://github.com/user-attachments/assets/fdb5b340-5e62-4353-912f-ce2fc6b58602)
+
+
+
+
