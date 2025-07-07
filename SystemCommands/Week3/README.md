@@ -242,6 +242,21 @@ Linux AlokThinkbook 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55
   Priority: optional
 ```
 
+### Package Authentication
+**Ques:** How do we know that the package we are installing in our OS is Authentic? <br>
+**Ans:** The way to verify is looking at `Checksums`.
+* Checksums:
+  * `md5sum`: 128 bits.
+  * `sha1`: 160 bits.
+  * `sha256`: 256 bits.
+* _eg#01:_
+* Even a minor change in a file can change the whole 128/160/256 of bits unit.
+![image](https://github.com/user-attachments/assets/9ae90edc-22f1-4c9f-b9ec-fbbc7e02772b)
+
+---
+
+## Software Management 2
+
 - Only `administrators(sudoers)` can install| upgrade| remove packages
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
 *Ex:*
