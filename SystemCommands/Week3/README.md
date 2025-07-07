@@ -205,6 +205,21 @@ Linux AlokThinkbook 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55
 
 #### Package Management using Linux|Ubuntu using apt
 
+![image](https://github.com/user-attachments/assets/c4f87c02-229e-48c6-a409-f01d669011be)
+
+```
+  alok@AlokThinkbook:/mnt/c/Users/alokg/desktop/iit-madras/systemcommands/week3/practice$ apt-cache show nmap
+  Filename: pool/universe/n/nmap/nmap_7.91+dfsg1+really7.80+dfsg1-2build1_amd64.deb
+```
+* In this filename in the above line, its shown:
+  * type - `DEB`
+  * package - `nmap`
+  * versionrevision - `7.91+dfsg1+really7.80+dfsg1-2build1`
+  * architecture - `amd64`
+
+
+
+
 - Only `administrators(sudoers)` can install| upgrade| remove packages
 - `sudo cat /etc/sudoers` is used to get the privilages provided to users.
 *Ex:*
