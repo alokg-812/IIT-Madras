@@ -1,5 +1,10 @@
 # Week 4 starting
 
+## What is Pattern Matching?
+* Pattern matching is the technique of finding strings or text that fit a `specific format` or `rule`.
+* This is widely used in text processing, log filtering, file searching, etc.
+* Imagine you have a huge contact list and you want to find all names that start with “Ak” – you can use pattern matching to do that.
+
 ## 1. Regex 
 - `regex(regular expression)` is a **pattern template** to search, filter, or match text.
 - It is used in:
@@ -18,7 +23,7 @@
 
 
 ## 2. grep Command Syntax
-
+- A command-line utility in Unix/Linux that filters lines from files or output that match a regex.
 - Syntax: ``grep 'pattern' filename``
 ```bash
 grep 'pattern' filename
