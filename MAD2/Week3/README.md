@@ -60,7 +60,7 @@ Making tea by writing out each step: boil water → add tea leaves → pour milk
 Telling someone “Make me a cup of tea” instead of giving them a recipe.
 
 ![image](https://github.com/user-attachments/assets/f0ef17f3-00a1-4aa1-94b7-ee736cbfff51)
-
+* Credit: Flutter Documentation(start thinking `declarative`).
 
 ### Understanding State
 
@@ -68,6 +68,7 @@ Telling someone “Make me a cup of tea” instead of giving them a recipe.
 * Types of states:
   - System State (Huge, Persistent)
   - Application State (Session-specific)
+  - Ephemeral State ()
 
 #### System State
 * The full backend database.
@@ -101,10 +102,9 @@ This means:
 
 * Each HTTP request is *independent*.
 * The server doesn’t remember past interactions *unless we explicitly manage state*.
-
-To overcome this, developers have two strategies:
-
----
+* To overcome this, developers have two strategies:
+1. Client Maintains State
+2. Server Maintains State
 
 ## ✅ 1. **Client Maintains State**
 
@@ -225,18 +225,6 @@ Server → Client:
 
 This reflects how real-time games, dashboards, and collaborative apps work:
 State is either managed in frontend, backend, or both — depending on use case.
-
----
-
-# ✅ Summary of Concepts (Table View)
-
-| Concept                    | Description                                                  | Example Use Case                                 |
-| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
-| **Stateless HTTP**         | Every request is independent. No memory of past interaction. | Need to re-authenticate or send state every time |
-| **Client Maintains State** | Stores session or app state on user’s browser                | JWT tokens in local storage                      |
-| **Server Maintains State** | Session is stored server-side, identified via cookie/token   | Shopping cart in server memory                   |
-| **Tic-Tac-Toe Example**    | Game frontend renders UI; backend processes game rules       | Turn-based input, win condition check            |
-
 
 
 
