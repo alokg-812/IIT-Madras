@@ -9,6 +9,10 @@
 <body>
     <div id="app">
         <p>{{ message }}</p>
+        <!-- Your Name:<input type="text"> -->
+        <p v-if="count==0">No replies yet</p>
+        <p v-else-if="count>5">You are very popular</p>
+        <p v-else>Number of replies: {{count}}</p>
         <button v-on:click="sayHi">Say Hi</button>
     </div>
     <script type="text/javascript" src="application.js"></script>
