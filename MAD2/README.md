@@ -17,6 +17,14 @@
 
 
 # [Week 2](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week2/README.md)
+* [Javascript Collections](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#javascript-collections)
+  1. [Arrays](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#1-arrays)
+  2. [Iterations](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#2-iteration)
+  3. [Transformation Functions](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#3-transformation-functions)
+  4. [Other Collections](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#4-other-collections)
+  5. [Destructuring](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#5-destructuring)
+  6. [Generators](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#6-generators-advanced)
+
 
 
 # [Week 3](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week3/README.md)
