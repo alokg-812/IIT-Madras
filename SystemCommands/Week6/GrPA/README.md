@@ -30,8 +30,8 @@
 * Write a bash script that takes two integer values as input, and
 * prints the `product table` of first integer with all the integers from 1 to the value in second argument as described in the format below.
 
-Let the first argument be 3 and the second argument be 4, then your script should print.
 #### eg#01:
+Let the first argument be 3 and the second argument be 4, then your script should print.
 ```bash
 3*1=3
 3*2=6
