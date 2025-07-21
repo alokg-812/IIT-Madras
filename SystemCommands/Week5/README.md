@@ -22,7 +22,15 @@ We can `assign a value` to a name and use it later.
 - `$?`-> return code of previously run program
 - `$-`-> flags set in the bash shell
 
-
+### Process control
+* Use of & to run a job in the background
+* fg
+* coproc
+* jobs
+* top
+* kill
+* echo $$
+  
 ### Program exit codes
 * `0`: Success
 * `1`: Failure
@@ -31,15 +39,26 @@ We can `assign a value` to a name and use it later.
 * `127`: Command not found
 * `130`: Processes killed using _**Ctrl+C**_.
 * `137`: Processes killed using _**kill -9<pid>**_
+* echo $?
 
 * Always in the range of `0-255`.
 * Any code above 255 is taken % and then considered the modulo value as exit code.
 
 
 
+### Flags set in bash
 
+* `h` : locate and hash commands
+* `B` : brace expansion enabled
+* `i` : interactive mode
+* `m` : job control enabled
+* `H` : ! style history substitution enabled
+* `s` : commands are read from stdin
+* `c` : commands are read from arguments
+* echo $-
 
-
+<img width="1502" height="269" alt="image" src="https://github.com/user-attachments/assets/0df43631-fb6b-4485-a65e-cc64f4460a7a" />
+* 
 
 
 
