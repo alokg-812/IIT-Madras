@@ -39,6 +39,15 @@ We can `assign a value` to a name and use it later.
 - `$?`-> return code of previously run program
 - `$-`-> flags set in the bash shell
 
+<img width="1280" height="559" alt="image" src="https://github.com/user-attachments/assets/5521d17a-4356-4e5b-884c-9119c00f0725" />
+
+* `echo $0` → Shows the **name of the current shell** (here: `-bash`).
+* `echo $$` → Prints the **Process ID (PID)** of your **current shell** (e.g., `373`).
+* `ps` → Lists **current running processes** (you saw `bash` and `ps` itself).
+* `echo $?` → Shows **exit status** of the last command (`0` = success).
+* `echo $-` → Displays **active shell flags** (e.g., `himBHs` showing interactive mode, history enabled, job control, etc.).
+
+
 ### Process control
 * Use of & to run a job in the background
 * fg
@@ -61,6 +70,13 @@ We can `assign a value` to a name and use it later.
 * Always in the range of `0-255`.
 * Any code above 255 is taken % and then considered the modulo value as exit code.
 
+<img width="1270" height="337" alt="image" src="https://github.com/user-attachments/assets/de73c7bb-84d1-4441-ac95-822d27407586" />
+
+* `ls` → Command ran successfully (exit code `$?` was `0`).
+* Exit code `0` means **success** (no errors).
+* Running `hello` (an invalid command) failed.
+* Exit code `$?` became **127**, meaning **“command not found”**.
+* `$?` always holds the **exit status** of the **last executed command** (range: 0–255).
 
 
 ### Flags set in bash
@@ -73,10 +89,6 @@ We can `assign a value` to a name and use it later.
 * `s` : commands are read from stdin
 * `c` : commands are read from arguments
 * echo $-
-
-<img width="1502" height="269" alt="image" src="https://github.com/user-attachments/assets/0df43631-fb6b-4485-a65e-cc64f4460a7a" />
-* 
-
 
 
 
