@@ -23,6 +23,15 @@ We can `assign a value` to a name and use it later.
 4. `$pwd`
 5. `$path`
 
+<img width="1705" height="586" alt="image" src="https://github.com/user-attachments/assets/789cac34-d986-43f7-aa1b-b3d94b9fa831" />
+
+* `$USER` → Shows **logged-in username** (e.g., `alok`).
+* `$HOSTNAME` → Shows **machine name** (e.g., `AlokThinkbook`).
+* `$HOME` → Shows **user's home directory** path (e.g., `/home/alok`).
+* `$PWD` → Shows **present working directory** (your current folder).
+* `$PATH` → Shows all **directories searched** when running commands (colon-separated list of paths).
+
+> These are **default environment variables**, always available in our shell.
 
 ### Special shell variables
 - `$0`-> name of the shell
