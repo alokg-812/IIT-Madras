@@ -9,12 +9,20 @@
 Shell variables are like `placeholders` in our shell session or script. <br>
 We can `assign a value` to a name and use it later.
 
+<img width="1299" height="136" alt="image" src="https://github.com/user-attachments/assets/46815b16-b752-47c4-951d-b6156c6450d0" />
+
+* `name="Alok"` → Assigns **"Alok"** to variable `name` (no spaces around `=`).
+* `echo name` → Prints the **literal word** `name` (no `$` used).
+* `echo $name` → Prints the **value stored in** variable (`Alok`).
+* `$variable_name` is used to **access** the variable's value.
+
 ### Frequently used shell variables:
 1. `$username`
 2. `$hostname`
 3. `$home`
 4. `$pwd`
 5. `$path`
+
 
 ### Special shell variables
 - `$0`-> name of the shell
