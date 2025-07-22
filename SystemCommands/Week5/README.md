@@ -94,10 +94,22 @@ We can `assign a value` to a name and use it later.
 ## Lec 2
 
 ### Creating a variable
-<img width="671" height="364" alt="image" src="https://github.com/user-attachments/assets/28bece71-cc68-4b9c-908b-c57b30bda92d" />
 
+<img width="671" height="364" alt="image" src="https://github.com/user-attachments/assets/7b32b119-9dba-47ef-9f42-f5c5acfb2f41" />
 
-
+### Exporting a variable
+1. `export myvar = "value string"` <br>
+_OR_
+2.
+   ```
+   myvar = "value string"
+   export myvar
+   ``` 
+### Using variable values
+1. `echo $myvar`
+2. `echo ${myvar}`
+3. `echo "${myvar}_something"`
+* When variables are used in a statement, its always a good practice to use the braces around them
 
 
 
