@@ -97,6 +97,12 @@ We can `assign a value` to a name and use it later.
 
 <img width="671" height="364" alt="image" src="https://github.com/user-attachments/assets/7b32b119-9dba-47ef-9f42-f5c5acfb2f41" />
 
+_#eg:_
+```bash
+greeting="Hello World"
+echo $greeting        //Hello World
+```
+
 ### Exporting a variable
 1. `export myvar = "value string"` <br>
 _OR_
@@ -109,9 +115,230 @@ _OR_
 1. `echo $myvar`
 2. `echo ${myvar}`
 3. `echo "${myvar}_something"`
+<img width="954" height="202" alt="image" src="https://github.com/user-attachments/assets/aa276516-1c35-4920-8b36-836015fd88cb" />
 * When variables are used in a statement, its always a good practice to use the braces around them
 
+### Removing a variable
+`unset myvar`
 
+### Removing a variable
+`myvar= `(nothing after the = sign)
+
+### Checking if a Variable is Set
+
+* **If variable is set:**
+```bash
+[[ -v myvar ]]; echo $?
+```
+  * `0` means *yes*
+  * `1` means *no*.
+
+* **If variable is not set:**
+
+```bash
+[[ -z ${myvar+x} ]]; echo $?
+```
+  * `0` means **not set**
+  * `1` means **set**.
+<img width="948" height="150" alt="image" src="https://github.com/user-attachments/assets/8375b801-3dff-4126-98ab-979486204b46" />
+
+
+### Default Values
+
+* **Use default if not set (but don’t assign):**
+
+```bash
+echo ${greeting:-"Hi There"}
+```
+
+* **Set default if not set (and assign):**
+
+```bash
+echo ${greeting:="Hi There"}
+```
+
+* **Set a value only if variable exists:**
+
+```bash
+echo ${greeting:+"Welcome Back"}
+```
+
+---
+
+# **8. String Manipulation Examples**
+
+* **Length of value:**
+
+```bash
+greeting="Hello World"
+echo ${#greeting}    # Output: 11
+```
+
+* **Slice (Substring):**
+
+```bash
+echo ${greeting:6:5}   # Output: World
+```
+
+* **Remove Pattern:**
+
+```bash
+greeting="Hello-World-World"
+echo ${greeting#*-}     # removes first occurrence → World-World
+echo ${greeting##*-}    # removes max possible → World
+```
+
+* **Keep Pattern (Reverse of Remove):**
+
+```bash
+echo ${greeting%*-}     # removes after last dash → Hello-World
+echo ${greeting%%*-}    # removes after first dash → Hello
+```
+
+* **Replace Patterns:**
+
+```bash
+echo ${greeting/World/Earth}   # Replace first World → Hello-Earth-World
+echo ${greeting//World/Earth}  # Replace all World → Hello-Earth-Earth
+```
+
+* **Replace at Start or End:**
+
+```bash
+echo ${greeting/#Hello/Hi}    # Replace start
+echo ${greeting/%World/Planet}  # Replace end
+```
+
+---
+
+# **9. Changing Case**
+
+* **To lowercase:**
+
+```bash
+var="HELLO"
+echo ${var,,}     # Output: hello
+```
+
+* **To uppercase:**
+
+```bash
+var="hello"
+echo ${var^^}     # Output: HELLO
+```
+
+* **First character change only:**
+
+```bash
+echo ${var^}      # Capitalize first letter
+```
+
+---
+
+# **10. Value Restrictions Using `declare`**
+
+* **Integers only:**
+
+```bash
+declare -i number
+number=10+20
+echo $number      # Output: 30
+```
+
+* **Force lowercase:**
+
+```bash
+declare -l lower
+lower="HeLLo"
+echo $lower       # Output: hello
+```
+
+* **Force uppercase:**
+
+```bash
+declare -u upper
+upper="HeLLo"
+echo $upper       # Output: HELLO
+```
+
+* **Make variable read-only:**
+
+```bash
+declare -r readonlyvar="fixed"
+readonlyvar="change"   # This will throw an error
+```
+
+---
+
+# **11. Arrays**
+
+### Indexed Arrays:
+
+```bash
+declare -a fruits
+fruits[0]="Apple"
+fruits[1]="Banana"
+fruits+=("Cherry")        # Appends
+
+echo ${fruits[0]}         # Apple
+echo ${#fruits[@]}        # 3 (total items)
+echo ${!fruits[@]}        # 0 1 2 (indices)
+echo ${fruits[@]}         # Apple Banana Cherry
+unset 'fruits[1]'         # Deletes Banana
+```
+
+### Associative Arrays (like dictionaries):
+
+```bash
+declare -A capitals
+capitals["India"]="New Delhi"
+capitals["France"]="Paris"
+
+echo ${capitals["India"]}   # New Delhi
+echo ${!capitals[@]}        # India France
+echo ${capitals[@]}         # New Delhi Paris
+echo ${#capitals[@]}        # 2
+unset 'capitals["India"]'   # Deletes entry for India
+```
+
+---
+
+# **Example Practical Scenario**
+
+Suppose you’re writing a script to greet users in their preferred language.
+
+```bash
+user_name="Alok"
+language=${1:-"English"}
+
+if [[ $language == "English" ]]; then
+    greeting="Hello"
+elif [[ $language == "Hindi" ]]; then
+    greeting="Namaste"
+else
+    greeting="Hi"
+fi
+
+echo "${greeting}, $user_name!"
+```
+
+If you run:
+
+```bash
+./script.sh Hindi
+```
+
+Output:
+
+```
+Namaste, Alok!
+```
+
+If no language is passed:
+
+```
+Hello, Alok!
+```
 
 
 
