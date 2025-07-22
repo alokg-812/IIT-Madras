@@ -1,5 +1,6 @@
 # Week 5
 
+## Lec 1
 
 ### Shell Variables
 * In scripting (whether Bash, Zsh, etc.), _shell variables_ are used to `store data temporarily` during the execution of scripts or commands. 
@@ -90,6 +91,10 @@ We can `assign a value` to a name and use it later.
 * `c` : commands are read from arguments
 * echo $-
 
+## Lec 2
+
+### Creating a variable
+<img width="671" height="364" alt="image" src="https://github.com/user-attachments/assets/28bece71-cc68-4b9c-908b-c57b30bda92d" />
 
 
 
