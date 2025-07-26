@@ -8,6 +8,10 @@ Topics:
    - Project Structure
    - Code Flow
 
-## What is VueJS?
-_Ans:_ Open source, Javascript framework used to develop interactive UIs.
+### What is VueJS?
+_Ans:_ Javascript framework used to develop interactive UIs.
+> [Framework vs Library](https://medium.com/@alokg7055/understanding-frameworks-vs-libraries-cricket-code-control-dcc0236963bf)
 
+### Introduction and Features
+* Open Source
+* It is used to create single page application
