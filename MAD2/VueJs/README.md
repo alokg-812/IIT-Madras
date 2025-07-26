@@ -59,8 +59,18 @@ decrease();
 ...
 ```
 
+### Ways to use Vue
+1. Without Build tool:
+   - [Using CDN link](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/VueJs/cdn-link.html) <br>
+_Output:_
+<img width="875" height="205" alt="image" src="https://github.com/user-attachments/assets/6761ad68-1c01-4c54-bc61-4362dbb4aa06" />
 
-
-
+2. With Build tool:
+   - [Using vite](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/VueJs/learning-1)
+<br> _How to do?:_ <br>
+<img width="1533" height="859" alt="image" src="https://github.com/user-attachments/assets/acab53d2-b257-4f27-99a6-c711ae8d0c09" />
+<br> 
+_Output:_  <br>
+<img width="1919" height="1018" alt="image" src="https://github.com/user-attachments/assets/ab7f6bae-5590-4778-9e45-a0cd002df347" />
 
 
