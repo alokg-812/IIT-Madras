@@ -15,3 +15,10 @@ _Ans:_ Javascript framework used to develop interactive UIs.
 ### Introduction and Features
 * Open Source
 * It is used to create single page application
+* Created by Ecan You (Ex-google employee)
+* First version - Feb 2014
+* `VueJS 3` is the latest version
+
+
+
+
