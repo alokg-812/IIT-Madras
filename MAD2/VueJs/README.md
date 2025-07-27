@@ -86,7 +86,7 @@ _Output:_  <br>
 <img width="668" height="299" alt="image" src="https://github.com/user-attachments/assets/6ee4af52-95bc-46a8-a6c7-c4ef5ff1d0b8" />
 
 #### VueJS Approach
-<img width="610" height="392" alt="image" src="https://github.com/user-attachments/assets/5b3d6792-f82d-4593-92e4-071a0ffcd482" />
+<img width="610" height="392" alt="image" src="https://github.com/user-attachments/assets/d0d25553-b4c8-45cb-851a-47386f4d04a3" />
 
 
 
