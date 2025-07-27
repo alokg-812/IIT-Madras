@@ -73,4 +73,29 @@ _Output:_
 _Output:_  <br>
 <img width="1919" height="1018" alt="image" src="https://github.com/user-attachments/assets/ab7f6bae-5590-4778-9e45-a0cd002df347" />
 
+### Getting Started
+* A `vue.js` file is referred to as a _single-file component._
+* It contains the `component's logic`(Javascript), `template`(HTML), and `styles`(CSS) in a single file.
+* It has three blocks:
+  1. `<template>...</template>`
+  2. `<script>...</script>`
+  3. `<style>...</style>`
+* This file is pre-compiled by @vue/compiler-sfc into standard Javascript and CSS to make it usable.
+
+#### Traditional Approach
+<img width="668" height="299" alt="image" src="https://github.com/user-attachments/assets/6ee4af52-95bc-46a8-a6c7-c4ef5ff1d0b8" />
+
+#### VueJS Approach
+<img width="610" height="392" alt="image" src="https://github.com/user-attachments/assets/5b3d6792-f82d-4593-92e4-071a0ffcd482" />
+
+
+
+
+
+
+
+
+
+
+
 
