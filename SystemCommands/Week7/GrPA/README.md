@@ -14,7 +14,11 @@
 * [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week7/GrPA/grpa2.bash)
 
 
-
+# GrPA 3
+* Write a bash script that prints the
+  * `sum of all even numbers` of an array of numbers.
+  * The array variable is named as *number_arr*.
+* [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week7/GrPA/grpa3.bash)
 
 
 
