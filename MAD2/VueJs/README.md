@@ -81,7 +81,7 @@ _Output:_  <br>
   2. `<script>...</script>`
   3. `<style>...</style>`
 * This file is pre-compiled by @vue/compiler-sfc into standard Javascript and CSS to make it usable.
-
+* The compiler is typically integrated within the buil tool.
 #### Traditional Approach
 <img width="668" height="299" alt="image" src="https://github.com/user-attachments/assets/6ee4af52-95bc-46a8-a6c7-c4ef5ff1d0b8" />
 
