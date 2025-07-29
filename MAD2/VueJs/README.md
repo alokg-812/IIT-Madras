@@ -8,6 +8,19 @@ Topics:
    - VS Code Extensions
    - Project Structure
    - Code Flow
+6. Class and Style binding
+   - v-bind with class
+   - v-bind with style
+7. Reactivity Fundamentals
+   - Reactive state
+   - this keyword
+8. Methods
+   - Arrow function Restriction
+9. Deep Reactivity
+10. Reactive Proxy vs original
+
+
+
 
 ### What is VueJS?
 _Ans:_ Javascript framework used to develop interactive UIs.
