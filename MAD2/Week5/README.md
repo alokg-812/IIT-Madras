@@ -2,7 +2,7 @@
 
 ## 🔹 What Are APIs and Why Do We Use Them?
 
-Imagine you have a **kitchen (backend)** and a **waiter (frontend)** in a restaurant. You don’t want customers (users) to directly enter the kitchen and cook. Instead, the waiter brings the customer’s order to the kitchen and brings back the food. <br>
+Imagine we have a **kitchen (backend)** and a **waiter (frontend)** in a restaurant. We don’t want customers (users) to directly enter the kitchen and cook. Instead, the waiter brings the customer’s order to the kitchen and brings back the food. <br>
 **APIs are like that waiter.** <br>
 They:
 * Carry requests from the frontend to the backend.
@@ -27,7 +27,7 @@ In a well-designed app:
 
 ### ➤ Backend gives APIs like:
 
-`` GET /weather?city=Chennai ``
+`` GET /weather?city=Chennai `` <br>
 The response might be:
 
 ```json
@@ -57,23 +57,23 @@ This is where **callbacks, promises**, etc., come in.
 JavaScript runs **one thing at a time**. If one function takes too long, it can **freeze the entire app**. That’s why time-consuming stuff (like fetching data) should be done **asynchronously**, so the app doesn’t freeze.
 
 ## 🔹 What are Callbacks?
-Let’s say you’re ordering pizza 🍕.
-* You place the order (function starts).
+Let’s say I am ordering pizza 🍕.
+* I place the order (function starts).
 * The chef starts cooking (long task).
-* Instead of standing and waiting, you say: “Hey, when it’s ready, **call me**.”
-That’s a **callback** — a function that will be called when the task is complete.
+* Instead of standing and waiting, I says: “Hey, when it’s ready, `call me`.” <br>
+That’s a *callback* — a function that will be called when the task is complete.
 
-### ✅ Code Example:
+#### **🤌eg#01:**:
 ```js
 function getData(callback) {
-  setTimeout(() => {
-    let data = "Here’s the API data!";
-    callback(data); // Call the callback when data is ready
-  }, 2000); // 2 seconds delay
+    setTimeout(() => {
+        let data = "Here’s the API data!";
+        callback(data); // Call the callback when data is ready
+    }, 2000); // 2 seconds delay
 }
 
 getData(function (result) {
-  console.log(result);
+    console.log(result);
 });
 ```
 
