@@ -2,40 +2,32 @@
 
 ## 🧠 What is Persistent Storage?
 
-Imagine you're filling out a form on a website or selecting some settings on a web app. You refresh the page — and poof! Everything resets. That’s because, by default, **Vue data (or any frontend JS data)** is stored in memory, which disappears when the page reloads.
+Imagine we're filling out a form on a website or selecting some settings on a web app. We refresh the page — and oops! Everything resets. That’s because, by default, **Vue data (or any frontend JS data)** is stored in memory, which disappears when the page reloads.
 
-**Persistent storage** solves this by storing data **in the browser** — so even if you refresh the page or close and reopen the tab, some or all of the data can be restored.
+`Persistent storage` solves this by storing data **in the browser** — so even if you refresh the page or close and reopen the tab, some or all of the data can be restored.
 
 
-## ❓ Why Do We Need Persistent Storage?
+## Why Do We Need Persistent Storage❓
 
 1. **Avoid Data Loss on Refresh**
-
    * Vue data is gone when the user reloads the page.
    * Persistent storage keeps important data intact.
-
 2. **Offline Functionality**
-
    * Some apps should work even without internet — like note-taking apps or todo lists.
-
 3. **Local Configuration**
-
    * Settings like "dark mode", language preference, or saved login info can be stored locally.
-
 4. **Lightweight Apps**
-
    * Not everything needs a server or database. For small apps, using local storage is simpler.
-
----
 
 ## 🧰 How Can You Implement Persistent Storage?
 
 There are 3 major options in the browser:
+1. Cookies.
+2. localStorage and sessionStorage
+3. IndexedDB
 
----
 
 ### 🔹 1. **Cookies**
-
 * Small text files stored by the browser.
 * Mostly used for sessions, login tracking, analytics.
 * **Limited size** (about 4 KB).
@@ -43,22 +35,18 @@ There are 3 major options in the browser:
 * Set using JavaScript:
 
   ```js
-  document.cookie = "username=Alok; expires=Fri, 5 Aug 2025 12:00:00 UTC;";
+    document.cookie = "username=Alok; expires=Fri, 5 Aug 2025 12:00:00 UTC;";
   ```
-* Not ideal for complex data or large values.
+* 🔴 Not ideal for complex data or large values.
 
----
 
 ### 🔹 2. **localStorage & sessionStorage** (Web Storage API)
-
 #### 🗂️ Common Features:
-
 * Key-value storage (`"theme" = "dark"`)
 * Only stores **strings**, so objects must be converted using `JSON.stringify()` and `JSON.parse()`
 * Synchronous, fast access
 
 #### 📦 `localStorage`
-
 * Data is saved even after browser is closed and reopened.
 * Limit: \~5MB in most browsers.
 * Good for persistent settings, cache, etc.
@@ -89,12 +77,10 @@ let user = sessionStorage.getItem("user");
 
 More: [MDN Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
 
----
 
 ### 🔹 3. **IndexedDB**
 
 Think of this as a **mini database** in the browser.
-
 * Stores **structured data** (like objects, arrays)
 * Can be queried using keys/indexes
 * Works asynchronously (like real databases)
@@ -107,11 +93,10 @@ let db = indexedDB.open("myAppDB", 1);
 
 Not as beginner-friendly as localStorage, but very powerful.
 
----
 
-## 🧪 Example Use Case in Vue:
-
-Suppose you want to save a dark mode setting in your Vue app:
+#### Use Case in Vue:
+🫴**eg#:** <br>
+Suppose I want to save a dark mode setting in my Vue app:
 
 ```js
 mounted() {
@@ -126,7 +111,7 @@ watch: {
 }
 ```
 
-✔️ This makes your app **remember the theme** even after the user closes and reopens the browser.
+✔️ This makes our app **remember the theme** even after the user closes and reopens the browser.
 
 ---
 
@@ -139,7 +124,6 @@ watch: {
 | `sessionStorage` | No (tab-only) | \~5MB | Temporary form data            | Strings only       |
 | `IndexedDB`      | Yes           | >50MB | App cache, files, offline data | Structured objects |
 
----
 
 ## 📚 Bonus Vue Guide
 
@@ -147,11 +131,10 @@ Official Vue Cookbook Example (localStorage):
 👉 [Client-side storage in Vue](https://vuejs.org/v2/cookbook/client-side-storage.html)
 
 
-# ✅ PART 1: **Form Validation in Vue**
 
----
+## Form Validation
 
-## 🧠 Why Do We Need Form Validation?
+### 🧠 Why Do We Need Form Validation?
 
 When users submit forms — like login, signup, or feedback — we need to make sure:
 
@@ -164,13 +147,14 @@ Validation can happen:
 * In the **browser (frontend)** – faster, good UX
 * On the **server (backend)** – essential for security
 
----
 
-## 🎯 Types of Form Validation
+### 🎯 Types of Form Validation
+1. Basic Browser Checks
+2. Custom Validation
 
 ### 1. **Basic Browser Checks**
 
-✅ Examples:
+🫴**eg#:**
 
 * Required fields
 * Minimum length
@@ -183,13 +167,11 @@ Validation can happen:
 
 ### 2. **Custom Validation**
 
-✅ Examples:
+🫴**eg#:**
 
 * Password must include uppercase, number, and symbol
 * Confirm password matches
 * Form values satisfy a condition (e.g. age + experience ≤ 100)
-
----
 
 ## 🛠️ How Vue Helps with Validation
 
@@ -199,9 +181,10 @@ Vue makes it easier through:
 * **Reactivity** to show or hide errors dynamically
 * **Event handling** with `@submit.prevent`
 
----
 
-## ✨ Example: Basic Form Validation in Vue
+### Basic Form Validation in Vue
+
+🫴**eg#:**
 
 ```html
 <template>
@@ -242,9 +225,7 @@ export default {
 </script>
 ```
 
----
-
-## 🧩 Useful Vue Directives for Validation
+### 🧩 Useful Vue Directives for Validation
 
 | Directive         | Use                                       |
 | ----------------- | ----------------------------------------- |
@@ -252,7 +233,6 @@ export default {
 | `v-if / v-show`   | Show/hide error messages                  |
 | `@submit.prevent` | Prevent form from submitting unless valid |
 
----
 
 ## 🧪 Custom Validation Example
 
@@ -271,22 +251,18 @@ To take full control of the process:
 <form novalidate @submit.prevent="submitForm">
 ```
 
----
 
-# ✅ PART 2: **Managing Components in Vue**
+## Managing Components in Vue
 
----
-
-## 🧠 Why Use Components?
+### 🧠 Why Use Components?
 
 Imagine building a large web app like Amazon:
 
-* You’ll reuse the **same layout**, **buttons**, **product cards**, **modals**, etc.
+* We’ll reuse the **same layout**, **buttons**, **product cards**, **modals**, etc.
 * Each part should be **independent**, **modular**, and **reusable**.
 
 That's where Vue **components** come in.
 
----
 
 ## 🧱 What is a Vue Component?
 
@@ -296,12 +272,11 @@ A **component** is a self-contained part of the UI with:
 * Its own CSS (styles)
 * Its own JS (logic/data/methods)
 
----
-
 ## 📄 Types of Components
+1. Global Components
+2. Local Components
 
 ### ✅ Global Components:
-
 * Registered once, usable anywhere
 
 ```js
@@ -309,7 +284,6 @@ Vue.component('my-button', { /* ... */ });
 ```
 
 ### ✅ Local Components:
-
 * Declared inside other components
 
 ```js
@@ -320,7 +294,6 @@ export default {
 };
 ```
 
----
 
 ## 🧩 Why Use **Single File Components (SFCs)**
 
@@ -346,9 +319,7 @@ export default {
 </style>
 ```
 
----
-
-## 🛠️ Problems with Not Using SFCs (As Mentioned in the PDF):
+## 🛠️ Problems with Not Using SFCs:
 
 1. **Global namespace conflict**
    If all components share the same global space, names can clash.
@@ -359,7 +330,6 @@ export default {
 3. **Difficult to organize**
    Templates as strings are harder to read, debug, or format.
 
----
 
 ## 🔧 SFC Workflow (with tools like Vite/Webpack)
 
@@ -367,8 +337,6 @@ Since browsers don’t understand `.vue` files directly:
 
 1. Tools like Vite or Webpack **compile** them into regular `.js`, `.css`, and `.html`.
 2. These can then be loaded by the browser.
-
----
 
 ## 🔌 Tooling Stack for Components
 
@@ -379,7 +347,6 @@ Since browsers don’t understand `.vue` files directly:
 | **babel**                    | Convert modern JS to browser-compatible JS |
 | **Vue CLI / Vite CLI**       | Create and run projects easily             |
 
----
 
 ## 🧪 Testing Vue Components
 
@@ -398,8 +365,6 @@ Vue components can also be **unit tested**:
 mount(MyComponent);
 expect(wrapper.text()).toContain('Hello');
 ```
-
----
 
 ## 🔄 Summary
 
@@ -426,7 +391,7 @@ expect(wrapper.text()).toContain('Hello');
 
 
 
-# ✅ Why Testing Matters in Vue Apps
+### ✅ Why Testing Matters in Vue Apps
 
 Even though Vue apps are interactive and reactive, bugs still creep in — like:
 
@@ -441,11 +406,11 @@ Even though Vue apps are interactive and reactive, bugs still creep in — like:
 * Future code changes don’t break existing features
 * Peace of mind before deployment 🚀
 
----
 
 ## 🧪 Types of Testing in Vue
-
----
+1. Unit testing
+2. End-to-End (E2E) Testing
+3. Cross-Browser Testing
 
 ### 🔹 1. **Unit Testing** (Focuses on *one* component or function)
 
@@ -453,7 +418,7 @@ Even though Vue apps are interactive and reactive, bugs still creep in — like:
 * Make sure props, events, methods, and rendering all work as expected.
 * **Fast** and **isolated** — doesn’t need a backend or browser.
 
-### ✅ Example:
+#### 🫴**eg#:**
 
 ```js
 // MyButton.vue
@@ -474,8 +439,6 @@ test('emits "clicked" when clicked', () => {
 });
 ```
 
----
-
 ### 🔹 2. **End-to-End (E2E) Testing**
 
 * Simulates **real user actions** in a browser.
@@ -493,8 +456,6 @@ cy.get('button[type=submit]').click();
 cy.url().should('include', '/dashboard');
 ```
 
----
-
 ### 🔹 3. **Cross-Browser Testing**
 
 * Checks that your app works correctly in different browsers (Chrome, Firefox, Safari, Edge)
@@ -502,12 +463,8 @@ cy.url().should('include', '/dashboard');
 
 ⚠️ **Cost vs benefit:** Supporting every old browser may not be worth it.
 
----
 
 # ⚙️ Setting Up Testing in Vue
-
----
-
 ## 🔧 Tools for Unit Testing:
 
 | Tool              | Use                                               |
@@ -517,7 +474,6 @@ cy.url().should('include', '/dashboard');
 | `mocha` + `chai`  | Alternative testing framework (more customizable) |
 | `vitest`          | Lightweight test runner for Vite projects         |
 
----
 
 ## ✅ How Unit Testing Works
 
@@ -527,7 +483,6 @@ cy.url().should('include', '/dashboard');
 2. **Simulate** user actions (click, input, etc.)
 3. **Check** the result (rendered text, emitted events, etc.)
 
----
 
 ## 🧩 Example: Testing a Login Form
 
@@ -559,8 +514,6 @@ export default {
 </script>
 ```
 
----
-
 ### 🔹 LoginForm.spec.js
 
 ```js
@@ -579,8 +532,6 @@ test('emits login with email and password', async () => {
   });
 });
 ```
-
----
 
 ## 📦 Test Structure
 
@@ -604,8 +555,6 @@ npm run test:unit
 npm run test:e2e
 ```
 
----
-
 ## 🧪 Creating Test Fixtures
 
 * Fixtures are **sample/mock data** used during tests
@@ -617,8 +566,6 @@ const mockUser = {
   email: "alok@iitm.ac.in",
 };
 ```
-
----
 
 ## 🔁 Test Suite
 
@@ -632,8 +579,6 @@ describe('UserCard.vue', () => {
 });
 ```
 
----
-
 ## ✅ Summary Table
 
 | Type of Test  | Focus                 | Tools                  | Scope                       |
@@ -641,8 +586,6 @@ describe('UserCard.vue', () => {
 | Unit Test     | Individual components | Jest, Vue Test Utils   | Fast, isolated              |
 | E2E Test      | Whole app, user flow  | Cypress, Playwright    | Real UI testing             |
 | Cross-browser | Compatibility         | Manual, cloud services | Rarely full coverage needed |
-
----
 
 ## 🔗 Helpful Links
 
