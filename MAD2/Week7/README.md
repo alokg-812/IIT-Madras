@@ -15,7 +15,6 @@ Examples:
 
 > "How do different parts of my app share, update, and keep track of data — in a clean and manageable way?"
 
----
 
 ## 💡 Core Idea:
 
@@ -24,7 +23,6 @@ Examples:
 
 When the state changes, the UI should automatically update.
 
----
 
 # 📦 Basic Structure of State Management (Unidirectional Flow)
 
@@ -35,13 +33,12 @@ State → View → Action → State
 ```
 
 | Element      | Role                                                               |
-| ------------ | ------------------------------------------------------------------ |
+| | |
 | **State**    | The data that drives the UI (cart items, user info)                |
 | **View**     | What the user sees, based on the current state                     |
 | **Action**   | What the user does (clicks, inputs, etc.) to trigger changes       |
 | **Mutation** | (in Vuex) A **committed** function that actually updates the state |
 
----
 
 # 🧩 State Sharing Between Components
 
@@ -68,7 +65,6 @@ But if you have 10+ components — some nested, some sibling — this becomes:
 
 > **Too complex. Too many props. Too many events. Too hard to debug.**
 
----
 
 # 🔥 The Problem: Global State Needed
 
@@ -80,7 +76,6 @@ You **could** use global variables, but:
 ❌ Hard to track changes
 ❌ Easily breakable & messy
 
----
 
 # ✅ The Vuex Solution
 
@@ -92,7 +87,6 @@ It offers:
 * Centralized & predictable updates
 * Tools for debugging and time-travel
 
----
 
 ## 📂 Structure of a Vuex Store
 
@@ -119,12 +113,11 @@ const store = new Vuex.Store({
 });
 ```
 
----
 
 ## 🧠 Key Concepts in Vuex
 
 | Concept     | Description                                          |
-| ----------- | ---------------------------------------------------- |
+|-- |- |
 | `state`     | The actual data (global store)                       |
 | `getters`   | Like computed properties for store                   |
 | `mutations` | Synchronous functions to modify state                |
@@ -133,7 +126,6 @@ const store = new Vuex.Store({
 | `commit`    | Trigger a mutation                                   |
 | `store`     | The Vuex instance you attach to your Vue app         |
 
----
 
 ## 🔄 How It Works in Practice
 
@@ -161,7 +153,6 @@ this.$store.dispatch('incrementAsync');
 this.$store.getters.doubleCount;
 ```
 
----
 
 ## 🛠️ Vuex in a Component
 
@@ -189,7 +180,6 @@ export default {
 </script>
 ```
 
----
 
 # 🔧 Advanced Concepts
 
@@ -212,24 +202,22 @@ With Vue Devtools, you can:
 * Replay them step by step
 * Debug like a pro 🕵️‍♂️
 
----
 
 # 🤔 Why Not Always Use Vuex?
 
 | Pros                                 | Cons                        |
-| ------------------------------------ | --------------------------- |
+| | |
 | Centralized state = easier to debug  | Slightly more complex setup |
 | Better for large apps                | Overkill for small apps     |
 | Works well with Vue Router, Devtools | Adds extra boilerplate      |
 
 Use Vuex **when multiple unrelated components** need to access or modify the same data.
 
----
 
 ## 🧠 Related State Management Patterns
 
 | Pattern              | Key Idea                                                       |
-| -------------------- | -------------------------------------------------------------- |
+|-- |-- |
 | **Flux** (Facebook)  | Unidirectional flow: View → Action → Dispatcher → Store        |
 | **Redux**            | Single state tree, pure functions only, used with React        |
 | **Elm Architecture** | Functional, structured: Model → View → Update (inspired Redux) |
@@ -261,13 +249,11 @@ So we can build a **Single Page Application (SPA)** where:
 * The page never fully reloads
 * Clicking a link just **replaces a part of the page** with a different Vue component
 
----
 
 # 🚦 Introducing `vue-router`
 
 This is the official library used in Vue.js to handle client-side routing.
 
----
 
 ## 🛠 How Vue Routing Works (Step-by-Step)
 
@@ -316,19 +302,17 @@ new Vue({
 }).$mount('#app');
 ```
 
----
 
 ## 🧠 Core Components of Vue Router
 
 | Feature              | Purpose                                                |
-| -------------------- | ------------------------------------------------------ |
+|-- | |
 | `<router-view>`      | Where the matched component is displayed               |
 | `<router-link>`      | Replaces `<a>` tag to avoid page reload                |
 | `VueRouter` instance | Manages route definitions and history                  |
 | `$route`             | The route object (contains path, params, query)        |
 | `$router`            | The router instance (use to programmatically navigate) |
 
----
 
 # 📦 Dynamic Routes
 
@@ -347,7 +331,6 @@ const routes = [
 * `/user/10` will show: **User ID: 10**
 * Use `this.$route.params.id` to access dynamic segments.
 
----
 
 # 🔍 Watching Route Changes
 
@@ -362,7 +345,6 @@ watch: {
 }
 ```
 
----
 
 # 🔄 Programmatic Navigation
 
@@ -373,7 +355,6 @@ this.$router.push('/about');
 this.$router.push({ name: 'user', params: { id: 5 } });
 ```
 
----
 
 # ⚡ Advanced Features
 
@@ -431,7 +412,6 @@ const router = new VueRouter({
 
 ⚠️ Requires proper server config (e.g., redirecting all paths to `index.html`).
 
----
 
 # 🔥 Why Routing is Crucial in SPAs
 
@@ -445,7 +425,6 @@ Instead of loading multiple pages from server:
 
 Routing makes this possible without constantly fetching full pages.
 
----
 
 # ✅ Example Structure
 
@@ -457,33 +436,30 @@ App.vue
       ├── User.vue (dynamic with :id)
 ```
 
----
 
 # 🚧 Challenges with Routing
 
 | Issue                                                                 | Solution                                         |
-| --------------------------------------------------------------------- | ------------------------------------------------ |
+| | |
 | Search engines may not index dynamic pages                            | Use server-side rendering or prerendering        |
 | Browser back/forward history may behave unexpectedly                  | Use Vue Router’s built-in history API            |
 | Deep linking (refreshing on nested route) may break in `history` mode | Configure web server to redirect to `index.html` |
 
----
 
 # 🧪 Real-World Use Cases
 
 | Feature             | Example                                                         |
-| ------------------- | --------------------------------------------------------------- |
+|- | |
 | Dynamic Route       | `/product/42`                                                   |
 | Nested Routes       | `/dashboard/settings`                                           |
 | Navigation Guards   | Stop users if not logged in                                     |
 | Lazy loading routes | Load code only when user navigates there (improves performance) |
 
----
 
 ## 🚀 Summary
 
 | Topic               | Description                                     |
-| ------------------- | ----------------------------------------------- |
+|- |-- |
 | **Vue Router**      | Enables SPA-like page navigation                |
 | **`<router-view>`** | Placeholder where matched component is rendered |
 | **`<router-link>`** | Vue-aware `<a>` tag                             |
@@ -514,13 +490,12 @@ A `Single Page Application (SPA)` is a type of web app that:
 ## 🤯 Traditional vs SPA
 
 | Traditional Web App             | SPA                                       |
-| ------------------------------- | ----------------------------------------- |
+|- |-- |
 | Loads full HTML page every time | Loads only one page, then updates content |
 | Slow transitions                | Fast, snappy transitions                  |
 | Server renders each page        | Browser renders dynamically using JS      |
 | Easier SEO                      | Harder SEO (handled with extra tools)     |
 
----
 
 ## 🧩 How SPAs Work Behind the Scenes
 
@@ -538,12 +513,11 @@ A `Single Page Application (SPA)` is a type of web app that:
 3. Only a specific **component** or **section** is updated
 4. No page reload!
 
----
 
 ## ⚙️ Tools that Power SPAs
 
 | Tool            | Use                          |
-| --------------- | ---------------------------- |
+| |- |
 | Vue Router      | Page navigation              |
 | Axios / Fetch   | Get data from server         |
 | Vuex            | Manage global state          |
@@ -551,7 +525,6 @@ A `Single Page Application (SPA)` is a type of web app that:
 | History API     | Manage back/forward behavior |
 | Devtools        | Debugging                    |
 
----
 
 ## 💾 How SPAs Manage Loading and Memory
 
@@ -567,23 +540,20 @@ A `Single Page Application (SPA)` is a type of web app that:
 * **Caching** using `localStorage` or IndexedDB
 * Use **service workers** to cache files offline (PWA)
 
----
 
 ## 🔄 Impact on the Server
 
 | Server Role               | Description                                                     |
-| ------------------------- | --------------------------------------------------------------- |
+|- | |
 | **Thin stateless server** | Only gives back API data (like JSON), no full HTML rendering    |
 | **Thick server**          | Maintains full session state (used in legacy apps)              |
 | **Hybrid**                | Server gives partial HTML or preloads some data for performance |
 
 💡 SPAs often prefer **stateless APIs** (e.g., REST/GraphQL) for easier scaling and maintenance.
 
----
 
 # 🛰️ PROGRESSIVE WEB APPS (PWAs)
 
----
 
 ## 🌍 What is a PWA?
 
@@ -595,35 +565,31 @@ A **PWA** is a modern web app that behaves like a **native mobile app**:
 
 **SPAs ≠ PWAs**, but many PWAs are built as SPAs.
 
----
 
 ## 🧰 Features of PWAs
 
 | Feature          | Description                               |
-| ---------------- | ----------------------------------------- |
+|- |-- |
 | **Offline Mode** | Via service workers and caching           |
 | **Installable**  | Add to home screen like a native app      |
 | **Web Manifest** | Describes app metadata (name, icon, etc.) |
 | **Responsive**   | Works well on both desktop and mobile     |
 | **Fast**         | Loads assets quickly and stays in memory  |
 
----
 
 ## 🧱 Technologies Used in PWAs
 
 | Tech                | Purpose                                                     |
-| ------------------- | ----------------------------------------------------------- |
+|- |-- |
 | **Service Workers** | Background scripts for caching, offline, push notifications |
 | **Web Manifest**    | Metadata for how the app behaves when installed             |
 | **Web Storage**     | Store small data (settings, cache, etc.)                    |
 | **WebAssembly**     | Run compiled code in the browser (for performance)          |
 | **Web Workers**     | Run JS in a background thread                               |
 
----
 
 # 🛠️ WEB WORKERS
 
----
 
 ## 👷 What is a Web Worker?
 
@@ -656,7 +622,6 @@ onmessage = () => {
 };
 ```
 
----
 
 ## 📦 Web Workers + Offline = Awesome UX
 
@@ -667,25 +632,22 @@ Imagine this flow:
 ✅ App still works while offline
 ✅ Service worker syncs changes when back online
 
----
 
 # 📉 CHALLENGES WITH SPAs
 
----
 
 | Challenge                            | Explanation                                                |
-| ------------------------------------ | ---------------------------------------------------------- |
+| |- |
 | **SEO (Search Engine Optimization)** | Harder because SPAs don’t have multiple real HTML pages    |
 | **Browser History Confusion**        | Need to manage back/forward using Vue Router & History API |
 | **Analytics Tracking**               | Harder because SPAs don’t always trigger full pageviews    |
 | **Large Initial Bundle**             | SPAs can take longer to load upfront (fix: code splitting) |
 
----
 
 # 🆚 Web Apps vs Native Apps
 
 | Feature      | Web App (SPA/PWA)            | Native App                   |
-| ------------ | ---------------------------- | ---------------------------- |
+| |- |- |
 | Built using  | HTML, CSS, JS                | Swift, Kotlin, Flutter, etc. |
 | Platform     | Any browser                  | Specific (Android, iOS)      |
 | Installation | Optional (Add to Home)       | From App Store / Play Store  |
@@ -694,12 +656,11 @@ Imagine this flow:
 | Development  | Faster & easier              | Slower but more powerful     |
 | Updates      | Simple (just push code)      | Manual app updates needed    |
 
----
 
 ## 🧠 Summary: How to Think About SPAs, Vue, and PWAs
 
 | Concept            | What it Means                                     |
-| ------------------ | ------------------------------------------------- |
+| |- |
 | **SPA**            | A dynamic, fast web app with no full-page reloads |
 | **Vue Router**     | Handles internal page-like navigation             |
 | **Vuex**           | Manages global app state                          |
@@ -707,7 +668,6 @@ Imagine this flow:
 | **Web Worker**     | Background JS thread for async tasks              |
 | **Service Worker** | Caches resources and enables offline behavior     |
 
----
 
 # ✅ Final Thoughts
 
