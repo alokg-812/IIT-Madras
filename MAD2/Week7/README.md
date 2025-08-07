@@ -51,7 +51,6 @@ State → View → Action → State
 ```
 
 ## ✅ Child to Parent:
-
 * Use `$emit` to send event back up
 
 ```vue
@@ -59,37 +58,29 @@ this.$emit('updateMessage', newValue);
 ```
 
 ### ⚠️ Problem:
-
-This works fine for **small apps**.
-But if you have 10+ components — some nested, some sibling — this becomes:
+* This works fine for **small apps**.
+* But if you have 10+ components — some nested, some sibling — this becomes:
 
 > **Too complex. Too many props. Too many events. Too hard to debug.**
 
-
-# 🔥 The Problem: Global State Needed
-
+## 🔥 The Problem: Global State Needed
 Imagine a cart icon in the header should update when an item is added in a deep product page.
 
-You **could** use global variables, but:
-
-❌ Any component can change them
-❌ Hard to track changes
-❌ Easily breakable & messy
-
-
-# ✅ The Vuex Solution
-
-**Vuex** is Vue’s official state management library.
-
-It offers:
-
-* A **single global store**
-* Centralized & predictable updates
-* Tools for debugging and time-travel
+We **could** use global variables, but: <br>
+❌ Any component can change them <br>
+❌ Hard to track changes <br>
+❌ Easily breakable & messy <br>
 
 
-## 📂 Structure of a Vuex Store
+## The Vuex Solution
+* `Vuex` is Vue’s official state management library.
+* It offers:
+  * A `single global store`
+  * Centralized & predictable updates
+  * Tools for debugging and time-travel
 
+
+### Structure of a Vuex Store
 ```js
 const store = new Vuex.Store({
   state: {
@@ -114,8 +105,7 @@ const store = new Vuex.Store({
 ```
 
 
-## 🧠 Key Concepts in Vuex
-
+### Key Concepts in Vuex
 | Concept     | Description                                          |
 |-- |- |
 | `state`     | The actual data (global store)                       |
@@ -127,34 +117,34 @@ const store = new Vuex.Store({
 | `store`     | The Vuex instance you attach to your Vue app         |
 
 
-## 🔄 How It Works in Practice
+### How It Works in Practice
+* Accessing State
+* Committing a Mutation
+* Dispatching an Action
+* Using Getters
 
-### Accessing State
-
+#### Accessing State
 ```js
 this.$store.state.count;
 ```
 
-### Committing a Mutation
-
+#### Committing a Mutation
 ```js
 this.$store.commit('increment');
 ```
 
 ### Dispatching an Action
-
 ```js
 this.$store.dispatch('incrementAsync');
 ```
 
 ### Using Getters
-
 ```js
 this.$store.getters.doubleCount;
 ```
 
 
-## 🛠️ Vuex in a Component
+### Vuex in a Component
 
 ```vue
 <template>
@@ -181,10 +171,9 @@ export default {
 ```
 
 
-# 🔧 Advanced Concepts
+## Advanced Concepts
 
-### ✅ **Actions** – for async operations
-
+### Actions – for async operations
 ```js
 actions: {
   async fetchUser({ commit }) {
@@ -194,10 +183,10 @@ actions: {
 }
 ```
 
-### ✅ **Time Travel Debugging**
+### Time Travel Debugging
 
-With Vue Devtools, you can:
-
+With Vue Devtools, We can:
+                
 * See all mutations
 * Replay them step by step
 * Debug like a pro 🕵️‍♂️
