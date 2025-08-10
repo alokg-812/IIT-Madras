@@ -18,3 +18,20 @@ RollNo,Subject1,Subject2,Subject3,So on...
 - Write an awk script to print the total number of fields in a csv file with the field separator as comma (,). 
 - Print only the number and nothing else.
 - [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week9/GrPA/GrPA1C.bash)
+
+
+# GrPA 1D
+- Write an Awk Script to print all the lines whose starting and ending character is a digit.
+- Also print the count of these lines(only the number) on a new line at the last in your output. The field separator in the file is comma (,).
+- Note, that here it is asked to write an Awk script. Read the Programming questions instructions for more clarity.
+- [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week9/GrPA/GrPA1D.bash)
+
+
+
+
+
+
+
+
+
+
