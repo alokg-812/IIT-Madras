@@ -1,5 +1,5 @@
 # Week 9 Asynchronous Tasks
-The problem of how to schedule | execute asynchronous tasks that was needed to be part of an overall web application
+The problem of how to schedule/execute asynchronous tasks that was needed to be part of an overall web application
 
 Before getting into the detail of how asynchronous part is done, let's have a look of how web servers work and why we need to look for different ways by which we have need to execute long running tasks.
 
@@ -9,77 +9,52 @@ A web server is a software that:
 * Processes the request (serving an HTML page, data, or file).
 * Sends back an HTTP response.
 
-### 🔹 2. Basic Working of a Simple HTTP Server
+### Blocking vs Threaded Servers
 
-Let’s break it into steps:
-
-| Step | Action                                                         |
-| ---- | -------------------------------------------------------------- |
-| 1️⃣  | Open a port (usually 80 or 5000) to **listen** for connections |
-| 2️⃣  | Wait for a client to connect                                   |
-| 3️⃣  | When a request arrives, read the **HTTP request**              |
-| 4️⃣  | **Process the request** (example: fetch a file, run a script)  |
-| 5️⃣  | Send back an **HTTP response**                                 |
-| 6️⃣  | Go back to step 2 to handle next request                       |
-
-> ❗ In this mode, the server handles one request at a time if no concurrency is involved.
-
----
-
-### 🔹 3. Blocking vs Threaded Servers
-
-#### 🔸 Blocking Server (Flask non-threaded mode)
-
-* Only **one request** is processed at a time.
-* New requests must **wait** until the current one is finished.
+#### Blocking Server (Flask non-threaded mode)
+* Only `one request` is processed at a time.
+* New requests must `wait` until the current one is finished.
 * Example use: Testing or minimal apps.
 * 🚫 Bad for real-world web apps with multiple users.
+> **🫴eg#01:** If one user uploads a big file, **all other users are blocked**. <br>
+<img width="734" height="997" alt="image" src="https://github.com/user-attachments/assets/3fa20b3d-becb-4dbe-bcf8-bc9a98cac562" /> <br>
+> _The above image shows that once a command is done, then only the next command is starting its execution._ 
 
-> Example: If one user uploads a big file, **all other users are blocked**.
 
-#### 🔸 Threaded Server (Flask default mode)
-
-* Flask runs in **threaded mode by default**.
-* Every request spawns a **new thread**.
+#### Threaded Server (Flask default mode)
+* Flask runs in **threaded mode by default**`(app.run(threaded=True))`.
+* Every request spawns a _new thread_.
 * Threads run concurrently.
 * Requests are **not blocked** by each other (to some extent).
+> This improves performance, but too many threads can overload memory/CPU. <br>
+<img width="689" height="983" alt="image" src="https://github.com/user-attachments/assets/5a125c75-841c-493e-8935-0c73f178ed1e" /> <br>
+> _The above image shows that once a command is send, it start executing that command and taking new commands simultaneously._ 
 
-> This improves performance, but too many threads can overload memory/CPU.
 
----
+### Key Concepts: Concurrency vs Parallelism
+| Concept       | Meaning                                                                |
+| ------------- | ---------------------------------------------------------------------- |
+| `Concurrency` | Multiple tasks *appear* to run at the same time (via thread switching) |
+| `Parallelism` | Multiple tasks run *truly simultaneously* (requires multi-core CPU)    |
+> **_Threads are `concurrent`, parallelism depends on hardware._**
 
-### 🔹 4. Key Concepts: Concurrency vs Parallelism
-
-| Concept         | Meaning                                                                |
-| --------------- | ---------------------------------------------------------------------- |
-| **Concurrency** | Multiple tasks *appear* to run at the same time (via thread switching) |
-| **Parallelism** | Multiple tasks run *truly simultaneously* (requires multi-core CPU)    |
-
-Flask’s threaded mode offers **concurrency**, not true parallelism.
-
----
-
-### 🔹 5. Problem with Long-Running Tasks
+### Problem with Long-Running Tasks
 
 Let’s say your app does face recognition when a photo is uploaded.
 
 * That process is **CPU intensive**.
 * Takes **a few seconds or more** to finish.
 * If handled directly by Flask:
-
   * It will **block** the current thread.
   * Other users may experience **slowdowns** or **timeouts**.
   * Too many requests will **overload the server**.
 
----
 
-### 🔹 6. What Should Web Servers Actually Do?
-
+### What Should Web Servers Actually Do?
 A web server should **not** do:
-
-* Heavy computation (e.g., machine learning, face detection).
-* Long-running tasks (e.g., sending thousands of emails).
-* File processing or API polling.
+  * Heavy computation (e.g., machine learning, face detection).
+  * Long-running tasks (e.g., sending thousands of emails).
+  * File processing or API polling.
 
 Instead, a web server should:
 ✅ Receive the request
