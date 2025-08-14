@@ -36,7 +36,7 @@ find . -name "*.txt" -type f
 Finds all `.txt` files in current directory.
 <img width="1659" height="252" alt="image" src="https://github.com/user-attachments/assets/173dc2b6-e680-43ca-a034-03a348df0997" />
 
-## 2. File Packaging Commands (`tar`, `gzip`, etc.)
+### File Packaging Commands (`tar`, `gzip`, etc.)
 These are used for:
 * `Combining` files into one archive
 * `Compressing` them to save space
@@ -60,36 +60,28 @@ gzip archive.tar
 tar -xvf archive.tar
 tar -xvzf archive.tar.gz
 ```
-
 * `x` = extract
 * `z` = decompress gzip while extracting
+<img width="1909" height="305" alt="image" src="https://github.com/user-attachments/assets/bf284ecf-6979-49e9-bc52-95090b55fdef" />
 
 **Other compressors:**
 
 * `bzip2`, `xz`, `7z` – different algorithms for better compression ratios.
 
 
-## **3. `make` – Automating Conditional Actions**
+### `make` – Automating Conditional Actions
 
 * `make` is usually for compiling programs, but it can automate **any repetitive tasks**.
 * Uses a `Makefile` (or `make.file`).
-
-**Example Makefile:**
-
+**eg#:**
 ```makefile
 # Variables
-TMP_FILES = *.o *.aux
-
-.PHONY : clean
-
-# A target
-build:
-	echo "Building project..."
-	touch output.txt
-
-# Clean target
+TMP_FILES = *.bak
+.PHONY: backup clean
+backup:
+        tar -cvf backups/mybackup.tar data
 clean:
-	rm -f $(TMP_FILES)
+        rm -f $(TEMP_FILES)
 ```
 
 **Run:**
@@ -101,80 +93,13 @@ make clean
 
 * `.PHONY` means it's not a real file, just a command label.
 * `make` only runs a target if its prerequisites have changed (saves time).
+<img width="1683" height="517" alt="image" src="https://github.com/user-attachments/assets/13b5f136-cea9-41cc-816e-02d9f57a3a52" />
 
----
 
-## **💻 Practice Setup**
+## Lec 2
+*__Shell Scripts__* - creating our own commands.
 
-Let’s make a **practice folder** with dummy files so you can try each command.
 
-**Step 1: Create Practice Folder & Files**
-
-```bash
-mkdir ~/practice_cmds
-cd ~/practice_cmds
-
-# Create files
-touch report1.txt report2.txt image1.png script.sh notes.md
-mkdir data backups
-touch data/data1.csv data/data2.csv
-```
-
-**Step 2: Try `find` Commands**
-
-```bash
-# Find all txt files
-find . -name "*.txt"
-
-# Find only in 'data' folder
-find data -type f
-
-# Find files accessed in last 2 days
-find . -atime -2
-
-# Find and delete all CSV files (careful!)
-find . -name "*.csv" -exec rm {} \;
-```
-
-**Step 3: Try Packaging**
-
-```bash
-# Create tar archive of data folder
-tar -cvf data_backup.tar data/
-
-# Compress it
-gzip data_backup.tar
-
-# Extract it
-tar -xvzf data_backup.tar.gz
-```
-
-**Step 4: Try `make`**
-
-```bash
-nano Makefile
-```
-
-Paste:
-
-```makefile
-TMP_FILES = *.bak
-
-.PHONY: backup clean
-
-backup:
-	tar -cvf backups/mybackup.tar data/
-
-clean:
-	rm -f $(TMP_FILES)
-```
-
-Run:
-
-```bash
-make backup
-make clean
-```
 
 
 
