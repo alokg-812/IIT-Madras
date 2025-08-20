@@ -17,7 +17,7 @@ A web server is a software that:
 * Example use: Testing or minimal apps.
 * 🚫 Bad for real-world web apps with multiple users.
 > **🫴eg#01:** If one user uploads a big file, **all other users are blocked**. <br>
-> [Code](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week9/threaded_mode.py) <br>
+> [Code: non_threaded.py](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week9/non_threaded_mode.py) <br>
 <img width="734" height="997" alt="image" src="https://github.com/user-attachments/assets/3fa20b3d-becb-4dbe-bcf8-bc9a98cac562" /> <br>
 > _The above image shows that once a command is done, then only the next command is starting its execution._ 
 
@@ -28,7 +28,7 @@ A web server is a software that:
 * Threads run concurrently.
 * Requests are **not blocked** by each other (to some extent).
 > This improves performance, but too many threads can overload memory/CPU. <br>
-> [Code](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week9/threaded_mode.py) <br>
+> [Code: threaded.py](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week9/threaded_mode.py) <br>
 <img width="689" height="983" alt="image" src="https://github.com/user-attachments/assets/5a125c75-841c-493e-8935-0c73f178ed1e" /> <br>
 > _The above image shows that once a command is send, it start executing that command and taking new commands simultaneously._ 
 
