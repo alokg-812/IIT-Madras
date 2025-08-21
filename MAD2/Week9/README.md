@@ -42,7 +42,7 @@ A web server is a software that:
 
 ### Problem with Long-Running Tasks
 
-Let’s say your app does face recognition when a photo is uploaded.
+Let’s say an app does face recognition when a photo is uploaded.
 
 * That process is **CPU intensive**.
 * Takes **a few seconds or more** to finish.
@@ -65,64 +65,6 @@ Instead, a web server should:
 ✅ Return a quick response like “Processing…”
 ✅ Optionally update the user later
 
----
-
-## 📝 NOTES FOR REVISION / EXAM
-
----
-
-### 🔸 Web Server Basics
-
-* Listens on a port (like 80 or 5000)
-* Accepts HTTP requests from clients
-* Sends back HTTP responses (HTML, JSON, files)
-
----
-
-### 🔸 Flask Server Modes
-
-| Mode     | Description                     | Pros                   | Cons                                    |
-| -------- | ------------------------------- | ---------------------- | --------------------------------------- |
-| Blocking | Processes one request at a time | Simple                 | Other users must wait                   |
-| Threaded | Each request in separate thread | Handles multiple users | Can overload server if too many threads |
-
----
-
-### 🔸 Key Definitions
-
-* **Blocking**: Server waits until task finishes before handling next request.
-* **Threading**: Creates separate threads to allow concurrent handling of multiple requests.
-* **Concurrency**: Tasks progress simultaneously but not at the same instant.
-* **Parallelism**: Tasks run at the same time on different cores.
-
----
-
-### 🔸 When Not to Use Flask Directly for a Task
-
-Examples of long-running or blocking tasks:
-
-* Image processing (face recognition)
-* Large file uploads
-* Sending emails to a large list
-* Generating reports
-* Crawling external APIs
-
----
-
-### 🔸 Best Practices
-
-* Use Flask only for quick response logic.
-* Offload heavy tasks to background workers (like Celery).
-* Use messaging systems (like Redis, RabbitMQ) to pass tasks to workers.
-* Always consider user experience – don’t make users wait for long operations.
-
----
-
-## ✅ Summary in One Sentence
-
-> A web server like Flask should **only handle user requests and responses quickly**, and must **offload long or resource-intensive tasks** to background workers or async systems.
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Message Queues
 
