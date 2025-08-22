@@ -287,7 +287,7 @@ sayhi World
 * Real-world scripts: backups, monitoring, installing, etc.
 * Demonstrates combining variables, loops, conditions, functions.
 
-⚡ **Why Needed?**
+* **Why Needed?**
 
 * This is where **shell scripting power** shows up: automation of system tasks.
 
@@ -392,7 +392,6 @@ echo "All together: $*"
 ```
 
 Run:
-
 ```bash
 ./args.sh apple banana cherry
 ```
@@ -422,23 +421,25 @@ echo "Files in this folder: $files"
 * Syntax:
 
 ```bash
-for var in list; do
+for var in list;
+do
    commands
 done
 ```
 
-⚡ Needed to repeat over lists (files, numbers, users).
+* Needed to repeat over lists (files, numbers, users).
 
-💻 **Example:**
-
+* **🫴eg#16:** 
 ```bash
-for i in 1 2 3; do echo "Number $i"; done
+for i in 1 2 3;
+do
+	echo "Number $i";
+done
 ```
 
 📖 **Case statement**
 
 * Syntax:
-
 ```bash
 case var in
    pattern1) commands ;;
@@ -446,10 +447,9 @@ case var in
 esac
 ```
 
-⚡ Needed to match options (like menus).
+* Needed to match options (like menus).
 
-💻 **Example:**
-
+* **🫴eg#17:** 
 ```bash
 read -p "Enter y/n: " ans
 case $ans in
@@ -459,8 +459,7 @@ case $ans in
 esac
 ```
 
-
-## 🔥 Page 15: **Conditions & Expressions**
+### Conditions & Expressions
 
 📖 **Ways to test conditions**
 
@@ -469,12 +468,10 @@ esac
 * `[[ expr ]]` for advanced conditions.
 * Arithmetic: `(( expr ))`.
 
-⚡ **Why Needed?**
+* **Why Needed?**
+	* To control script flow based on checks.
 
-* To control script flow based on checks.
-
-💻 **Examples:**
-
+* **🫴eg#18:** 
 ```bash
 # Check file exists
 if [ -e myfile.txt ]; then
@@ -494,9 +491,7 @@ if [ "$str" = "hello" ]; then
 fi
 ```
 
-## 🔥 Page 16: **Numeric Comparisons (test)**
-
-📖 **Explanation**
+### Numeric Comparisons (test)
 Shell doesn’t use `>` `<` for numbers directly — it uses **flags** with `test` or `[ ]`.
 
 * `-eq` → equal
@@ -506,11 +501,10 @@ Shell doesn’t use `>` `<` for numbers directly — it uses **flags** with `tes
 * `-lt` → less than
 * `-le` → less or equal
 
-⚡ **Why Needed?**
-For comparing **numbers** in scripts (loops, counters, input validation).
+* **Why Needed?**
+	* For comparing **numbers** in scripts (loops, counters, input validation).
 
-💻 **Practice:**
-
+* **🫴eg#19:** 
 ```bash
 #!/bin/bash
 n1=10
@@ -521,23 +515,17 @@ if [ $n1 -lt $n2 ]; then
 fi
 ```
 
----
-
-## 🔥 Page 17: **String Comparisons**
-
-📖 **Explanation**
-
+### String Comparisons
 * `=` → equal
 * `!=` → not equal
 * `<` and `>` → lexicographic comparison
 * `-n str` → length > 0
 * `-z str` → length = 0
 
-⚡ **Why Needed?**
-To validate user input, check filenames, compare text.
+* **Why Needed?**
+	* To validate user input, check filenames, compare text.
 
-💻 **Practice:**
-
+* **🫴eg#19:** 
 ```bash
 #!/bin/bash
 str="hello"
@@ -552,12 +540,7 @@ else
 fi
 ```
 
----
-
-## 🔥 Page 18: **Unary File Comparisons**
-
-📖 **Explanation**
-
+### Unary File Comparisons
 * `-e file` → exists
 * `-d file` → is directory
 * `-f file` → is regular file
@@ -568,11 +551,10 @@ fi
 * `-O file` → owned by current user
 * `-G file` → same group as user
 
-⚡ **Why Needed?**
-To make scripts **file-aware** (backup, monitoring, automation).
+* **Why Needed?**
+	* To make scripts **file-aware** (backup, monitoring, automation).
 
-💻 **Practice:**
-
+* **🫴eg#20:** 
 ```bash
 #!/bin/bash
 file="myfile.txt"
@@ -583,20 +565,14 @@ else
 fi
 ```
 
----
-
-## 🔥 Page 19: **Binary File Comparisons**
-
-📖 **Explanation**
-
+### Binary File Comparisons
 * `file1 -nt file2` → file1 newer
 * `file1 -ot file2` → file1 older
 
-⚡ **Why Needed?**
-Useful for **backup or sync scripts** (check if a file needs updating).
+* **Why Needed?**
+	* Useful for **backup or sync scripts** (check if a file needs updating).
 
-💻 **Practice:**
-
+* **🫴eg#21:** 
 ```bash
 if [ file1.txt -nt file2.txt ]; then
    echo "file1.txt is newer"
@@ -605,18 +581,13 @@ else
 fi
 ```
 
----
+### While Loop
+Runs while condition is **true**. It is used:
+	1. For reading logs, 
+ 	2. waiting for events, or 
+  	3. looping until a task finishes.
 
-## 🔥 Page 20: **While Loop**
-
-📖 **Explanation**
-Runs while condition is **true**.
-
-⚡ **Why Needed?**
-For reading logs, waiting for events, or looping until a task finishes.
-
-💻 **Practice:**
-
+* **🫴eg#22:** 
 ```bash
 count=1
 while [ $count -le 5 ]; do
@@ -625,18 +596,13 @@ while [ $count -le 5 ]; do
 done
 ```
 
----
-
-## 🔥 Page 21: **Until Loop**
-
-📖 **Explanation**
+### Until Loop
 Runs until condition becomes **true** (opposite of `while`).
 
-⚡ **Why Needed?**
+* **Why Needed?**
 For retry logic (keep running until success).
 
-💻 **Practice:**
-
+* **🫴eg#23:** 
 ```bash
 num=1
 until [ $num -gt 5 ]; do
@@ -645,12 +611,7 @@ until [ $num -gt 5 ]; do
 done
 ```
 
----
-
-## 🔥 Page 22: **Functions in Shell**
-
-📖 **Explanation**
-
+### Functions in Shell
 * Define once, call multiple times.
 * Syntax:
 
@@ -662,13 +623,10 @@ myfunc() {
 
 * Must be **defined before calling**.
 
-⚡ **Why Needed?**
-
-* To reuse logic (like mini-programs inside your script).
-* Keeps code organized.
-
-💻 **Practice:**
-
+* **Why Needed?**
+	* To reuse logic (like mini-programs inside your script).
+	* Keeps code organized.
+* **🫴eg#24:** 
 ```bash
 #!/bin/bash
 greet() {
@@ -679,39 +637,12 @@ greet Alok
 greet World
 ```
 
----
-
-## 🔥 Page 23: **Wrap-Up / Explore More**
-
-📖 **Explanation**
-
+### Wrap-Up / Explore More
 * The slides encourage you to **explore with the commands learned so far**.
 * Features like **arrays, advanced string handling, trap, subshells, etc.** exist but were not covered.
 
-⚡ **Why Needed?**
-
-* Shell scripting is very deep — these basics let you start **automation & real-world scripting**.
-* Next steps: learn `sed`, `awk`, `grep`, and integrate with scripts.
-
-💻 **Mini Practice Challenge:**
-
-1. Write a script that:
-
-   * Accepts a filename as argument.
-   * Checks if it exists and is readable.
-   * Counts number of lines.
-   * Prints result.
-
-👉 Example:
-
-```bash
-#!/bin/bash
-if [ -r "$1" ]; then
-   lines=$(wc -l < "$1")
-   echo "$1 has $lines lines"
-else
-   echo "File not readable or doesn’t exist"
-fi
-```
+* **Why Needed?**
+	* Shell scripting is very deep — these basics let you start **automation & real-world scripting**.
+	* Next steps: learn `sed`, `awk`, `grep`, and integrate with scripts.
 
 
