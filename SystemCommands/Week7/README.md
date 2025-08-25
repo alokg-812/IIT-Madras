@@ -8,6 +8,8 @@
   * Heredoc input
   * If / Elif / Else control flow
 
+## Lecture 1 - Bash Script 2A
+
 ### Debugging Shell Scripts
 👉 Debugging shows us what commands our script is executing.
 * Options:
@@ -80,8 +82,11 @@ echo "Product: $c"
 * `a * b` → multiplication
 * `a / b` → division
 * `a % b` → remainder
-* `a > b`, `a >= b`, `a < b`, `a <= b` → comparisons (returns 1 or 0)
-* `a = b` → equality
+* `a > b` → comparisons (returns 1 or 0)
+* `a >= b` → comparisons (returns 1 or 0)
+* `a < b` → comparisons (returns 1 or 0)
+* `a <= b` → comparisons (returns 1 or 0)
+* `a = b` → equality (returns 1 or 0)
 
 🤔 **Why Needed?**
   * `expr` is an older but still used tool for arithmetic in shell.
@@ -114,11 +119,68 @@ More operators:
 
 * **🫴eg#05:**
 ```bash
-str="alokgpt"
-expr length "$str"
-expr substr "$str" 2 3
-expr index "$str" g
+#!/bin/bash
+
+a=256
+b=4
+c=3
+
+ans=$( expr $a + $b )
+echo $ans
+
+ans=$( expr $a - $b )
+echo $ans
+
+ans=$( expr $a \* $b )
+echo $ans
+
+ans=$( expr $a / $b )
+echo $ans
+
+ans=$( expr $a % $b )
+echo $ans
+
+ans=$( expr $a \> $b )
+echo $ans
+
+ans=$( expr $a \>= $b )
+echo $ans
+
+ans=$( expr $a \< $b )
+echo $ans
+
+ans=$( expr $a \<= $b )
+echo $ans
+
+ans=$( expr $a = $b )
+echo $ans
+
+ans=$( expr $a != $b )
+echo $ans
+
+ans=$( expr $a \| $b )
+echo $ans
+
+ans=$( expr $a \& $b )
+echo $ans
+
+str="octavio version as in Jan 2022 is 6.4.0"
+reg="[oO]ctav[aeiou]"
+ans=$( expr "$str" : $reg )
+echo $ans
+
+ans=$( expr index "$str" "Js" )
+echo $ans
+
+ans=$( expr substr "$str" 8 8)
+echo $ans
+
+ans=$( expr length "$str")
+echo $ans
 ```
+**Output:** <br>
+<img width="1849" height="505" alt="image" src="https://github.com/user-attachments/assets/02d2cbfb-f0ba-432d-87a1-e8c577c9eb41" /> <br>
+
 
 ### Heredoc Feature
 * Allows passing multiple lines of input to a command.
