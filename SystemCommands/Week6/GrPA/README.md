@@ -12,7 +12,7 @@
 # GrPA 3:
 * Write a bash script that reads a value from the standard input stream and
   * prints `PNUM` if the value is a postive number or 0;
-  * prints `NNUM` if it is a negative number;
+  * prints `NNUM` if it is a negative number; 
   * else print `STRING`.
 * [Solution](https://github.com/alokg-812/IIT-Madras/blob/main/SystemCommands/Week6/GrPA/GrPA3.bash)
 
