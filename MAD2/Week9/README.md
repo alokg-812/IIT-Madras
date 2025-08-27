@@ -59,12 +59,11 @@ A web server should **not** do:
   * File processing or API polling.
 
 Instead, a web server should:
-✅ Receive the request
-✅ Validate input
-✅ Dispatch the task to a worker or queue
-✅ Return a quick response like “Processing…”
-✅ Optionally update the user later
-
+- ✅ Receive the request
+- ✅ Validate input
+- ✅ Dispatch the task to a worker or queue
+- ✅ Return a quick response like “Processing…”
+- ✅ Optionally update the user later
 
 ## Message Queues
 
@@ -82,7 +81,11 @@ Instead, a web server should:
 
 ### Communication Models
 
+<img width="454" height="432" alt="image" src="https://github.com/user-attachments/assets/d4531b7c-4528-41ab-ac1b-a633a2a45afa" /> <br>
 1. **Client–Server**: Client sends a request message, server processes it later.
+
+<img width="502" height="511" alt="image" src="https://github.com/user-attachments/assets/d72ea46c-f169-4ee4-a36e-189083072c73" /> <br>
+* In this image, the four different server may represent like One of them is a web server frontend, one of them is database, one of them is Handling Image recognition, and the last one is taking care of email transfers.
 2. **Server–Server**: Multiple servers exchange messages (many-to-many).
    * Avoids too many direct point-to-point connections.
    * Some servers only **produce**, others only **consume**.
@@ -117,6 +120,9 @@ Instead, a web server should:
    * Not efficient for real messaging (lacks ordering & retry features).
 
 ### Message Brokers
+
+<img width="573" height="533" alt="image" src="https://github.com/user-attachments/assets/9aec252d-301a-412a-bc2c-0c6ca7f98f25" />
+
 - A **Message Broker** is the middle layer that manages the transfer of messages between producers and consumers.
 * Ensures reliable delivery.
 * Provides routing logic.
