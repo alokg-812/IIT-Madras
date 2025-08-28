@@ -38,19 +38,17 @@ chmod +x health.sh
 
 ### The cron ecosystem & “drop-in” locations
 
-**cron** is the long-running service that executes commands at scheduled times. You interact with it using: **at**, **crontab**, **anacron**, and **logrotate** (each solves a different need). It also watches special folders for hourly/daily/weekly/monthly jobs.&#x20;
+`cron` is the long-running service that executes commands at scheduled times. We interact with it using: `at`, `crontab`, `anacron`, and `logrotate` (each solves a different need). It also watches special folders for hourly/daily/weekly/monthly jobs.
 
-**Tools you’ll hear about**
+#### Tools we’ll hear about
+* *crontab*: edit your personal schedule (per-user cron).
+* *at*: run **once** at a specific time (“tomorrow 9:30”).
+* *anacron*: like cron, but **catches up** missed daily/weekly jobs (great for laptops powered off at night).
+* *logrotate*: not a scheduler; it **rotates/compresses** logs on a schedule, usually triggered by cron.&#x20;
 
-* **crontab**: edit your personal schedule (per-user cron).
-* **at**: run **once** at a specific time (“tomorrow 9:30”).
-* **anacron**: like cron, but **catches up** missed daily/weekly jobs (great for laptops powered off at night).
-* **logrotate**: not a scheduler; it **rotates/compresses** logs on a schedule, usually triggered by cron.&#x20;
-
-**System locations cron scans automatically**
-
+### System locations cron scans automatically
 * `/etc/crontab`, `/etc/cron.d/` (system crontab files)
-* `/etc/cron.hourly/`, `/etc/cron.daily/`, `/etc/cron.weekly/`, `/etc/cron.monthly/` (drop a script here to run at that frequency)&#x20;
+* `/etc/cron.hourly/`, `/etc/cron.daily/`, `/etc/cron.weekly/`, `/etc/cron.monthly/` (drop a script here to run at that frequency)
 
 **Best-practice tips (super important)**
 
