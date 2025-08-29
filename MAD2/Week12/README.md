@@ -84,8 +84,8 @@ Different industries & regions have specific rules:
      * **Frontend**: in-browser security measures (e.g., secure cookies, CSRF protection).
      * **Backend**: server-side measures (e.g., encryption, access controls).
 
-👉 Privacy tells you **what not to collect/share**.
-👉 Security tells you **how to protect what you do collect**.
+<br> 👉 Privacy tells you **what not to collect/share**.
+<br> 👉 Security tells you **how to protect what you do collect**.
 
 ## What “frontend security” is about
 
