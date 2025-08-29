@@ -179,8 +179,6 @@ who -r     # shows current runlevel on SysV-like systems
 
 (If your distro is purely systemd, prefer `systemctl`/`journalctl` tools.)
 
----
-
 ## Quick checklist for reliable automation
 
 * [ ] Script has `#!/usr/bin/env bash` and `chmod +x`
@@ -189,6 +187,172 @@ who -r     # shows current runlevel on SysV-like systems
 * [ ] Tested manually once before scheduling
 * [ ] Scheduled via **crontab** (or `at`/`anacron` as needed)
 
-> All slide content summarized from *Automating Scripts (Week 8, Part 1)*.&#x20;
+## Lecture 2 sed
 
+### Introduction
+* **What is sed?**
+  * `sed` stands for `Stream EDitor`.
+  * It is a __*programming language*__ designed specifically for **processing and transforming text streams**.
+  * It is part of the **POSIX standard** (so it’s available on almost all UNIX/Linux systems).
+  * sed was developed **before awk**, so it’s one of the earliest text-processing utilities.
+
+👉 Think of sed as a **robotic editor** that edits text line by line **without opening it in an editor** (like `vim` or `nano`). Instead, it works on a **stream of text** (file content, stdin, or piped input).
+
+### Execution Model
+
+* **Input stream**: Sed processes text **line by line**.
+* **Each line** is treated as a **sequence of characters**.
+* sed maintains **two main buffers**:
+  1. **Pattern Space** → The active buffer that holds the current line being processed.
+  2. **Hold Space** → An auxiliary buffer for temporary storage (used for advanced operations).
+* **Execution cycle**:
+
+  1. sed reads a line from input into the **pattern space**.
+  2. It applies the **sed script/commands** sequentially.
+  3. After processing, it outputs (unless suppressed with `-n`) and clears the pattern space.
+  4. Moves to the **next line** and repeats until the file/stream ends.
+
+👉 This makes sed **non-interactive** (unlike editors like `vi`), it just streams through text and edits as per instructions.
+
+### Usage
+There are two ways to run sed:
+
+1. **Single line command (inline execution)**
+
+   ```bash
+   sed -e 's/hello/world/g' input.txt
+   ```
+
+   * `s/hello/world/g` → Substitute `hello` with `world` **globally** on every line.
+   * `-e` allows writing the script inline.
+   * `input.txt` is the file being processed.
+
+2. **Script file execution**
+   We can put multiple sed commands in a file and run them:
+
+   ```bash
+   sed -f ./myscript.sed input.txt
+   ```
+
+   Example `myscript.sed`:
+
+   ```sed
+   2,8s/hello/world/g
+   ```
+   * This replaces `hello` with `world` only between lines 2 and 8.
+   * Also, we can make the script itself executable:
+
+   ```bash
+   #!/usr/bin/sed -f
+   2,8s/hello/world/g
+   ```
+
+### Sed Statements
+
+Sed commands follow this structure:
+
+```
+[address] action
+```
+
+* **Address** → specifies where the command applies (line number, regex, or range).
+* **Action** → what sed should do (substitute, delete, print, etc.).
+
+Examples:
+
+* `5p` → print only line 5.
+* `/error/d` → delete lines containing `error`.
+* `2,8s/hello/world/g` → substitute `hello` with `world` between lines 2–8.
+
+👉 Similar to the old `ed`/`ex` line editors.
+
+### Grouping Commands
+* Multiple commands can be grouped using `{}`:
+  ```bash
+  sed '/start/,/end/ { s/foo/bar/g; p }' input.txt
+  ```
+
+  * Between lines matching "start" and "end":
+    * Replace `foo` with `bar`
+    * Print those lines.
+
+### Addressing (Targeting Lines)
+
+You can specify **which lines** sed should act on:
+
+* By **line numbers**:
+
+  * `5` → line 5
+  * `1,10` → lines 1 to 10
+  * `$` → last line
+  * `1~3` → every 3rd line starting from line 1
+  * `%` → the whole file
+
+* By **patterns (regex)**:
+
+  * `/error/` → lines containing `error`
+  * `/start/,/end/` → from line matching "start" to "end"
+  * `/error/, +4` → line with "error" and next 4 lines
+
+👉 This gives us **fine-grained control**.
+
+### Actions (Editing Commands)
+
+Here are the most commonly used actions:
+
+| key       | action                    |
+| --------- | ------------------------- |
+| `p`       | print the pattern space   |
+| `d`       | delete the pattern space  |
+| `s`       | substitute using regex pattern (_s/pattern/replacement/g_) |
+| `=`       | print current input line number, **\n** |
+| `#`       | comment                   |
+| `i`       | insert above current line |
+| `a`       | append below current line |
+| `c`       | change current line       |
+
+
+  ```bash
+  sed -n '5p' file.txt   # print line 5 only
+  sed '2d' file.txt      # delete line 2
+  sed 's/foo/bar/g' file.txt   # replace foo with bar globally
+  sed '=' file.txt
+  sed '3iThis is inserted above line 3' file.txt
+  sed '3aThis is appended below line 3' file.txt
+  sed '3cThis replaces line 3 completely' file.txt
+  ```
+
+### Programming Features
+
+sed also supports **control flow**:
+
+| key label   | control flow                             |
+| ----------- | ---------------------------------------- |
+| **b label** | Branch unconditionally to `:label`       |
+| **:label**  | Marks a location for branch              |
+| **N**       | Append next line to pattern space        |
+| **q**       | Quit sed (stop processing further lines) |
+| **t label** | Branch if substitution succeeded         |
+| **T label** | Branch if substitution failed            |
+| **w filename** | Write output to a file                |
+| **x**       | Exchange contents of pattern space and hold space |
+
+👉 These make sed **programmable** (like loops/conditions).
+
+### Bash + Sed
+
+* Sed can be used **inside shell scripts**.
+* Commonly used with:
+
+  * **heredoc** (`<<EOF`) for multi-line input.
+  * **pipes** to chain with other commands.
+
+    ```bash
+    cat file.txt | sed 's/foo/bar/g'
+    ```
+
+### Why sed?
+* Available **everywhere** (part of POSIX).
+* **Fast** – processes text streams quickly.
+* Excellent for **pre-processing data** before further analysis with tools like `awk`, `grep`, or programming scripts.
 
