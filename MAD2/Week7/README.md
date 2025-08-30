@@ -1,9 +1,9 @@
 # Week 7
 
 
-# 🧠 What is State Management?
+## What is State Management?
 
-**State** = the **data** or **status** of your app at a given time.
+**State** = the *data* or *status* of your app at a given time.
 
 Examples:
 
@@ -16,43 +16,40 @@ Examples:
 > "How do different parts of my app share, update, and keep track of data — in a clean and manageable way?"
 
 
-## 💡 Core Idea:
+### Core Idea:
 
-> UI = f(State)
-> Your app's User Interface should be a direct reflection of its current state.
-
-When the state changes, the UI should automatically update.
+> UI = f(State) <br>
+> i.e., Your app's User Interface should be a direct reflection of its current state. When the state changes, the UI should automatically update.
 
 
-# 📦 Basic Structure of State Management (Unidirectional Flow)
-
-Vue (and many modern JS frameworks) follow this pattern:
+### Basic Structure of State Management (Unidirectional Flow)
+- Vue (and many modern JS frameworks) follow this pattern:
 
 ```
 State → View → Action → State
 ```
 
 | Element      | Role                                                               |
-| | |
+|--------------|--------------------------------------------------------------------|
 | **State**    | The data that drives the UI (cart items, user info)                |
 | **View**     | What the user sees, based on the current state                     |
 | **Action**   | What the user does (clicks, inputs, etc.) to trigger changes       |
 | **Mutation** | (in Vuex) A **committed** function that actually updates the state |
 
 
-# 🧩 State Sharing Between Components
+### State Sharing Between Components
+1. Parent to Child
+2. Child to Parent
 
-## ✅ Parent to Child:
 
+### Parent to Child:
 * Use `props` to pass data down
-
 ```vue
 <ChildComponent :message="parentMessage" />
 ```
 
-## ✅ Child to Parent:
+### Child to Parent:
 * Use `$emit` to send event back up
-
 ```vue
 this.$emit('updateMessage', newValue);
 ```
