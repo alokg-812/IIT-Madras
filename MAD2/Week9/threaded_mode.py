@@ -9,7 +9,7 @@ def hello():
     global x
     x = x+1
     print(time.asctime())
-    time.sleep(2)
+    time.sleep(4)
     return 'Hellu Buddy, '+ str(x) + time.asctime() + '\n'
 
 if __name__ == '__main__' :
