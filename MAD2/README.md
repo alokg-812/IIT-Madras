@@ -28,3 +28,23 @@
 
 
 # [Week 3](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week3/README.md)
+
+
+
+
+
+
+
+
+
+
+
+
+# [Week 7]()
+* State Management
+  * Vue State Management
+  * Basic Structure of State Management
+  * State Sharing between Components
+    * Parent to Child
+    * Child to Parent
+  * 
