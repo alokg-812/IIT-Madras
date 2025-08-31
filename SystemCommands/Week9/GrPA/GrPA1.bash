@@ -1,3 +1,0 @@
-script(){
-    awk -F, '{print $1}' marks.csv
-}
