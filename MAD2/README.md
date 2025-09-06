@@ -24,27 +24,3 @@
   4. [Other Collections](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#4-other-collections)
   5. [Destructuring](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#5-destructuring)
   6. [Generators](https://github.com/alokg-812/IIT-Madras/tree/main/MAD2/Week2#6-generators-advanced)
-
-
-
-# [Week 3](https://github.com/alokg-812/IIT-Madras/blob/main/MAD2/Week3/README.md)
-
-
-
-
-
-
-
-
-
-
-
-
-# [Week 7]()
-* State Management
-  * Vue State Management
-  * Basic Structure of State Management
-  * State Sharing between Components
-    * Parent to Child
-    * Child to Parent
-  * 
