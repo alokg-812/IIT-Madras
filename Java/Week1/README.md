@@ -31,7 +31,7 @@
   * Typically avoid using intermediate variables
   * Combination of small transformations - `functional programming`
 
-* **eg:#01** Imperative vs Declarative:
+* _**eg:#01** Imperative vs Declarative_:
   ```py
   def sumlist(l):
       mysum=0
@@ -47,6 +47,31 @@
           return l[0] + sumlist(l[1:])
   ```
 
+### 
+* Internally, everything is stored a sequence of bits.
+* No difference between data and instructions, let alone numbers, characters, booleans.
+  * For a compiler or interpreter, our `code` is its `data`.
+* We impose a notion of `type` to create some discipline.
+  * Interpret bit strings as "_high level_" concepts.
+  * Nature and range of allowed values.
+  * Operations that are permitted on these values.
+* Strict type-checking helps catch bugs early.
+  * Incorrect expression evaluation - like dimension mismatch in science.
+  * Incorrect assignment - expression value does not match variable type.
+
+### Abstract datatypes, object-oriented programming
+* Collections are important:
+  * Arrays, lists, dictionaries.
+* Abstract datatypes:
+  * Structured collection with fixed interface.
+  * Stack is a sequence, but only allows `push` and `pop`.
+  * Seperate implementation from interface.
+    * Priority queue allows `insert` and `delete-max`.
+    * Can implement a priority queue using sorted or unsorted lists, or using a heap.
+* Object-oriented programming:
+  * Focus on datatypes.
+  * Functions are invoked through the object rather than passing data to the functions.
+  * In Python, `myList.sort()` vs `sorted(myList)`
 
 
 
