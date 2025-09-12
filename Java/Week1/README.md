@@ -12,5 +12,30 @@
 
 > This is very tedious and error-prone process.
 
-### Abstraction Learning
+### Abstraction 
+* Abstractions used in `computational thinking`
+  - Assigning values to named variables
+  - Conditional execution
+  - Iteration
+  - Functions/ procedures, recursion
+  - Aggregate data structures - arrays, lists , dictionaries.
+* Expressing these ideas in programming language produces what we call `compilers` or `interpreters`.
+
+### Styles of programming
+* Imperative
+* Declarative
+
+* Imperative
+  * How to computer
+  * Step by step instructions on what is to be done
+* Declarative
+  * What the computatuin should produce
+  * Often exploit inductive structure, express in terms of smaller computations
+  * Typically avoid using intermediate variables
+  * Combination of small transformations - `functional programming`
+
+
+
+
+
 
