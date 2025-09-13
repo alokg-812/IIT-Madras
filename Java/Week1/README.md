@@ -39,6 +39,8 @@
           mysum=mysum+x
       return mysum
   ```
+  * Intermediate values `mysum`, `x`
+  * Explicit iteration to examine each element in the list
   ```py
   def sumlist(l):
       if l==[]:
@@ -46,9 +48,13 @@
       else:
           return l[0] + sumlist(l[1:])
   ```
+  * Describe the desired output by induction
+    * `Base case` → Empty list has sum
+    * `Inductive step` → Add the first element to the sum of the rest of the list
+  * No intermediate variables
 
-### 
-* Internally, everything is stored a sequence of bits.
+### Names, types, values
+* Internally, everything is stored a `sequence of bits`.
 * No difference between data and instructions, let alone numbers, characters, booleans.
   * For a compiler or interpreter, our `code` is its `data`.
 * We impose a notion of `type` to create some discipline.
@@ -73,5 +79,15 @@
   * Functions are invoked through the object rather than passing data to the functions.
   * In Python, `myList.sort()` vs `sorted(myList)`
 
-
+### What is yet to come ...
+- Explore concepts in programming languages
+   - Object-oriented programming
+   - Exception handling, concurrency, event-driven programming
+- Using `Java` as the illustrative language
+  - `Imperative`, `object-oriented` by design.
+  - Incorporates almost all the features
+- Discuss design decisions where relavant
+  - Every language makes some compromises
+- Understand and appreciate why there is a zoo of programming languages out there
+- ...And why new ones are still being created
 
