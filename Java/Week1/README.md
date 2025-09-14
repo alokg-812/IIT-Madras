@@ -160,3 +160,13 @@
     - Re-order statements to optimize reads and writes
     - Store previously computed expressions to re-use later
  
+
+
+## Lecture 3
+
+### Tracks of variables
+- Local Variables
+- Global Variables
+- Dynamic created(Node in a list)
+
+
