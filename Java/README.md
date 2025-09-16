@@ -5,3 +5,5 @@
 - [Programming Language]()
 - [Abstraction]()
 - [Style of Programming]()
+- [Names, types & values]()
+- [Abstract datatypes, object-oriented programming]()
