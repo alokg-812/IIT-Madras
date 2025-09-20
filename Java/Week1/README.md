@@ -169,4 +169,14 @@
 - Global Variables
 - Dynamic created(Node in a list)
 
+### Memory Stack
+- Each function needs storage for local variables
+- 
 
+
+```py
+def factorial(n):
+	if n==1:
+		return 1
+	return n*factorial(n-1)
+```
