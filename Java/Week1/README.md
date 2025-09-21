@@ -164,19 +164,107 @@
 
 ## Lecture 3
 
-### Tracks of variables
-- Local Variables
-- Global Variables
-- Dynamic created(Node in a list)
+### Keeping Track of Variables
+
+### Variables store intermediate values during computation
+
+* `Local Variables`: Typically local to a function.
+* `Global Variables`: Can also refer to global variables outside the function.
+* `Dynamic Data`: Includes dynamically created data like nodes in a list.
+
+### Scope of a Variable
+
+* **Definition**: Determines when the variable is available for use.
+* _**eg:#02**_
+
+  ```python
+  def f(l):
+      ...
+      for x in l:
+          y = y + g(x)
+      ...
+
+  def g(m):
+      ...
+      for x in range(m):
+          ...
+  ```
+* The variable `x` in `f()` is **not in scope** within the call to `g()`.
+* Each function maintains its own variable scope.
+
+### Lifetime of a Variable
+* **Definition**: Duration for which the storage for the variable remains allocated.
+* In the above example, the **lifetime of `x` in `f()` ends when `f()` exits**.
+* **Hole in Scope**: A situation where a variable is alive (memory allocated) but **not accessible** in the current scope.
 
 ### Memory Stack
-- Each function needs storage for local variables
-- 
+
+### Storage for Local Variables
+
+* Each function requires storage for its local variables.
+* **Activation record** is created whenever a function is called.
+
+### Activation Records
+
+* **Stacked on Function Calls**:
+  * New records are added to the stack when a function is called.
+  * **Popped** when the function exits.
+* **Control Link**: Points to the start of the previous activation record.
+* **Return Value Link**: Indicates where the result of the function should be stored.
+
+### Scope of a Variable
+
+* **Local Variables**: Exist in the activation record at the top of the stack.
+* **Global Variables**: Accessed by following control links.
+
+### Lifetime of a Variable
+* Storage remains allocated **while it is on the stack**, even if the function exits.
+
+#### Example: Factorial
+
+* **Call**: `factorial(3)`
+* **Recursive Call**: `factorial(3)` calls `factorial(2)`
+* Stack holds:
+
+  * Value of `n`
+  * Recursive calls (`factorial(n-1)`)
+  * Control and return value links
+
+### Passing Arguments to functions
+When a function is called, the values passed to it (the `arguments`) are used to initialize the variables defined in the function's signature (the `formal parameters`).
+
+* This process is essentially an **implicit assignment**. For example, in a function call `f(x, myl)`, where the function is defined as `def f(a,l):`, the parameters `a` and `l` are implicitly assigned the values of `x` and `myl` as if you had written `a = x` and `l = myl` at the beginning of the function.
+* The parameters are stored as part of the function's **activation record**, a data structure created when a function is called. This record contains all the information needed to manage the function's execution, including local variables, parameters, and the return address.
+
+### **2. Two Methods for Initializing Parameters**
+
+There are two primary ways to pass arguments to a function, which determine how the parameters are initialized and how changes within the function affect the original arguments.
+1. `call by value`
+2. `call by reference`
+ 
+#### Call by Value
+This method copies the **value** of the argument into the formal parameter.
+
+* A completely new variable is created for the parameter within the function's scope.
+* Changes made to this parameter inside the function **do not affect** the original argument outside the function. This is because the function is working on a separate, independent copy of the value.
+* This approach is safer, as it prevents a function from accidentally modifying the original data.
+
+#### Call by Reference
+This method passes the **memory address** of the argument to the formal parameter.
+
+* The parameter doesn't get a new copy of the value; instead, it points to the same memory location as the original argument.
+* Changes made to the parameter **can have side effects** on the original argument. Since both the parameter and the argument point to the same location in memory, any modification to the data at that location will be reflected in the original variable.
+* It's crucial to be careful with this method. You **can update the contents** of the data at the shared memory location, but you **cannot change the reference itself** to point to a different location. If you try to reassign the parameter, you will not affect what the original argument points to.
 
 
-```py
-def factorial(n):
-	if n==1:
-		return 1
-	return n*factorial(n-1)
-```
+
+
+
+
+
+
+
+
+
+
+
