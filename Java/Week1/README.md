@@ -164,7 +164,7 @@
 
 ## Lecture 3
 
-### Keeping Track of Variables
+## Keeping Track of Variables
 
 ### Variables store intermediate values during computation
 
