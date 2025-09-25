@@ -1,3 +1,5 @@
+# Week wise content for the course:
+
 - Week 1: Introduction; Unsupervised Learning - Representation learning - PCA
 - Week 2: Unsupervised Learning - Representation learning - Kernel PCA
 - Week 3: Unsupervised Learning - Clustering - K-means/Kernel K-means
