@@ -277,6 +277,21 @@ This method passes the **memory address** of the argument to the formal paramete
   - Return all unmarked memory cells to free space
 - Convenience for programmer vs performance penalty
 
+## Lecture 4
+
+Writing software is a complex process, we have to typically build it at large scale, hence we build them in parts i.e., `modular fashion`.
+
+### Modular sfotware development
+- We use refinement to divide the solution into `components`
+- We then build a `prototype` of each component to validate design.
+- Components are described in terms of
+  - `Interfaces`-(_Structural Requirements_) what is visible to other components, typically function calls.
+  - `Speccification`-(_Behavioural Requirements_) behaviour of the component, as visible through interface.
+
+- Simplest example of a component: **a function**
+	- _Interfaces_ -> function header, arguments and return type
+	- _Specification_ -> intended input-output behaviour
+
 
 
 
