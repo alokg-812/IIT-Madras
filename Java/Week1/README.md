@@ -292,6 +292,29 @@ Writing software is a complex process, we have to typically build it at large sc
 	- _Interfaces_ -> function header, arguments and return type
 	- _Specification_ -> intended input-output behaviour
 
+### Abstraction and OOP
 
+Abstraction is a way of hiding unnecessary details so you can focus on the bigger picture. A simple overview of how programming languages use abstraction to manage complexity is written below: 
 
+#### 1. Control Abstraction
+
+This is about managing the flow of a program.
+* **Functions and Procedures:** Group a set of instructions into a single, reusable unit.
+* **Encapsulation:** "Wrap up" a block of code so you can reuse it in different parts of your program without rewriting it.
+
+#### 2. Data Abstraction
+
+This is about simplifying how we handle data.
+* **Abstract Data Types (ADTs):** Define data based on what it is and what we can do with it, not how it's built.
+* **Key Principles:**
+    * An ADT is a set of values with specific operations.
+    * The internal details (how it's stored) are hidden.
+    * We can only interact with it through a public interface (the allowed operations).
+* **Example:** A **stack** is an ADT. We can `push` (add) and `pop` (remove) items. We don't need to know if it's implemented using a list or another data structure.
+
+#### 3. Object-Oriented Programming (OOP)
+
+OOP combines control and data abstraction into a powerful model.
+* **Organize ADTs in a Hierarchy:** Create a family of related data types (e.g., a `Vehicle` class with a `Car` and `Motorcycle` as subclasses).
+* **Implicit Reuse:** Through **subtyping** and **inheritance**, a new object type automatically gets the characteristics and operations of its parent type. This means less code to write and better organization.
 
