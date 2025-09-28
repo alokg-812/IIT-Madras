@@ -262,9 +262,13 @@ This method passes the **memory address** of the argument to the formal paramete
 
 
 
-
-
-
-
+### Managing Heap Storage
+- On the stack, variables are deallocated when the function exits
+- How do we `return` unused storage on the heap?
+  - After deleting a node in a linked list, deleted node is now a dead storage, unreachable
+- **Manual memory management:**
+  - Programmers expilicitly requests and returns heap storage
+    - `p=malloc(...)` and `free(p)` in C
+  - Error-prone -- memory leaks, invalid assignments
 
 
