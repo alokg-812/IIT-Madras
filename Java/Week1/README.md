@@ -271,4 +271,12 @@ This method passes the **memory address** of the argument to the formal paramete
     - `p=malloc(...)` and `free(p)` in C
   - Error-prone -- memory leaks, invalid assignments
 
+**_Automatic Garbage Collection:_(Java, Python, ...)**
+- Run-time environment cheks and cleans up dead storage -- e.g., _mark-and-sweep_.
+  - Mark all storage that is reachable form program variables
+  - Return all unmarked memory cells to free space
+- Convenience for programmer vs performance penalty
+
+
+
 
