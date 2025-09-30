@@ -258,8 +258,12 @@ This method passes the **memory address** of the argument to the formal paramete
 
 
 ### Heap area and Stack area in Memory
-
-
+- Used for **dynamic memory allocation**, outlives function execution.
+- Needed when storing data beyond a function's scope (e.g., linked list nodes).
+- Heap vs Stack:
+   - `Heap` → Persistent storage, manually managed.
+   - `Stack` → Temporary storage for function calls.
+- Not the same as the heap data structure (priority queues).
 
 
 ### Managing Heap Storage
@@ -317,4 +321,20 @@ This is about simplifying how we handle data.
 OOP combines control and data abstraction into a powerful model.
 * **Organize ADTs in a Hierarchy:** Create a family of related data types (e.g., a `Vehicle` class with a `Car` and `Motorcycle` as subclasses).
 * **Implicit Reuse:** Through **subtyping** and **inheritance**, a new object type automatically gets the characteristics and operations of its parent type. This means less code to write and better organization.
+
+
+## Lecture 5 Object Oriented Programming
+
+- An `object` is like an abstract datatype which has:
+  - hidden data with set of publuc operations.
+  - all the interactions through operations. (Many different names given to these operations like `methods`, `messages`, `member-functions`, ...)
+	- `operations`: ways of manipulating data inside objects
+
+
+
+
+
+
+
+
 
