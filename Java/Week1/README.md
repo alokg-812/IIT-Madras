@@ -390,4 +390,5 @@ This example clarifies the difference between the two concepts:
     * Why? Because a Stack object does *not* support the `insert-rear()` operation. If you treated a Stack as a Deque, you could break the program by calling a method the Stack doesn't have.
     * In this specific case, the relationship is inverted: a **Deque is actually a subtype of both Stack and Queue** because it supports *all* of their operations and more.
 
-
+## Lecture 6: Classes and Objects
+In Object-Oriented Programming, Objects are the real "things" we work with, and Classes are the blueprints used to create them.
