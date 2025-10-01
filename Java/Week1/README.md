@@ -325,16 +325,69 @@ OOP combines control and data abstraction into a powerful model.
 
 ## Lecture 5 Object Oriented Programming
 
-- An `object` is like an abstract datatype which has:
-  - hidden data with set of publuc operations.
-  - all the interactions through operations. (Many different names given to these operations like `methods`, `messages`, `member-functions`, ...)
-	- `operations`: ways of manipulating data inside objects
+### **_OBJECT:_**
+We can think of an **Object** as a smart container. It's a fundamental unit that perfectly wraps up two things:
+1. **data** (information) and
+2. the **operations** (actions/functions) that work on that data.
+This is similar to a concept called an **Abstract Datatype (ADT)**.
+
+| Feature | Description | Analogy |
+| ---- | ---- | ---- |
+| **Data** | The information the object holds. This is kept **hidden** (private) inside. | The internal mechanics of a car (engine, fuel tank) . |
+| **Operations** | The public actions you can use to interact with the object's data. These are called **methods**, **messages**, or **member-functions**. | The public controls of a car (steering wheel, pedals, door handle) . |
+
+* **Abstraction:** This is the principle of hiding the complex internal details and showing only the necessary public interface. If the object's internal implementation changes (e.g., swapping a diesel engine for an electric one), we don't need to change how we interact with it (we still use the steering wheel and pedals).
+* **Encapsulation:** Objects provide a uniform way of wrapping (encapsulating) different combinations of data and functionality. An object can be as simple as a counter (holding a single integer) or as complex as an entire database or filesystem.
+* **Data-Centric View:** OOP encourages a focus on what data is needed and how to maintain and manipulate it, making it easier to coordinate changes to both the data structure and the methods that operate on it.
+
+### Distinguishing Features of OOP
+The following concepts are what truly define an object-oriented language:
+  - Abstrsaction
+  - Subtyping
+  - Dynamic lookup
+  - Inheritance
+
+### Subtyping (Interface Compatibility)
+
+Subtyping arranges object types in a **hierarchy**.
+* **Specialization:** A **subtype** is a specialization of a more general type.
+* **The Rule:** If Type **A** is a subtype of Type **B**, it means that any object of Type A can be used in any place where an object of Type B is required. Every object of Type A is considered an object of Type B.
+* **The Interface:** Subtyping is fundamentally a relationship about **interfaces**—the set of public methods an object supports. If a method $f()$ exists in Type B, then any subtype A must also support $f()$.
+* **Analogy (Subset):** Think of it like a mathematical subset. If set $X$ is a subset of set $Y$ ($X \subseteq Y$), then every element in $X$ is also in $Y$.
+
+Subtyping allows a well-typed list (like the Simula event queue) to hold different types of objects, as long as they all share a common parent type and are compatible.
+
+### Dynamic Lookup (Run-time Method Choice)
+
+Dynamic lookup is how the program chooses the correct method to execute when that method's name appears multiple times across different types.
+* **Static vs. Dynamic:**
+    * **Static Property:** Whether a method *can be called* on an object is checked by the compiler (type-checking).
+    * **Dynamic Property:** *How* the method actually behaves (its implementation) is determined by the object's **actual type** at run-time.
+* **Mechanism:** A variable $v$ might be declared with a general type, say **B**, but at run-time, it holds an object of a subtype, say **A**. When you call a method on $v$, the system ignores the variable's static type **B** and uses the object's run-time type **A** to find the correct implementation.
+* **Example (Simulation):** In the Simula event queue, all events support a `simulate` method. When the program executes `e.simulate()`, the *action* that is triggered depends entirely on the specific type of event $e$ is at that moment (e.g., a "CarArrival" event or a "ServiceComplete" event). The object "knows" how to perform the operation itself.
+* **Not Overloading:** This is different from method overloading (like the `+` operation), where the choice of implementation is determined by the static type of the arguments.
+
+### Inheritance (Implementation Reuse)
+
+Inheritance is primarily focused on **reusing implementations** 
+* **The Goal:** It allows a new object type to start with all the data fields and methods of an existing type, saving development time.
+* **Example (Employees):** You can define an **Employee** object with basic personal data. A **Manager** object can then **inherit** from Employee, retaining all the basic data and functionality, and simply **adding** new fields (like date of promotion) and new functions.
+* **Key Distinction:** While many languages combine them (A can inherit from B *if* A is a subtype of B), they are conceptually different:
+    * **Subtyping** is about **interfaces** (compatibility).
+    * **Inheritance** is about **implementations** (code reuse).
 
 
+### Subtyping vs. Inheritance Example (Deque)
 
+This example clarifies the difference between the two concepts:
 
-
-
-
+1. A **Deque** (Double-Ended Queue) supports four operations: `insert-front()`, `delete-front()`, `insert-rear()`, and `delete-rear()`.
+2. We can build a **Stack** or a **Queue** by using the Deque's internal implementation:
+    * **Stack:** Uses only `insert-front()` and `delete-front()` (LIFO).
+    * **Queue:** Uses only `insert-rear()` and `delete-front()` (FIFO).
+3. **Inheritance:** Stack and Queue can **inherit** from Deque to **reuse the underlying implementation** (the code for storing the data).
+4. **Subtyping:** Stack and Queue are **not subtypes** of Deque.
+    * Why? Because a Stack object does *not* support the `insert-rear()` operation. If you treated a Stack as a Deque, you could break the program by calling a method the Stack doesn't have.
+    * In this specific case, the relationship is inverted: a **Deque is actually a subtype of both Stack and Queue** because it supports *all* of their operations and more.
 
 
