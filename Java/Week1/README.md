@@ -391,4 +391,14 @@ This example clarifies the difference between the two concepts:
     * In this specific case, the relationship is inverted: a **Deque is actually a subtype of both Stack and Queue** because it supports *all* of their operations and more.
 
 ## Lecture 6: Classes and Objects
-In Object-Oriented Programming, Objects are the real "things" we work with, and Classes are the blueprints used to create them.
+In Object-Oriented Programming, Objects are the `real things` we work with, and Classes are the `blueprints` used to create them.
+
+### Class
+
+A class is a blueprint or template for a data type. It defines:
+1. How the data is stored (the internal instance variables).
+2. How public functions (methods) manipulate that internal data.
+
+
+
+
