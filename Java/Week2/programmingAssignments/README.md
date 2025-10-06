@@ -1,7 +1,7 @@
 ## Programming Assignment 1:
 - Write a program to find the sum of the following series up to n terms. <br>
   `1² + ( 1² + 2² ) + ( 1² + 2² + 3² ) + ......... + ( 1² + 2² + .... + n² )`
-- [_**Solution:**_](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week2/programmingAssignments/pa1.java)
+### - [_**Solution:**_](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week2/programmingAssignments/pa1.java)
 
 ## Programming Assignment 2: 
 - Complete the definition of the given class by defining appropriate constructors and member functions such that it is in coherence with the given main method and produce the required output.
@@ -45,7 +45,7 @@
   	    }
   }
   ```
-- [_**Solution:**_](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week2/programmingAssignments/pa2.java)
+### - [_**Solution:**_](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week2/programmingAssignments/pa2.java)
 
 ## Programming Assignment 3
 
@@ -91,7 +91,7 @@ public class FClass
     }
 }
 ```
-- [_**Solution:**_](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week2/programmingAssignments/pa3.java)
+### - [_**Solution:**_](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week2/programmingAssignments/pa3.java)
 
 
 
