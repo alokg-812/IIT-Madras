@@ -15,14 +15,14 @@
   - [Names, types & values](https://github.com/alokg-812/IIT-Madras/tree/main/Java/Week1#names-types-values)
   - [Abstract datatypes Object-oriented programming](https://github.com/alokg-812/IIT-Madras/tree/main/Java/Week1#abstract-datatypes-object-oriented-programming)
 
-## [Week 2]
+## [Week 1](https://github.com/alokg-812/IIT-Madras/tree/main/Java/Week1#week-2)
 - A first taste of Java
 - Basic datatypes of Java
 - Control flow in Java
 - Defining classes and objects in Java
-- Basic input and output in Java
+- Basic input and output in Java 
 
-## [Week 3]
+## [Week 1](https://github.com/alokg-812/IIT-Madras/tree/main/Java/Week1#week-3)
 - The philosophy of OOP
 - Subclasses and Inheritance
 - Dynamic dispatch and Polymorphism
