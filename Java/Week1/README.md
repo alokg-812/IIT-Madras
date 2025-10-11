@@ -396,8 +396,8 @@ In Object-Oriented Programming, Objects are the `real things` we work with, and 
 ### Class
 
 A class is a blueprint or template for a data type. It defines:
-1. How the data is stored (the internal instance variables).
-2. How public functions (methods) manipulate that internal data.
+1. How the `data is stored` (the internal instance variables).
+2. How `public functions (methods) manipulate` that internal data.
 
 
 
