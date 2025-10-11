@@ -1,0 +1,17 @@
+In Python:
+print("Hello, World!")
+
+
+In C:
+#include<stdio.h>
+void main(){
+    printf("Hello, World!\n");
+}
+
+
+In Java:
+public class HelloWorld{
+    public static void main(String []args){
+        System.out.println("Hello, World!");
+    } 
+}
