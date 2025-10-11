@@ -405,7 +405,7 @@ A class is a blueprint or template for a data type. It defines:
 
 ### Instance Variable (or Local Data)
 
-Instance variables are the internal values or data that each object of a class stores[cite: 48, 56].
+Instance variables are the internal values or data that each object of a class stores.
 
   * **Example (2D Point):** For a point with coordinates $(x, y)$, the values $x$ and $y$ are the instance variables.
   * **Access:** For a point object `p`, the local values are accessed as `p.x` and `p.y` (in the Cartesian example).
@@ -413,9 +413,9 @@ Instance variables are the internal values or data that each object of a class s
 
 ### Constructor
 
-A constructor is an **implicitly called function** used to **set up** an object when it is created[cite: 59].
+A constructor is an **implicitly called function** used to **set up** an object when it is created.
 
-  * **Purpose:** It uses parameters to initialize the object's internal (instance) values[cite: 60].
+  * **Purpose:** It uses parameters to initialize the object's internal (instance) values.
   * **Python Example:** The constructor function is named `__init__()`, and its first parameter is always `self`.
 
 <!-- end list -->
@@ -436,7 +436,7 @@ A method is a **function defined within a class** that performs an operation on 
   * **Non-State-Changing Method (Accessor):** A method that calculates a value but **does not update** the instance variables, leaving the object's state unchanged.
       * *Example:* `odistance(self)` calculates the distance $\sqrt{x^2 + y^2}$ from the origin but doesn't change `self.x` or `self.y`.
 
-## 🛡️ Abstraction and Encapsulation
+## Abstraction and Encapsulation
 
 ### Abstraction
 
@@ -466,7 +466,7 @@ To properly enforce abstraction and hide private details, languages need a mecha
 2.  Provide **strong declarations** for the type and visibility of variables, which helps **catch bugs early through static type checking**.
 
 
-## 🌳 Subtyping and Inheritance
+## Subtyping and Inheritance
 
 ### Inheritance
 
