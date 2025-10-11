@@ -399,6 +399,92 @@ A class is a blueprint or template for a data type. It defines:
 1. How the `data is stored` (the internal instance variables).
 2. How `public functions (methods) manipulate` that internal data.
 
+<!-- end list -->
+
+  * **Definition:** A class is a template describing the instance variables and methods for an abstract datatype.
+
+### Instance Variable (or Local Data)
+
+Instance variables are the internal values or data that each object of a class stores[cite: 48, 56].
+
+  * **Example (2D Point):** For a point with coordinates $(x, y)$, the values $x$ and $y$ are the instance variables.
+  * **Access:** For a point object `p`, the local values are accessed as `p.x` and `p.y` (in the Cartesian example).
+  * **Special Name:** **`self`** is a special name referring to the **current object** inside the class definition (e.g., `self.x`, `self.y`).
+
+### Constructor
+
+A constructor is an **implicitly called function** used to **set up** an object when it is created[cite: 59].
+
+  * **Purpose:** It uses parameters to initialize the object's internal (instance) values[cite: 60].
+  * **Python Example:** The constructor function is named `__init__()`, and its first parameter is always `self`.
+
+<!-- end list -->
+
+```python
+class Point:
+    def __init__(self, a=0, b=0): # Constructor in Python
+        self.x = a               # Setting instance variables
+        self.y = b
+```
+
+### Method (or Member Function)
+
+A method is a **function defined within a class** that performs an operation on the object's instance variables.
+
+  * **State-Changing Method (Mutator):** A method that **updates** the instance variables, thereby changing the object's state.
+      * *Example:* `translate(self, dx, dy)` shifts a 2D point's coordinates $(x, y)$ to $(x + \Delta x, y + \Delta y)$ .
+  * **Non-State-Changing Method (Accessor):** A method that calculates a value but **does not update** the instance variables, leaving the object's state unchanged.
+      * *Example:* `odistance(self)` calculates the distance $\sqrt{x^2 + y^2}$ from the origin but doesn't change `self.x` or `self.y`.
+
+## 🛡️ Abstraction and Encapsulation
+
+### Abstraction
+
+Abstraction is the principle of **separating the public interface from the private implementation**.
+
+  * **Goal:** The user should not need to know or care about how the data is internally represented (e.g., whether a `Point` is stored as **Cartesian $(x, y)$** or **Polar $(r, \theta)$** coordinates).
+  * **Interface:** The way the user interacts with the class (the methods and their signatures, including the constructor) **remains identical** even if the internal implementation changes.
+
+| Implementation | Internal Storage (Private) | External Interface (Public) |
+| :--- | :--- | :--- |
+| **Cartesian** | `self.x`, `self.y` | `Point(a, b)`, `translate(dx, dy)`, `odistance()` |
+| **Polar** | `self.r`, `self.theta` | `Point(a, b)`, `translate(dx, dy)`, `odistance()` |
+
+### Breaking Abstraction (The Problem in Python)
+
+Some languages, like Python, allow **direct access** to instance variables from outside the class (e.g., `p.x = 4`).
+
+  * This **breaks the abstraction** because a user's code is now dependent on the internal variable names.
+  * **Consequence:** Changing the internal implementation of the class (e.g., from `(x, y)` to `(r, theta)`) can have an unexpected impact and cause errors in other code that relied on the old variable names (like `p.x`).
+  * **Python's Solution:** Relies on **programmer discipline** to avoid direct manipulation of instance variables.
+
+### Enforcing Abstraction
+
+To properly enforce abstraction and hide private details, languages need a mechanism to:
+
+1.  **Declare components as private or public**.
+2.  Provide **strong declarations** for the type and visibility of variables, which helps **catch bugs early through static type checking**.
 
 
+## 🌳 Subtyping and Inheritance
 
+### Inheritance
+
+Inheritance is a mechanism where one class (**subclass** or **child class**) derives properties and methods from another class (**parent class** or **superclass**).
+
+  * **Subtyping:** Defining one type, like `Square`, to be a subtype of another, like `Rectangle`.
+  * **Benefit:** The subclass automatically inherits the definitions of methods from the parent class (e.g., `Square` inherits `area()` and `perimeter()` from `Rectangle`).
+
+### The Danger of Instance Variable Reliance in Subclasses
+
+When a subclass directly manipulates or relies on the *instance variables* of its parent class, problems can arise, especially if the classes are developed separately.
+
+  * **Problem 1 (Subtype changes variable names):** If the subclass (`Square`) changes its internal instance variable names (e.g., using `self.side` instead of the inherited `self.width` and `self.height`), the inherited methods (`area()`, `perimeter()`) will fail because they look for the parent's expected variable names . This shows that a subtype is **not forced to be an extension** of the parent type.
+  * **Problem 2 (Parent changes variable names):** If the implementor of the parent class (`Rectangle`) changes the internal instance variable names (e.g., from `self.width` to `self.wd`), any subclass constructor (`Square.__init__`) that explicitly sets the *old* variable names (`self.width`) will no longer work, leading to a run-time error in the inherited methods.
+
+### The Solution: Using Privacy
+
+These inheritance issues highlight the **need for a mechanism to hide private implementation details**.
+
+  * If the `Rectangle`'s instance variables (`wd`, `ht`) were properly declared as **private**, the `Square` constructor would not (and should not) know the names of these variables, forcing it to use the parent's public interface (like calling the parent's constructor) to initialize its state .
+  * This ensures that changes to the internal representation of the parent class do not break the functionality of the subclass.
