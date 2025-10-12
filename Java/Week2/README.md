@@ -173,6 +173,146 @@ Unlike the primitive types, **Strings and Arrays are objects** in Java.
 
 ### Resources
 
-Java has numerous versions; the materials reference **Java 11**]. Extensive online documentation is available and should be consulted in case of doubt.
+Java has numerous versions; the materials reference **Java 11**. Extensive online documentation is available and should be consulted in case of doubt.
 
 ## Lecture 3: Java Control Flow
+
+### Program Layout
+
+In Java, control flow depends on strict syntax rules:
+
+  * **Statements:** Every individual statement must end with a **semicolon (`;`)**.
+  * **Blocks:** Blocks of statements (such as the body of a loop, conditional block, or method) are delimited by **braces (`{...}`)**.
+  * **Indentation:** Indentation is **not forced** (unlike Python)
+
+
+### Conditional Execution
+
+Conditional statements allow code to execute based on a boolean condition.
+
+  * **`if-else` Structure:**
+    ```java
+    if (condition) {
+        // statements for true condition
+    } else {
+        // statements for false condition (optional)     
+    }
+    ```
+  * **Syntax Rules:**
+      * The **condition must be in parentheses** (`(condition)`)
+      * If the body contains only a **single statement**, the surrounding braces `{}` are **not needed**.
+  * **Multiple Conditions:** Java uses the standard `else if` structure, as there is **no `elif`** keyword like in Python. Nested `if` statements are treated as a single statement, not requiring separate braces
+
+*Example:*
+
+```java
+public static int sign(int v) {
+    if (v < 0) {
+        return(-1); // Single statement, braces optional
+    } 
+    else if (v > 0) {
+        return(1);
+    } 
+    else {
+        return(0);
+    }
+}
+```
+
+### Conditional Loops
+
+Conditional loops execute a block of code repeatedly as long as a condition is met.
+
+#### 1. `while` Loop
+> The `while` loop checks the condition **before** executing the loop body.
+
+```java
+while (condition) {
+    // code of block
+}
+```
+* The condition must be in parentheses.
+* If the loop body is a single statement, braces are not required.
+
+#### 2. `do-while` Loop
+> The `do-while` loop executes the body **at least once** before checking the condition.
+
+```java
+do {
+    // statements
+} while (condition); // Condition checked at the end
+```
+* This structure is particularly **useful for interactive user input** where you need to execute an action (like reading input) before testing its validity.
+
+### Iteration
+
+Java provides two main types of `for` loops for iteration.
+
+#### 1. C-style `for` Loop
+> This loop is designed for controlled iteration, typically using a counter.
+```java
+for (init; cond; upd){
+    // block of code ...
+}
+```
+* **`init`**: Initialization of the loop variable
+* **`cond`**: Terminating condition
+* **`upd`**: Update statement (usually increment/decrement)
+
+- **Equivalence:** The `for` loop is **completely equivalent** to a `while` loop structure:
+    ```java
+    i = 0; // init     
+    while (i < n){// cond
+        // loop body
+        i++; // upd
+    }
+    ``` 
+
+* **Local Scope:** The loop variable can be defined **within the loop's initialization** (e.g., `for (int i = 0; i < n; i++)`), making the variable **`i` local to the loop**. This is an example of Java's local scoping
+
+* **Style Note:** It is considered **poor style** to write a `for` loop in place of a `while` loop when the C-style structure (init; cond; upd) is not naturally used.
+
+#### 2. Enhanced `for` Loop (For-Each)
+Introduced later in Java in the style of Python's `for x in list`, this loop iterates directly over the elements of an array or collection.
+
+```java
+for (type x: a) { 
+    // 'x' is the element, 'a' is the array/collection
+    // do something with x;
+}
+```
+
+* The loop variable (`v` in the example) must be **declared in the local scope** within the loop header.
+
+*Example:*
+
+```java
+public static int sumarray(int[] arr) {
+    int sum = 0;
+    for (int v : arr) { 
+        // v takes on the value of each element in array arr       
+        sum += v;
+    }
+    return(sum);
+}
+```
+
+### Multiway Branching
+
+The `switch` statement selects among different options based on the value of an expression.
+
+```java
+switch (v) {
+    case -1: {
+        System.out.println("Negative");
+        break; // Crucial to prevent fall-through
+    }
+    // ... other cases
+}
+``` 
+
+* **Options:** The `case` options must be **constants** You cannot use conditional expressions (e.g., `< 0`)
+* **Fall-Through:** By default, Java **"falls through"** from one `case` to the next if a `break` is not included.
+* **`break`:** You **need to explicitly break out of the `switch`** to prevent fall-through. The `break` keyword is also available for use within loops.
+* **Return Type:** If the method has a non-void return type, every execution path must return an appropriate value.
+
