@@ -174,3 +174,5 @@ Unlike the primitive types, **Strings and Arrays are objects** in Java.
 ### Resources
 
 Java has numerous versions; the materials reference **Java 11**]. Extensive online documentation is available and should be consulted in case of doubt.
+
+## Lecture 3: Java Control Flow
