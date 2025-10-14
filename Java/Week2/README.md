@@ -394,6 +394,8 @@ It would be more convenient to initialize an object immediately upon creation ra
         * **Deep Copy:** Required to ensure the new object is **disjoint from the old one** (meaning changes to one don't affect the other). This topic is mentioned for later discussion.
 
 
+## Lecture 5: Java Input Output
 
+### Generating Output
 
 
