@@ -398,4 +398,41 @@ It would be more convenient to initialize an object immediately upon creation ra
 
 ### Generating Output
 
+Java programs use the built-in `System.out` object to write data to the standard output stream (usually the console). The notes discuss three primary methods for output:
 
+  * **`System.out.println(arg)`**: Prints the argument (`arg`) and then advances to a **new line**.
+      * It **implicitly converts the argument to a string** before printing.
+  * **`System.out.print(arg)`**: Similar to `println(arg)`, but it **does not advance to a new line** after printing the argument.
+  * **`System.out.printf(arg)`**: Used to generate **formatted output**.
+      * It uses the **same conventions as the `printf` function in C**.
+
+### Reading Input using `Console` Class
+
+The notes introduce the **`Console` class** as the simplest way to read input in Java, with functionality similar to Python's `input()` function.
+
+  * **Accessing the Console:** The `Console` object is defined within `System` and is accessed using:
+    ```java
+    [cite_start]Console cons = System.console();
+    ```
+  * **Methods of `Console`:** The class provides two main methods for reading a line of text:
+    1.  **`readLine(String prompt)`**:
+          * Returns the input as a **`String`**.
+          * Example use: `String username = cons.readLine("User name: ");`.
+          * This is similar to the behavior of `input()` in Python.
+    2.  **`readPassword(String prompt)`**:
+          * Used for security reasons because it **does not echo characters on the screen** as they are typed.
+          * Returns an **array of `char`** (`char[]`).
+          * Example use: `char[] passwd = cons.readPassword("Password: ");`.
+
+### Reading Input using `Scanner` Class
+
+The **`Scanner` class** is introduced as a more general and powerful way to handle input.
+
+  * **Granular Input:** `Scanner` allows for **more granular reading of input**. This means it can read a full line, or specifically read an integer, a double, etc.].
+  * **Initialization:** A `Scanner` object is typically initialized to read from the standard input stream (`System.in`):
+    ```java
+    [cite_start]Scanner in = new Scanner(System.in); ]
+    ```
+  * **Methods of `Scanner` (Examples):**
+      * **`in.nextLine()`**: Reads a full line of input and returns it as a string, 373].
+      * **`in.nextInt()`**: Reads the next token as an integer]. The `Scanner` class includes various other methods like `nextFloat()`, `nextDouble()`, etc.
