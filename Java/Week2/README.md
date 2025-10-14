@@ -322,3 +322,83 @@ switch (v) {
 - _**Class:**_ A template for an encapsulated type. It is a blueprint that defines the variables (attributes) and methods (behavior) common to all objects of a certain kind.
 - _**Object:**_ An instance of a class. An object is a concrete entity created from the class template.
 
+
+## 2. Defining a Class
+
+The process of defining a class is illustrated using a `Date` class example.
+
+* [cite_start]**Class Definition Block:** Uses the `class` keyword followed by the class name, enclosed in curly braces (`{}`)[cite: 16, 17].
+* [cite_start]**Visibility Modifier (`public`):** The `public` modifier is used to indicate the visibility of the class[cite: 18].
+    * [cite_start]Java allows `public` to be omitted[cite: 19].
+    * [cite_start]The **default visibility** is **public to the package**[cite: 20, 33].
+* [cite_start]**Package:** Administrative units of code[cite: 20, 34]. [cite_start]All classes defined in the same directory form part of the same package[cite: 20, 35].
+
+| Term | Definition & Context |
+| :--- | :--- |
+| **`public class Date { ... }`** | [cite_start]The definition of a class named `Date`[cite: 17, 30]. |
+| **`private int day, month, year;`** | [cite_start]These are **instance variables**[cite: 38, 44, 72]. |
+| **Instance Variables:** | [cite_start]Variables defined within a class; each concrete object of that class (e.g., `Date`) will have **local copies** of these variables[cite: 39, 40]. |
+| **`private` (Modifier):** | [cite_start]These variables are marked **`private`** [cite: 41][cite_start], which enforces **encapsulation**[cite: 7, 42]. They are accessible only within the class itself. |
+| **Encapsulation:** | The principle of bundling data (instance variables) and the methods that operate on the data into a single unit (the class). [cite_start]Keeping instance variables `private` helps uphold this principle[cite: 42]. |
+
+---
+
+## 3. Creating and Managing Objects
+
+### A. Creating an Object
+
+The process involves two main steps:
+
+1.  [cite_start]**Declaration:** Declaring the variable type using the class name[cite: 50, 54, 62]. [cite_start]Example: `Date d;`[cite: 54, 68].
+2.  [cite_start]**Instantiation:** Using the **`new`** keyword, which creates a new object in memory[cite: 51, 55, 63]. [cite_start]Example: `d = new Date();`[cite: 55, 69].
+
+### B. Accessor and Mutator Methods
+
+[cite_start]After creating an object, methods are needed to set and retrieve the values of the private instance variables, which are often called **Accessor and Mutator methods**[cite: 149, 302].
+
+| Method Type | Purpose | Example Method |
+| :--- | :--- | :--- |
+| **Mutator (Setter)** | [cite_start]Methods added to **update (set) the values** of instance variables[cite: 65, 110]. [cite_start]Example: `setDate(int d, int m, int y)`[cite: 73, 95]. |
+| **Accessor (Getter)** | [cite_start]Methods added to **read and report the values** of instance variables[cite: 120, 146]. [cite_start]Examples: `getDay()`, `getMonth()`, `getYear()`[cite: 113, 116, 121, 137, 140, 145]. |
+
+* [cite_start]**`this`:** A special keyword that is a **reference to the current object**[cite: 66, 87, 117, 134]. [cite_start]It is used to disambiguate between an instance variable and a local method parameter if they have the same name[cite: 74]. [cite_start]It can be omitted if the reference is unambiguous[cite: 88, 117, 142].
+
+---
+
+## 4. Object Initialization with Constructors
+
+[cite_start]The document highlights that it would be more convenient to initialize an object immediately upon creation rather than calling a separate `setDate()` method afterwards[cite: 156, 157].
+
+* [cite_start]**Constructor:** A **special function** that is implicitly **called when an object is created** (when `new` is used)[cite: 165, 181, 305].
+    * [cite_start]It must have the **same name as the class**[cite: 166].
+    * [cite_start]Example use: `d = new Date(13, 8, 2015);`[cite: 166, 182].
+
+### A. Constructor Overloading and Chaining
+
+* [cite_start]**Multiple Constructors (Overloading):** Java allows **function overloading**, where multiple functions (including constructors) can have the **same name** but **different signatures** (i.e., different number or types of arguments)[cite: 183, 195, 196, 306]. [cite_start]This allows for objects to be created with different sets of initial parameters[cite: 184].
+* [cite_start]**Constructor Chaining (`this()`):** A later constructor can **call an earlier one using `this`**[cite: 206, 222, 307]. This avoids code duplication. [cite_start]Example: `this(d, m, 2021);` calls the three-argument constructor from the two-argument constructor[cite: 215, 232].
+
+### B. Default Constructor
+
+* [cite_start]**Implicit Default Constructor:** If **no constructor is defined** in a class, Java provides a **default constructor with empty arguments**[cite: 223, 308]. [cite_start]This allows `new Date()` to be called implicitly[cite: 224].
+    * [cite_start]This default constructor sets instance variables to sensible defaults (e.g., `int` variables are set to 0)[cite: 224].
+* [cite_start]**Explicit No-Argument Constructor:** If *any* constructor is defined, the implicit default constructor is **not valid**[cite: 224]. [cite_start]In this case, an **explicit constructor without arguments** must be defined if the user wants to call `new Date()`[cite: 224].
+
+---
+
+## 5. Copy Constructors and Cloning
+
+* [cite_start]**Copy Constructor:** A special type of constructor used to **create a new object from an existing one**[cite: 240, 254, 308, 309].
+    * [cite_start]It takes an object of the **same type as an argument**[cite: 255, 278].
+    * [cite_start]It copies the instance variables from the source object to the new object[cite: 256, 279].
+    * [cite_start]**Visibility Note:** The `private` instance variables of the argument object *are visible* within the copy constructor of the same class[cite: 258].
+
+* [cite_start]**Copy Mechanism:** The copy constructor copies the values of the source object's instance variables (e.g., `this.day = d.day;`)[cite: 245, 264].
+    * **Shallow Copy vs. Deep Copy:** The document notes a distinction when instance variables are themselves objects:
+        * [cite_start]**Shallow Copy:** May result in **aliasing** (two objects referencing the same underlying object) rather than truly copying[cite: 282].
+        * [cite_start]**Deep Copy:** Required to ensure the new object is **disjoint from the old one** (meaning changes to one don't affect the other)[cite: 281, 282]. [cite_start]This topic is mentioned for later discussion[cite: 283].
+
+
+
+
+
