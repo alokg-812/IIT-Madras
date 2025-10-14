@@ -316,3 +316,9 @@ switch (v) {
 * **`break`:** You **need to explicitly break out of the `switch`** to prevent fall-through. The `break` keyword is also available for use within loops.
 * **Return Type:** If the method has a non-void return type, every execution path must return an appropriate value.
 
+## Lecture 4: Classes
+
+### Core Concepts: Class and Object
+- _**Class:**_ A template for an encapsulated type. It is a blueprint that defines the variables (attributes) and methods (behavior) common to all objects of a certain kind.
+- _**Object:**_ An instance of a class. An object is a concrete entity created from the class template.
+
