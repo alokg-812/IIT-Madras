@@ -428,11 +428,11 @@ The notes introduce the **`Console` class** as the simplest way to read input in
 
 The **`Scanner` class** is introduced as a more general and powerful way to handle input.
 
-  * **Granular Input:** `Scanner` allows for **more granular reading of input**. This means it can read a full line, or specifically read an integer, a double, etc.].
+  * **Granular Input:** `Scanner` allows for **more granular reading of input**. This means it can read a full line, or specifically read an integer, a double, etc.
   * **Initialization:** A `Scanner` object is typically initialized to read from the standard input stream (`System.in`):
     ```java
-    [cite_start]Scanner in = new Scanner(System.in); ]
+    Scanner in = new Scanner(System.in);
     ```
   * **Methods of `Scanner` (Examples):**
-      * **`in.nextLine()`**: Reads a full line of input and returns it as a string, 373].
-      * **`in.nextInt()`**: Reads the next token as an integer]. The `Scanner` class includes various other methods like `nextFloat()`, `nextDouble()`, etc.
+      * **`in.nextLine()`**: Reads a full line of input and returns it as a string.
+      * **`in.nextInt()`**: Reads the next token as an integer. The `Scanner` class includes various other methods like `nextFloat()`, `nextDouble()`, etc.
