@@ -243,6 +243,13 @@ do {
 } while (condition); // Condition checked at the end
 ```
 * This structure is particularly **useful for interactive user input** where you need to execute an action (like reading input) before testing its validity.
+* *eg:*
+```java
+do{
+    read-user-input; //the code will not run untill the user gives the input asked
+}while(input-condition)
+```
+
 
 ### Iteration
 
@@ -412,7 +419,7 @@ The notes introduce the **`Console` class** as the simplest way to read input in
 
   * **Accessing the Console:** The `Console` object is defined within `System` and is accessed using:
     ```java
-    [cite_start]Console cons = System.console();
+    Console cons = System.console();
     ```
   * **Methods of `Console`:** The class provides two main methods for reading a line of text:
     1.  **`readLine(String prompt)`**:
