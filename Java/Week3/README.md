@@ -474,3 +474,131 @@ However, understanding the difference is key to good object-oriented design:
   * **Inheritance is about efficiency:** It allows developers to avoid rewriting code by reusing the implementation from a parent class.
 
 ## Lecture 6: Modifiers
+
+This document provides a detailed explanation of **Java Modifiers**, which are keywords used in declarations to enforce various features of Object-Oriented Programming (OOP) such as encapsulation, class membership, and immutability. [cite\_start]These modifiers can be applied to **classes, instance variables, and methods**[cite: 480].
+
+-----
+
+## 1\. Access Control Modifiers (`public` vs. `private`)
+
+[cite\_start]These modifiers are essential for enforcing **encapsulation of data**[cite: 453].
+
+| Modifier | Application | Purpose & Standard Use |
+| :--- | :--- | :--- |
+| **`private`** | Instance Variables, Methods | [cite\_start]Limits visibility to **within the declared class only**[cite: 511]. [cite\_start]**Typically, instance variables are `private`** to protect the object's state[cite: 500]. |
+| **`public`** | Classes, Methods, Variables | [cite\_start]Grants **universal access**[cite: 512]. [cite\_start]**Methods to query (accessor) and update (mutator) the state are typically `public`**[cite: 502]. |
+
+### The Role of `private` Methods
+
+[cite\_start]While most methods are public, **private methods also make sense**[cite: 817]. They are used for internal, helper functionality that should not be exposed to the outside world.
+
+**Example: Private Methods in a `Stack` Class**
+
+A `Stack` needs to check if it's full (`stack_full()`) and possibly expand its storage (`extend_stack()`) internally before a `push()` operation. These helper methods should not be called directly by a user, thus making them `private`.
+
+```java
+public class Stack {
+    private int[] values; 
+    private int tos;    // top of stack
+    private int size;   // values.length
+
+    // ... Constructor ...
+
+    public void push(int i) {
+        if (stack_full()) {
+            extend_stack(); // Invokes private method
+        }
+        // ... Usual push operations ...
+    }
+
+    // Private helper method - only callable from within the Stack class
+    private boolean stack_full() {
+        return (tos == size);
+    }
+    
+    // Private utility method - details hidden from user
+    private void extend_stack() {
+        /* Allocate additional space, reset size, etc. */
+    }
+    
+    public int pop() { ... }
+}
+```
+
+### The Problem with Separate Mutators
+
+[cite\_start]Using individual `public` mutator methods (like `setDay`, `setMonth`, `setYear`) can lead to **inconsistent updates** by allowing invalid combinations of values to be set separately[cite: 629, 630]. [cite\_start]It is better to allow only a combined update that can validate the entire state at once[cite: 646].
+
+```java
+public class Date {
+    private int day, month, year;
+    // ... Accessors/Getters ...
+
+    // Combined Mutator (Setter) is preferred for validation
+    public void setDate(int d, int m, int y) {
+        // Validate d-m-y combination before setting
+        // ...
+    }
+}
+```
+
+-----
+
+## 2\. Membership Modifier (`static`)
+
+[cite\_start]The `static` modifier is used for entities defined inside classes that **exist without creating objects of the class**[cite: 461, 660].
+
+| Component | Purpose & Examples | Java Code Example |
+| :--- | :--- | :--- |
+| **Static Methods** | [cite\_start]Used for utility/library functions (like `main()`) that do not rely on object state[cite: 661]. | `public static void main(String[] args)` |
+| **Static Variables** | [cite\_start]Used for **useful constants** (often also `public` and `final`), which are common to all objects in the class[cite: 662, 742]. | `public static final double PI = 3.14159;` |
+
+### `private static` Components
+
+[cite\_start]**Private static components make sense** for internal bookkeeping information across all objects of a class[cite: 690, 691, 818].
+
+**Example: Generating Unique IDs**
+
+A private static variable is used as a counter, shared by all instances, to assign a unique serial number (`orderid`) to each new object upon creation.
+
+```java
+public class Order {
+    [cite_start]// Shared state: 'lastorderid' is common to all objects in the class [cite: 742]
+    private static int lastorderid = 0; [cite_start]// Private static field [cite: 721]
+    
+    // Instance state: Unique for each object
+    private int orderid;
+    
+    public Order(/* ... */) {
+        lastorderid++;        // Increments the shared counter
+        this.orderid = lastorderid; // Assigns the unique ID to the new object
+    }
+}
+[cite_start]// Note: Care must be taken about concurrent updates to static variables[cite: 763].
+```
+
+-----
+
+## 3\. Immutability Modifier (`final`)
+
+[cite\_start]The `final` modifier denotes that a value **cannot be updated**[cite: 767, 774].
+
+| Component | Purpose | Context |
+| :--- | :--- | :--- |
+| **Final Variables** | Creates a constant. [cite\_start]Usually used with **public and static instance variables** (e.g., `Math.PI`)[cite: 775, 782]. | `public static final int MAX_VALUE = 2147483647;` |
+| **Final Methods** | [cite\_start]Prevents a method from being **overridden by a subclass**[cite: 810, 821]. | Used to ensure a critical base class implementation is always used. |
+| **Final Classes** | Prevents a class from being subclassed (not explicitly detailed but implied by the method rule). | E.g., Java's `String` class is final. |
+
+**Example: Final Method**
+
+If the `Employee` class has a crucial method that no subclass (like `Manager`) should ever change, it's declared `final`.
+
+```java
+public class Employee {
+    // ...
+    // A final method cannot be overridden by any subclass
+    public final void checkCompliance() {
+        // ...
+    }
+}
+```
