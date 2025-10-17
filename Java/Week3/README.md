@@ -386,9 +386,91 @@ public boolean equals(Object d) { // Signature is (Object)
 ```
 
   * [cite\_start]**Overriding Rules:** When a method is invoked, the Java runtime looks for the "**closest**" match in the hierarchy[cite: 206, 212, 219, 249]. [cite\_start]If a class has a method compatible with multiple inherited methods (e.g., `boolean equals(Manager m)` is compatible with both `boolean equals(Employee e)` and `boolean equals(Object o)`), the closest, most specific compatible method is used[cite: 242, 243, 258, 259, 260].
-  
+
 
 ## Lecture 5: Subtyping vs Inheritence
 
+This document clarifies the crucial distinction between **Subtyping** and **Inheritance**, explaining how Java's class hierarchy typically provides both, which can sometimes blur the conceptual difference.
+
+-----
+
+## 1\. Subtyping vs. Inheritance: The Core Difference
+
+[cite\_start]The Java class hierarchy often represents both subtyping and inheritance simultaneously[cite: 1647, 1663]. However, they represent two distinct concepts:
+
+| Concept | Focus | Definition | Example (Employee/Manager) |
+| :--- | :--- | :--- | :--- |
+| **Subtyping** | [cite\_start]**Compatibility of Interfaces**[cite: 1727, 1736]. | [cite\_start]If B is a subtype of A, the capabilities of B are a **superset** of A[cite: 1655]. [cite\_start]This means wherever an object of type A is required, an object of type B can be used[cite: 1656, 1728]. | [cite\_start]`Employee e = new Manager(...)` is legal, because a `Manager` object can perform every function defined for an `Employee`[cite: 1657]. |
+| **Inheritance** | [cite\_start]**Reuse of Implementations**[cite: 1739]. | [cite\_start]B inherits from A if some functions for B are **written in terms of functions of A**[cite: 1670, 1740]. [cite\_start]The subtype reuses the code of the main type[cite: 1669]. | [cite\_start]`Manager.bonus()` uses `super.Employee.bonus()`[cite: 1670]. |
+
+[cite\_start]The core distinction is: **Subtyping** relates to *what* the object can do (its interface/behavior), and **Inheritance** relates to *how* the object is built (its code structure/implementation)[cite: 1748, 1751].
+
+-----
+
+## 2\. Decoupling the Concepts (The Data Structure Example)
+
+The slides use a classic data structure example to show that subtyping and inheritance relationships do not always align in the same direction.
+
+### [cite\_start]Data Structure Definitions [cite: 1677, 1678]
+
+  * **Queue:** Methods include `insert-rear`, `delete-front`.
+  * **Stack:** Methods include `insert-front`, `delete-front`.
+  * **Deque (Double-Ended Queue):** Methods include `insert-front`, `delete-front`, `insert-rear`, `delete-rear`.
+
+### [cite\_start]Subtyping Relationship [cite: 1709, 1710, 1711]
+
+  * **Logic:** Since a Deque has all the functionality (methods) of both a Queue and a Stack, it can be substituted for either one.
+  * **Conclusion (Based on Capability):**
+    $$\text{Deque} \text{ is a subtype of } \text{Queue}$$
+    $$\text{Deque} \text{ is a subtype of } \text{Stack}$$
+
+### [cite\_start]Inheritance Relationship [cite: 1712, 1713]
+
+  * **Logic:** For code reuse, it is often easier to implement the simpler structures (Queue and Stack) by limiting the functionality of the more complex structure (Deque). For instance, a Queue implementation might *reuse* the implementation of Deque by only exposing `insert-rear` and `delete-front`.
+  * **Conclusion (Based on Code Reuse):**
+    $$\text{Queue} \text{ inherits from } \text{Deque}$$
+    $$\text{Stack} \text{ inherits from } \text{Deque}$$
+
+### Example Code (Conceptual)
+
+This example shows how `Queue` reuses the implementation of `Deque` by *limiting access* (inheritance for code reuse), even though `Deque` is the logical *subtype*.
+
+```java
+// Deque.java (Superclass for Implementation Reuse)
+public class Deque {
+    // Methods for a full Deque
+    public void insertFront(Object o) { ... }
+    public void deleteFront() { ... }
+    public void insertRear(Object o) { ... }
+    public void deleteRear() { ... }
+}
+
+// Queue.java (Subclass, but the Supertype in Capability)
+public class Queue extends Deque {
+    // Queue only exposes two methods by calling super's implementation
+    
+    // insert-rear is reused from Deque
+    public void insertRear(Object o) {
+        super.insertRear(o); 
+    }
+    
+    // delete-front is reused from Deque
+    public void deleteFront() {
+        super.deleteFront();
+    }
+    
+    // Note: insertFront and deleteRear are inherited but should be hidden 
+    // or overridden to throw an error to enforce the Queue interface.
+}
+```
+
+## 3\. The Blurring of Concepts
+
+[cite\_start]The use of a single mechanism—the **class hierarchy** (`extends` keyword)—to implement both **subtyping** and **inheritance** can **blur the distinction between the two**[cite: 1719, 1725, 1753]. In many practical Java scenarios, a subclass (`B`) is *both* a subtype *and* an inheritor of its superclass (`A`).
+
+However, understanding the difference is key to good object-oriented design:
+
+  * **Subtyping is about safety:** It guarantees that you can safely substitute a subtype object wherever a supertype object is expected (Liskov Substitution Principle).
+  * **Inheritance is about efficiency:** It allows developers to avoid rewriting code by reusing the implementation from a parent class.
 
 ## Lecture 6: Modifiers
