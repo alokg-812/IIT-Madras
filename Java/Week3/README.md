@@ -180,7 +180,125 @@ public class Manager extends Employee {
 
 ## Lecture 3: Polymorphism
 
+This document explains **Dynamic Dispatch** and **Polymorphism** in Java, focusing on how method calls are resolved when using inheritance and method overriding.
 
+-----
+
+## 1\. Method Overriding
+
+[cite\_start]A key capability of inheritance is **method overriding**, where a subclass can provide its own implementation for a method already defined in its superclass[cite: 579, 601].
+
+  * [cite\_start]**Overriding:** Multiple methods exist with the **same name and same signature** (list of argument types) in a superclass and its subclass[cite: 800].
+  * [cite\_start]**The `super` Keyword:** The overriding method in the subclass can use the `super` keyword to call the original method implementation in the parent class[cite: 622, 624].
+
+### Example: Overriding `bonus()`
+
+[cite\_start]The `Manager` subclass can redefine the `bonus()` method to offer a higher bonus calculation, for instance, a 1.5x multiplier on the standard employee bonus[cite: 620].
+
+```java
+// Employee Class (Superclass)
+public class Employee {
+    // ... instance variables and other methods
+    public double bonus(float percent) {
+        return (percent / 100.0) * salary; // Employee's original bonus calculation
+    }
+}
+
+// Manager Class (Subclass)
+public class Manager extends Employee {
+    // ... instance variables and other methods
+    // Overrides the Employee's bonus method
+    public double bonus(float percent) {
+        // Calls the parent class's bonus() via super and applies a 1.5x multiplier
+        return 1.5 * super.bonus(percent); 
+    }
+}
+```
+
+-----
+
+## 2\. Dynamic Dispatch
+
+[cite\_start]**Dynamic dispatch** (also known as **dynamic binding** or **late method binding**) is the mechanism that determines which version of an overridden method to execute at **run-time**[cite: 688, 824, 943]. [cite\_start]This is the default behavior in Java, unlike in languages like C++ where it can be optional[cite: 689].
+
+### Static vs. Dynamic Type
+
+Consider the assignment of a subclass object to a superclass reference:
+
+```java
+Employee e = new Manager(...);
+```
+
+  * [cite\_start]**Static Type:** The type declared on the left side, **`Employee`**[cite: 653]. This is checked at compile-time.
+  * **Dynamic Type (Run-time Identity):** The actual type of the object created on the right side, **`Manager`**.
+
+### The Dispatch Problem
+
+When calling a method on the reference `e`, which method is used?
+
+  * [cite\_start]**Method Check (Static):** When attempting to call `e.setSecretary()` (a method unique to `Manager`), **static type-checking** fails because the reference `e` is declared as an `Employee`, which does not contain that method[cite: 652, 654].
+  * **Method Call (Dynamic):** When calling an overridden method like `e.bonus(p)`:
+      * [cite\_start]**Static choice** (compile-time) would use `Employee.bonus()`[cite: 671].
+      * [cite\_start]**Dynamic choice** (run-time) uses `Manager.bonus()`[cite: 671, 687].
+
+[cite\_start]**Dynamic Dispatch** ensures that the correct method, based on the object's **actual run-time identity (`Manager`)**, is called[cite: 943].
+
+-----
+
+## 3\. Polymorphism (Runtime/Inheritance)
+
+[cite\_start]**Polymorphism** (specifically **runtime polymorphism** or **inheritance polymorphism**) is the core concept enabled by dynamic dispatch[cite: 721, 944]. It means a variable of a superclass type can hold objects of its subclasses, and method calls on that variable will execute the correct subclass method.
+
+### Polymorphic Array Example
+
+Polymorphism allows an array declared as `Employee[]` to hold a mixture of `Employee` and `Manager` objects. [cite\_start]When iterating and calling the `bonus()` method, each object executes its own specialized version[cite: 694, 696].
+
+```java
+Employee[] emparray = new Employee[2];
+emparray[0] = new Employee(...);
+emparray[1] = new Manager(...);
+
+for (int i = 0; i < emparray.length; i++){
+    // When i=0, calls Employee.bonus()
+    // When i=1, calls Manager.bonus() due to dynamic dispatch
+    System.out.println(emparray[i].bonus(5.0));
+}
+[cite_start]// Every Employee in emparray "knows" how to calculate its bonus correctly! [cite: 695]
+```
+
+-----
+
+## 4\. Overloading vs. Overriding
+
+The document clearly distinguishes two different forms of polymorphism related to method signatures:
+
+| Feature | Overloading | Overriding | Dynamic Dispatch (Run-time Polymorphism) |
+| :--- | :--- | :--- | :--- |
+| **Methods** | [cite\_start]Multiple methods [cite: 778] | [cite\_start]Multiple methods [cite: 800] | [cite\_start]Multiple methods [cite: 824] |
+| **Signature** | [cite\_start]**Different** signatures [cite: 778] | [cite\_start]**Same** signature [cite: 800] | [cite\_start]**Same** signature [cite: 824] |
+| **Choice Time** | [cite\_start]**Static** (compile-time) [cite: 778] | [cite\_start]**Static** (compile-time) [cite: 800] | [cite\_start]**Run-time** [cite: 824] |
+| **Context** | [cite\_start]In the same class (e.g., multiple constructors, `Arrays.sort()` methods) [cite: 747] | [cite\_start]Across a superclass and subclass [cite: 801] | [cite\_start]Across a superclass and subclass [cite: 824] |
+
+-----
+
+## 5\. Type Casting and Reflection
+
+To overcome the restrictions imposed by static type-checking, **type casting** can be used.
+
+  * [cite\_start]**Type Casting:** The process of converting a reference from one type to another[cite: 862]. This is used to access subclass-specific methods (like `setSecretary()`) when the reference is held by the superclass type (`Employee e`).
+  * **Casting Syntax:** To call the `setSecretary()` method on the `Employee` reference `e`, it must be explicitly cast back to `Manager`:
+    ```java
+    ((Manager) e).setSecretary(s); [cite_start]// [cite: 863]
+    ```
+  * [cite\_start]**Run-time Error:** The cast fails (results in an error at run-time) if the object `e` is **not actually a `Manager`**[cite: 877].
+  * **Checking Type (`instanceof`):** To avoid run-time errors, the `instanceof` keyword can be used to check the object's type before casting:
+    ```java
+    [cite_start]if (e instanceof Manager) { // [cite: 892, 910]
+        ((Manager) e).setSecretary(s); 
+    }
+    ```
+  * [cite\_start]**Reflection:** Using `instanceof` to test the object's type at run-time is a simple example of **reflection**, which is when a program can "think about oneself" or examine its own structure[cite: 914, 915].
+  * [cite\_start]**Basic Type Casting:** Casting is also used for basic types (e.g., converting a `double` to an `int`)[cite: 935, 936].
 
 ## Lecture 4: Class Hierarchy
 
