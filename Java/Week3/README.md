@@ -302,6 +302,91 @@ To overcome the restrictions imposed by static type-checking, **type casting** c
 
 ## Lecture 4: Class Hierarchy
 
+This document explains the structure of the **Java Class Hierarchy**, focusing on why Java disallows multiple inheritance and the significance of the universal superclass, `Object`.
+
+-----
+
+## 1\. Multiple Inheritance and The Diamond Problem
+
+The slides begin by addressing **multiple inheritance**, where a class attempts to inherit from two or more parent classes.
+
+  * [cite\_start]**Definition:** Multiple inheritance is when a subclass (`C3`) attempts to extend multiple parent classes (`C1` and `C2`)[cite: 7, 9].
+  * [cite\_start]**The Conflict (Diamond Problem):** A conflict arises if both parent classes (`C1` and `C2`) define a method with the same signature, such as `public int f()`[cite: 18, 23]. [cite\_start]If the subclass (`C3`) doesn't override `f()`, it's ambiguous which version of `f()` should be used in `C3`[cite: 21, 33].
+  * [cite\_start]**Java's Stance:** **Java does not allow multiple inheritance** to avoid this ambiguity and the resulting complexity[cite: 34, 47, 266].
+      * [cite\_start](In contrast, C++ allows multiple inheritance if the parent classes have no conflict[cite: 48].)
+
+-----
+
+## 2\. The Java Class Hierarchy Structure
+
+[cite\_start]Because Java prohibits multiple inheritance, the class structure is **tree-like**[cite: 57, 65, 268].
+
+### The Universal Superclass: `Object`
+
+  * [cite\_start]**Root of the Tree:** The entire Java class hierarchy has a **universal superclass** called **`Object`** at its root[cite: 66, 74, 101, 269].
+  * [cite\_start]**Implicit Inheritance:** Every class you write implicitly inherits from `Object`[cite: 271].
+  * [cite\_start]**Default Methods:** The `Object` class defines several useful methods that are inherited by all classes[cite: 75, 87, 102, 270]:
+      * [cite\_start]**`public boolean equals(Object o)`:** Defaults to **pointer equality** (`==`), meaning it checks if the two object references point to the exact same location in memory[cite: 76, 88, 103, 134].
+      * [cite\_start]**`public String toString()`:** Converts the values of the instance variables to a `String`[cite: 77, 90, 104, 105, 270]. [cite\_start]This method is implicitly invoked when printing an object (e.g., `System.out.println(o + "")` implicitly calls `o.toString()` [cite: 107, 108]).
+
+-----
+
+## 3\. Writing Generic Functions with `Object`
+
+[cite\_start]The universal `Object` class allows developers to write **generic functions** that can operate on any Java object[cite: 114, 127, 140].
+
+### Example: Generic `find` Function
+
+A function designed to search for an element in an array can use `Object` as the type for both the array and the search target:
+
+```java
+public int find(Object[] objarr, Object o) {
+    int i;
+    for (i = 0; i < objarr.length; i++) {
+        // By default, this checks for pointer equality
+        if (objarr[i] == o) { 
+            return i;
+        }
+    }
+    return -1;
+}
+```
+
+If a class overrides the `equals()` method, the generic function can be modified to use it. [cite\_start]If the function is changed to use `objarr[i].equals(o)`, **dynamic dispatch** will ensure the correct (overridden) `equals()` method is called instead of `Object.equals()`[cite: 148, 149].
+
+-----
+
+## 4\. Careful Overriding of `equals()`
+
+[cite\_start]When overriding methods inherited from `Object`, one must be careful to match the signature exactly[cite: 272].
+
+### The Correct Signature
+
+For a class like `Date`, an attempt to override `equals()` to compare the object's state (day, month, year) might look like this:
+
+```java
+// THIS IS INCORRECT OVERRIDING
+public boolean equals(Date d) { // Signature is (Date)
+    return (this.day == d.day) && (this.month == d.month) && (this.year == d.year);
+}
+[cite_start]// This method does NOT override Object's equals(Object o)! [cite: 175, 176, 198, 199]
+```
+
+Since the inherited method is `public boolean equals(Object o)`, the overriding method must match this signature precisely. The correct implementation requires a **run-time type check** and a **cast**:
+
+```java
+// THIS IS CORRECT OVERRIDING
+public boolean equals(Object d) { // Signature is (Object)
+    [cite_start]if (d instanceof Date) { // Run-time type check [cite: 187, 201]
+        Date myd = (Date) d; [cite_start]// Cast [cite: 188, 201]
+        return ((this.day == myd.day) && (this.month == myd.month) && (this.year == myd.year));
+    }
+    return false; // Return false if the object is not a Date
+}
+```
+
+  * [cite\_start]**Overriding Rules:** When a method is invoked, the Java runtime looks for the "**closest**" match in the hierarchy[cite: 206, 212, 219, 249]. [cite\_start]If a class has a method compatible with multiple inherited methods (e.g., `boolean equals(Manager m)` is compatible with both `boolean equals(Employee e)` and `boolean equals(Object o)`), the closest, most specific compatible method is used[cite: 242, 243, 258, 259, 260].
+  
 
 ## Lecture 5: Subtyping vs Inheritence
 
