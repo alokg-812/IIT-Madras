@@ -1,0 +1,14 @@
+# Executables (Windows)
+*.exe
+
+# Java compiled files
+*.class
+
+# Operating System specific files (useful extras)
+.DS_Store # Mac
+Thumbs.db # Windows
+
+# Temporary files (useful extras)
+*~
+# Logs and other generated output
+/logs/
