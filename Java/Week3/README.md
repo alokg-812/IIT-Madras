@@ -180,3 +180,12 @@ public class Manager extends Employee {
 
 ## Lecture 3: Polymorphism
 
+
+
+## Lecture 4: Class Hierarchy
+
+
+## Lecture 5: Subtyping vs Inheritence
+
+
+## Lecture 6: Modifiers
