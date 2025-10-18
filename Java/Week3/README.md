@@ -185,7 +185,7 @@ Inheritance establishes an "is-a" relationship: **Every `Manager` is an `Employe
     ```
 
 ## Lecture 3: Polymorphism
-
+ 
 **Dynamic Dispatch** and **Polymorphism** explaination in Java, focusing on how method calls are resolved when using inheritance and method overriding.
 
 ### Method Overriding
