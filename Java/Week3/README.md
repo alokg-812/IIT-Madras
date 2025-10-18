@@ -67,13 +67,15 @@ Like an `Employee` class and a `Manager` subclass are examples of Subclasses.
 
 Let's take a basic `Employee` class, which serves as the **parent class** or **superclass**.
 
-| Component | Description | Example (Implied) |
-| :--- | :--- | :--- |
-| **Instance Variables** | Two private instance variables to store the employee's name and salary. | `private String name;` `private double salary;` |
-| **Constructors** | Methods to set up (initialize) the object. | `public Employee(String n, double s) { ... }` |
-| **Mutator Methods** | Methods (like `setName`, `setSalary`) to set the values of the private instance variables. | `public boolean setSalary(double x) { ... }` |
-| **Accessor Methods** | Methods (like `getName`, `getSalary`) to read and report the values of the private instance variables. | `public double getSalary() { ... }` |
-| **Other Methods** | Public methods, such as one to compute a bonus. | `public double bonus(float percent) { return (percent/100.0) * salary; }` |
+<img width="344" height="495" alt="image" src="https://github.com/user-attachments/assets/c5f659aa-9651-4caf-a77b-968c3a8fc47b" />
+
+| Component | Description |
+| :--- | :--- |
+| **Instance Variables** | Two private instance variables to store the employee's name and salary. |
+| **Constructors** | Methods to set up (initialize) the object. |
+| **Mutator Methods** | Methods (like `setName`, `setSalary`) to set the values of the private instance variables. |
+| **Accessor Methods** | Methods (like `getName`, `getSalary`) to read and report the values of the private instance variables. |
+| **Other Methods** | Public methods, such as one to compute a bonus. |
 
 **Class Definition:**
 
