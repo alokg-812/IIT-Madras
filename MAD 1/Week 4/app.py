@@ -1,58 +1,119 @@
-from flask import Flask, render_template, request
-import pandas as pd
+from flask import Flask, render_template, request, url_for
+import csv
+import io
+import base64
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
-import os
 
 app = Flask(__name__)
 
-data_file = "data.csv"
-data = pd.read_csv(data_file, skipinitialspace=True)
+DATA_FILE = 'data.csv'
 
-def generate_histogram(course_id):
-    course_data = data[data["Course id"] == course_id]
-    plt.figure(figsize=(6, 4))
-    plt.hist(course_data["Marks"], bins=5, edgecolor='black')
-    plt.xlabel("Marks")
-    plt.ylabel("Number of Students")
-    plt.title(f"Marks Distribution for Course {course_id}")
-    hist_path = os.path.join("static", "histogram.png")
-    plt.savefig(hist_path)
+def read_data():
+    """
+    Read data.csv and return a list of dicts with keys:
+    'student_id', 'course_id', 'marks' (marks as int)
+    """
+    rows = []
+    try:
+        with open(DATA_FILE, newline='') as f:
+            reader = csv.reader(f)
+            # Skip header if present (we'll try to detect header)
+            all_rows = [r for r in reader if r]  # drop empty rows
+            if not all_rows:
+                return rows
+            # Check header: if first row contains non-numeric marks, treat as header
+            first = [c.strip().lower() for c in all_rows[0]]
+            if 'student' in ' '.join(first) or 'marks' in ' '.join(first) or 'course' in ' '.join(first):
+                data_rows = all_rows[1:]
+            else:
+                data_rows = all_rows
+
+            for r in data_rows:
+                # handle rows with tabs/spaces or extra whitespace
+                # Expect at least 3 columns
+                if len(r) < 3:
+                    # maybe the file uses commas but split produced single column containing commas -> split explicitly
+                    parts = ','.join(r).split(',')
+                else:
+                    parts = r
+                # strip whitespace
+                parts = [p.strip() for p in parts if p is not None]
+                if len(parts) < 3:
+                    continue
+                sid, cid, marks = parts[0], parts[1], parts[2]
+                # try to convert marks to int; if fails skip row
+                try:
+                    m = int(float(marks))
+                except Exception:
+                    continue
+                rows.append({
+                    'student_id': sid,
+                    'course_id': cid,
+                    'marks': m
+                })
+    except FileNotFoundError:
+        # return empty list if no file
+        return []
+    return rows
+
+def generate_hist_base64(marks_list):
+    """Return base64 PNG image data for a histogram of marks_list."""
+    if not marks_list:
+        return None
+    plt.figure(figsize=(6,4))
+    plt.hist(marks_list, bins=10)  # frequency vs marks
+    plt.xlabel('Marks')
+    plt.ylabel('Frequency')
+    buf = io.BytesIO()
+    plt.tight_layout()
+    plt.savefig(buf, format='png')
     plt.close()
-    return hist_path
+    buf.seek(0)
+    img_data = base64.b64encode(buf.getvalue()).decode('utf-8')
+    return img_data
 
-@app.route("/", methods=["GET", "POST"])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == "POST":
-        search_type = request.form.get("ID")
-        search_value = request.form.get("id_value")
-        
-        if not search_type or not search_value.isdigit():
-            return render_template("error.html", message="Invalid input! Please enter a valid Student ID or Course ID.")
-        
-        search_value = int(search_value)
-        
-        if search_type == "student_id":
-            student_data = data[data["Student id"] == search_value]
-            if student_data.empty:
-                return render_template("error.html", message=f"No records found for Student ID {search_value}.")
-            
-            total_marks = student_data["Marks"].sum()
-            return render_template("student_details.html", 
-                        student_data=student_data.to_dict(orient="records"), 
-                        total_marks=int(total_marks))  # Ensure total marks is an integer
+    if request.method == 'GET':
+        return render_template('index.html')
+    # POST
+    selected = request.form.get('ID')  # "student_id" or "course_id"
+    id_value = request.form.get('id_value', '').strip()
+    if not selected or not id_value:
+        return render_template('error.html', message="Please select Student ID or Course ID and enter an ID value.")
+    data = read_data()
+    if selected == 'student_id':
+        # Filter rows by student id exactly equal
+        student_rows = [r for r in data if r['student_id'] == id_value]
+        # Validate: if there are rows, ensure they correspond to student entries; if none, show error
+        if not student_rows:
+            return render_template('error.html', message=f"No records found for Student ID '{id_value}'.")
+        total_marks = sum(r['marks'] for r in student_rows)
+        # sort by course id for nicer display
+        student_rows_sorted = sorted(student_rows, key=lambda x: x['course_id'])
+        return render_template('student_details.html',
+                               student_id=id_value,
+                               rows=student_rows_sorted,
+                               total_marks=total_marks)
+    elif selected == 'course_id':
+        # Filter rows by course id
+        course_rows = [r for r in data if r['course_id'] == id_value]
+        if not course_rows:
+            return render_template('error.html', message=f"No records found for Course ID '{id_value}'.")
+        marks = [r['marks'] for r in course_rows]
+        avg_marks = round(sum(marks) / len(marks), 2)
+        max_marks = max(marks)
+        hist_img = generate_hist_base64(marks)  # base64 PNG
+        return render_template('course_details.html',
+                               course_id=id_value,
+                               average_marks=avg_marks,
+                               maximum_marks=max_marks,
+                               histogram_image=hist_img)
+    else:
+        return render_template('error.html', message="Invalid selection. Choose Student ID or Course ID.")
 
-        
-        elif search_type == "course_id":
-            course_data = data[data["Course id"] == search_value]
-            if course_data.empty:
-                return render_template("error.html", message=f"No records found for Course ID {search_value}.")
-            
-            avg_marks = round(course_data["Marks"].mean(), 2)
-            max_marks = course_data["Marks"].max()
-            hist_path = generate_histogram(search_value)
-            return render_template("course_details.html", avg_marks=avg_marks, max_marks=max_marks, hist_path=hist_path)
-    
-    return render_template("index.html")
-
-if __name__ == "__main__":
+if __name__ == '__main__':
+    # Only allowed code inside this guard is run() call (as required by assignment)
     app.run(debug=True)
