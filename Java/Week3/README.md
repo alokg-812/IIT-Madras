@@ -81,7 +81,7 @@ Let's take a basic `Employee` class, which serves as the **parent class** or **s
 public class Employee {
     private String name;
     private double salary;
-    
+
     // Constructor Example
     public Employee(String n, double s) {
         this.name = n;
