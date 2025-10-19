@@ -67,13 +67,15 @@ Like an `Employee` class and a `Manager` subclass are examples of Subclasses.
 
 Let's take a basic `Employee` class, which serves as the **parent class** or **superclass**.
 
-| Component | Description | Example (Implied) |
-| :--- | :--- | :--- |
-| **Instance Variables** | Two private instance variables to store the employee's name and salary. | `private String name;` `private double salary;` |
-| **Constructors** | Methods to set up (initialize) the object. | `public Employee(String n, double s) { ... }` |
-| **Mutator Methods** | Methods (like `setName`, `setSalary`) to set the values of the private instance variables. | `public boolean setSalary(double x) { ... }` |
-| **Accessor Methods** | Methods (like `getName`, `getSalary`) to read and report the values of the private instance variables. | `public double getSalary() { ... }` |
-| **Other Methods** | Public methods, such as one to compute a bonus. | `public double bonus(float percent) { return (percent/100.0) * salary; }` |
+<img width="344" height="495" alt="image" src="https://github.com/user-attachments/assets/c5f659aa-9651-4caf-a77b-968c3a8fc47b" />
+
+| Component | Description |
+| :--- | :--- |
+| **Instance Variables** | Two private instance variables to store the employee's name and salary. |
+| **Constructors** | Methods to set up (initialize) the object. |
+| **Mutator Methods** | Methods (like `setName`, `setSalary`) to set the values of the private instance variables. |
+| **Accessor Methods** | Methods (like `getName`, `getSalary`) to read and report the values of the private instance variables. |
+| **Other Methods** | Public methods, such as one to compute a bonus. |
 
 **Class Definition:**
 
@@ -100,23 +102,24 @@ public class Employee {
 }
 ```
 
------
-
 ## 2\. Defining a Subclass and Inheritance
 
 A **subclass** is created to represent a specialized version of the parent class. In the example, a `Manager` is a special type of `Employee` with extra features785].
 
 | Term | Definition & Context |
 | :--- | :--- |
-| **Subclass / Child Class** | A class that **extends** another class797, 823, 972]. (`Manager` is a subclass of `Employee` 823]). |
+| **Subclass / Child Class** | A class that **extends** another class. (`Manager` is a subclass of `Employee` |
 | **Superclass / Parent Class** | The class that is being extended (e.g., `Employee`). |
-| **Inheritance** | The mechanism by which the subclass **inherits** (receives) the instance variables and methods from the parent class806, 908, 934, 973]. |
+| **Inheritance** | The mechanism by which the subclass **inherits** (receives) the instance variables and methods from the parent class |
+
+<img width="584" height="279" alt="image" src="https://github.com/user-attachments/assets/f7cefc61-32e9-480d-8294-b74c2ea69c88" />
 
 **Subclass Definition:**
-The `extends` keyword is used to define a subclass786]. The subclass can add its own new instance variables and methods787, 974].
+The `extends` keyword is used to define a subclass. The subclass can add its own new instance variables and methods.
 
 ```java
 public class Manager extends Employee {
+    private String name; //extended from the Employee Class
     private String secretary; // New feature for Manager
     
     // New mutator for the new feature
@@ -131,62 +134,65 @@ public class Manager extends Employee {
 }
 ```
 
-  * **Effect of Inheritance:** Every `Manager` object automatically inherits the `name`, `salary`, `getName()`, `getSalary()`, and `bonus()` methods from `Employee`807].
+ * **Effect of Inheritance:** Every `Manager` object automatically inherits the `name`, `salary`, `getName()`, `getSalary()`, and `bonus()` methods from `Employee`.
 
------
+### The `private` Restriction and `super`
 
-## 3\. The `private` Restriction and `super`
+Access restriction regarding private members:
 
-A key point in the slides is the access restriction regarding private members:
-
-  * **Private Access:** `Manager` objects **do not automatically have access to the private data of the parent class** (`Employee`)830, 846, 977]. This is true even when extending a parent class written by someone else831, 839, 847].
-  * **The Problem:** How can a constructor for `Manager` set the `name` and `salary` instance variables that are private to `Employee`840, 848]?
+ * **Private Access:** `Manager` objects **do not automatically have access to the private data of the parent class** (`Employee`). This is true even when extending a parent class written by someone else.
+ * **The Problem:** How can a constructor for `Manager` set the `name` and `salary` instance variables that are private to `Employee`.
 
 ### The `super` Keyword
 
-The solution is to use the **parent class's constructor** via the **`super`** keyword868, 978].
+The solution is to use the **parent class's constructor** via the **`super`** keyword.
 
-  * **`super` (Keyword):** Calls a constructor of the superclass (parent class)898, 978]. This allows the parent class to initialize its own private variables using its own logic.
+  * **`super` (Keyword):** Calls a constructor of the superclass (parent class). This allows the parent class to initialize its own private variables using its own logic.
 
 **Manager Constructor Example:**
 
 ```java
+public class Employee{
+    public Employee(String n, double s){
+        name = n; salary = s;
+    }
+    public Employee(String n){
+        this(n, 500);
+    }
+}
+
 public class Manager extends Employee {
     private String secretary;
 
     public Manager(String n, double s, String sn) {
-        super(n, s); // ⬅️ super calls the Employee(String, double) constructor
+        super(n, s); // ⬅️ super calls the Employee(String n, double s) constructor
         this.secretary = sn; // Initializes the Manager's own variable
     }
 }
 ```
 
------
+### Subclass Substitution (Polymorphism)
 
-## 4\. Subclass Substitution (Polymorphism)
+Inheritance establishes an "is-a" relationship: **Every `Manager` is an `Employee`, but not vice versa**. This leads to the principle of substitution:
 
-Inheritance establishes an "is-a" relationship: **Every `Manager` is an `Employee`, but not vice versa**916, 935]. This leads to the principle of substitution:
-
-  * **Valid Substitution:** A subclass can be used in place of its superclass925, 960].
+  * **Valid Substitution:** A subclass can be used in place of its superclass.
     ```java
     Employee e = new Manager("Alice", 120000.00, "Bob"); // OK: A Manager is an Employee
     ```
-  * **Invalid Substitution:** The reverse is **not valid**938, 962].
+  * **Invalid Substitution:** The reverse is **not valid**.
     ```java
     Manager m = new Employee("Charlie", 80000.00); // ERROR: An Employee is NOT necessarily a Manager
     ```
 
 ## Lecture 3: Polymorphism
+ 
+**Dynamic Dispatch** and **Polymorphism** explaination in Java, focusing on how method calls are resolved when using inheritance and method overriding.
 
-This document explains **Dynamic Dispatch** and **Polymorphism** in Java, focusing on how method calls are resolved when using inheritance and method overriding.
+### Method Overriding
 
------
+A key capability of inheritance is **method overriding**, where a subclass can provide its own implementation for a method already defined in its superclass.
 
-## 1\. Method Overriding
-
-A key capability of inheritance is **method overriding**, where a subclass can provide its own implementation for a method already defined in its superclass579, 601].
-
-  * **Overriding:** Multiple methods exist with the **same name and same signature** (list of argument types) in a superclass and its subclass800].
+  * **Overriding:** Multiple methods exist with the **same name and same signature** (list of argument types) in a superclass and its subclass.
   * **The `super` Keyword:** The overriding method in the subclass can use the `super` keyword to call the original method implementation in the parent class622, 624].
 
 ### Example: Overriding `bonus()`
