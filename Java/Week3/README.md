@@ -40,7 +40,7 @@ The design of individual objects centers around three interacting features: `Beh
 | **State** | The information held in the **instance variables**. It determines how the object reacts when methods are invoked. | **Encapsulation** dictates that the state should not change unless a method operates on it. |
 | **Identity** | The characteristic that **distinguishes between different objects** of the same class. |  Two objects can have the same state (e.g., two orders containing the same item) but are still distinct. |
 
-* **Interaction:** State affects behaviour. For example, you **cannot add an item to an order that has already been shipped**, nor can you ship an empty order.
+* **Interaction:** _**State**_ affects _**behaviour**_.<br> For example, we **cannot add an item to an order that has already been shipped**, nor can we ship an empty order.
 
 
 ### Relationships Between Classes
@@ -82,7 +82,7 @@ Let's take a basic `Employee` class, which serves as the **parent class** or **s
 ```java
 public class Employee {
     private String name;
-    private double salary;
+    private double salary;  
 
     // Constructor Example
     public Employee(String n, double s) {
@@ -102,13 +102,13 @@ public class Employee {
 }
 ```
 
-## 2\. Defining a Subclass and Inheritance
+### Defining a Subclass and Inheritance
 
-A **subclass** is created to represent a specialized version of the parent class. In the example, a `Manager` is a special type of `Employee` with extra features785].
+A **subclass** is created to represent a specialized version of the parent class. In the example, a `Manager` is a special type of `Employee` with extra features.
 
 | Term | Definition & Context |
 | :--- | :--- |
-| **Subclass / Child Class** | A class that **extends** another class. (`Manager` is a subclass of `Employee` |
+| **Subclass / Child Class** | A class that **extends** another class. `Manager` is a subclass of `Employee` |
 | **Superclass / Parent Class** | The class that is being extended (e.g., `Employee`). |
 | **Inheritance** | The mechanism by which the subclass **inherits** (receives) the instance variables and methods from the parent class |
 
@@ -173,7 +173,7 @@ public class Manager extends Employee {
 
 ### Subclass Substitution (Polymorphism)
 
-Inheritance establishes an "is-a" relationship: **Every `Manager` is an `Employee`, but not vice versa**. This leads to the principle of substitution:
+Inheritance establishes an `"is-a"` relationship: **Every `Manager` is an `Employee`, but not vice versa**. This leads to the principle of substitution:
 
   * **Valid Substitution:** A subclass can be used in place of its superclass.
     ```java
@@ -186,18 +186,18 @@ Inheritance establishes an "is-a" relationship: **Every `Manager` is an `Employe
 
 ## Lecture 3: Polymorphism
  
-**Dynamic Dispatch** and **Polymorphism** explaination in Java, focusing on how method calls are resolved when using inheritance and method overriding.
+**Dynamic Dispatch** and **Polymorphism** in Java focuses on how method calls are resolved when using inheritance and method overriding.
 
 ### Method Overriding
 
 A key capability of inheritance is **method overriding**, where a subclass can provide its own implementation for a method already defined in its superclass.
 
   * **Overriding:** Multiple methods exist with the **same name and same signature** (list of argument types) in a superclass and its subclass.
-  * **The `super` Keyword:** The overriding method in the subclass can use the `super` keyword to call the original method implementation in the parent class622, 624].
+  * **The `super` Keyword:** The overriding method in the subclass can use the `super` keyword to call the original method implementation in the parent class.
 
 ### Example: Overriding `bonus()`
 
-The `Manager` subclass can redefine the `bonus()` method to offer a higher bonus calculation, for instance, a 1.5x multiplier on the standard employee bonus620].
+The `Manager` subclass can redefine the `bonus()` method to offer a higher bonus calculation, for instance, a 1.5x multiplier on the standard employee bonus.
 
 ```java
 // Employee Class (Superclass)
@@ -219,11 +219,9 @@ public class Manager extends Employee {
 }
 ```
 
------
+### Dynamic Dispatch
 
-## 2\. Dynamic Dispatch
-
-**Dynamic dispatch** (also known as **dynamic binding** or **late method binding**) is the mechanism that determines which version of an overridden method to execute at **run-time**688, 824, 943]. This is the default behavior in Java, unlike in languages like C++ where it can be optional689].
+**Dynamic dispatch** (also known as **dynamic binding** or **late method binding**) is the mechanism that determines which version of an overridden method to execute at **run-time**. This is the default behavior in Java, unlike in languages like C++ where it can be optional.
 
 ### Static vs. Dynamic Type
 
@@ -233,7 +231,7 @@ Consider the assignment of a subclass object to a superclass reference:
 Employee e = new Manager(...);
 ```
 
-  * **Static Type:** The type declared on the left side, **`Employee`**653]. This is checked at compile-time.
+  * **Static Type:** The type declared on the left side, **`Employee`**. This is checked at compile-time.
   * **Dynamic Type (Run-time Identity):** The actual type of the object created on the right side, **`Manager`**.
 
 ### The Dispatch Problem
