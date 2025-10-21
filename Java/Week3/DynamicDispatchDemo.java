@@ -10,13 +10,8 @@ public class DynamicDispatchDemo {
         staff[1] = new Manager("Bob (Manager)", 80000.00, "Carol"); 
 
         float bonusRate = 10.0f; // 10% bonus
-        
-        System.out.println("--- Dynamic Dispatch Demo (Original Salary) ---");
-        for (Employee e : staff) {            
-            System.out.printf("Name: %s (%s), Bonus: $%.2f\n", e.getName(), role, bonus);
-        }
-        
-        System.out.println("--- Dynamic Dispatch Demo (After 10% Bonus) ---");
+
+        System.out.println("--- Dynamic Dispatch Demo (10% Bonus) ---");
         for (Employee e : staff) {
             // Dynamic Dispatch: Calls the correct getBonus() based on the object's actual type
             double bonus = e.getBonus(bonusRate); 
