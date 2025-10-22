@@ -238,22 +238,21 @@ Employee e = new Manager(...);
 
 When calling a method on the reference `e`, which method is used?
 
-  * **Method Check (Static):** When attempting to call `e.setSecretary()` (a method unique to `Manager`), **static type-checking** fails because the reference `e` is declared as an `Employee`, which does not contain that method652, 654].
+  * **Method Check (Static):** When attempting to call `e.setSecretary()` (a method unique to `Manager`), **static type-checking** fails because the reference `e` is declared as an `Employee`, which does not contain that method.
   * **Method Call (Dynamic):** When calling an overridden method like `e.bonus(p)`:
-      * **Static choice** (compile-time) would use `Employee.bonus()`671].
-      * **Dynamic choice** (run-time) uses `Manager.bonus()`671, 687].
+      * **Static choice** (compile-time) would use `Employee.bonus()`.
+      * **Dynamic choice** (run-time) uses `Manager.bonus()`.
 
-**Dynamic Dispatch** ensures that the correct method, based on the object's **actual run-time identity (`Manager`)**, is called943].
+**Dynamic Dispatch** ensures that the correct method, based on the object's **actual run-time identity (`Manager`)**, is called.
 
------
 
-## 3\. Polymorphism (Runtime/Inheritance)
+### Polymorphism (Runtime/Inheritance)
 
-**Polymorphism** (specifically **runtime polymorphism** or **inheritance polymorphism**) is the core concept enabled by dynamic dispatch721, 944]. It means a variable of a superclass type can hold objects of its subclasses, and method calls on that variable will execute the correct subclass method.
+**Polymorphism** (specifically **runtime polymorphism** or **inheritance polymorphism**) is the core concept enabled by dynamic dispatch. It means a variable of a superclass type can hold objects of its subclasses, and method calls on that variable will execute the correct subclass method.
 
 ### Polymorphic Array Example
 
-Polymorphism allows an array declared as `Employee[]` to hold a mixture of `Employee` and `Manager` objects. When iterating and calling the `bonus()` method, each object executes its own specialized version694, 696].
+Polymorphism allows an array declared as `Employee[]` to hold a mixture of `Employee` and `Manager` objects. When iterating and calling the `bonus()` method, each object executes its own specialized version.
 
 ```java
 Employee[] emparray = new Employee[2];
@@ -268,23 +267,19 @@ for (int i = 0; i < emparray.length; i++){
 // Every Employee in emparray "knows" how to calculate its bonus correctly! 695]
 ```
 
------
+### Overloading vs. Overriding
 
-## 4\. Overloading vs. Overriding
-
-The document clearly distinguishes two different forms of polymorphism related to method signatures:
+Different forms of polymorphism related to method signatures:
 
 | Feature | Overloading | Overriding | Dynamic Dispatch (Run-time Polymorphism) |
 | :--- | :--- | :--- | :--- |
-| **Methods** | Multiple methods 778] | Multiple methods 800] | Multiple methods 824] |
-| **Signature** | **Different** signatures 778] | **Same** signature 800] | **Same** signature 824] |
-| **Choice Time** | **Static** (compile-time) 778] | **Static** (compile-time) 800] | **Run-time** 824] |
-| **Context** | In the same class (e.g., multiple constructors, `Arrays.sort()` methods) 747] | Across a superclass and subclass 801] | Across a superclass and subclass 824] |
+| **Methods** | Multiple methods | Multiple methods | Multiple methods |
+| **Signature** | **Different** signatures | **Same** signature | **Same** signature |
+| **Choice Time** | **Static** (compile-time) | **Static** (compile-time) | **Run-time** |
+| **Context** | In the same class (e.g., multiple constructors, `Arrays.sort()` methods) | Across a superclass and subclass | Across a superclass and subclass |
 
------
-
-## 5\. Type Casting and Reflection
-
+### Type Casting and Reflection
+d
 To overcome the restrictions imposed by static type-checking, **type casting** can be used.
 
   * **Type Casting:** The process of converting a reference from one type to another862]. This is used to access subclass-specific methods (like `setSecretary()`) when the reference is held by the superclass type (`Employee e`).
