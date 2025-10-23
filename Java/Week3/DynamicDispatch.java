@@ -1,7 +1,7 @@
-class One{
+class Phone{
     
     public void name(){
-        System.out.println("My name is One");
+        System.out.println("My name is Phone");
     }
     
     public void greet(){
@@ -9,10 +9,10 @@ class One{
     }
 }
 
-class Two extends One{
+class SmartPhone extends Phone{
 
     public void name(){
-        System.out.println("My name is Two");
+        System.out.println("My name is SmartPhone");
     }
 
     public void swagat(){
@@ -23,12 +23,15 @@ class Two extends One{
 
 public class DynamicDispatch{
     public static void main(String[] args) {
-        One obj;
-        obj = new One();
-        obj.greet();
-        obj.name();
-        obj = new Two();
-        obj.name();
-        // obj.swagat();
+        // Phone phone1 = new Phone();
+        // SmartPhone sphone1 = new SmartPhone();
+        // phone1.greet();
+        // phone1.name();
+        // phone1 = new SmartPhone();
+        // phone1.name();
+        // phone1.swagat();
+        Phone phone2 = new SmartPhone();
+        // SmartPhone phone3 = new Phone(); // error | Not allowed
+        
     }
 }
