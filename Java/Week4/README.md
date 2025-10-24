@@ -128,3 +128,196 @@ public class Circle extends Shape implements Comparable {
 ``` 40, 241, 242]
 
 ````
+
+## Lecture 2: Interfaces
+
+Here are detailed notes on Java **Interfaces**, including their purpose, methods, and conflict resolution, with Java examples.
+
+# Java Interfaces Notes 📝
+
+## 1\. Core Concept of Interfaces
+
+[cite\_start]An **Interface** is a purely **abstract class**[cite: 8]. [cite\_start]Its primary purpose is to express **abstract capabilities** [cite: 200] [cite\_start]or a specific "slice" of capabilities for a class[cite: 15].
+
+| Feature | Description |
+| :--- | :--- |
+| **Methods** | [cite\_start]All methods in a classic interface are implicitly **abstract** (no method body)[cite: 9]. |
+| **Inheritance** | [cite\_start]A class **implements** an interface[cite: 10]. |
+| **Multiple Inheritance** | [cite\_start]Classes can **implement multiple interfaces**[cite: 12]. [cite\_start]This works because abstract functions have no body, so there's **no contradictory inheritance** of implementation[cite: 13]. |
+| **Implementation** | [cite\_start]The implementing class must **provide concrete code** for every abstract function defined in the interface[cite: 11]. |
+
+### Example: The `Comparable` Interface
+
+[cite\_start]An interface can be used to describe the capability of an object being **comparable**[cite: 51].
+
+```java
+// Interface definition
+public interface Comparable {
+    // All methods are implicitly public and abstract
+    public abstract int cmp(Comparable s); 
+    /* * return -1 if this < s
+     * return 0 if this == s 
+     * return +1 if this > s 
+     */
+}
+
+// Class implementing the interface
+public class MyInteger implements Comparable {
+    private int value;
+
+    public MyInteger(int v) {
+        this.value = v;
+    }
+
+    // Must provide a concrete implementation for cmp()
+    @Override
+    public int cmp(Comparable s) {
+        if (s instanceof MyInteger) {
+            MyInteger other = (MyInteger) s;
+            if (this.value < other.value) return -1;
+            if (this.value > other.value) return 1;
+            return 0;
+        }
+        // Handle comparison with other types or throw an error
+        return 0; 
+    }
+}
+```
+
+-----
+
+## 2\. Using Interfaces for Limited Capabilities
+
+[cite\_start]Interfaces are crucial for enabling **generic functions** that operate on various data types[cite: 21, 65]. [cite\_start]They ensure that another class only needs to know about the **relevant capabilities** exposed by the interface[cite: 15]. [cite\_start]All other aspects of the underlying type are **irrelevant** to the generic function[cite: 30, 73].
+
+### Example: Generic Quicksort Function
+
+A generic `quicksort` function needs only one capability from the elements it sorts: the ability to be compared.
+
+```java
+public class SortFunctions {
+    // The argument type is Comparable[], meaning it accepts 
+    // an array of *any* object type that implements Comparable.
+    [cite_start]public static void quicksort(Comparable[] a) { [cite: 33, 69]
+        // ... Usual code for quicksort ...
+        
+        // To compare two elements a[i] and a[j], 
+        // it uses the method defined by the interface.
+        if (a[i].cmp(a[j]) < 0) {
+            // a[i] is smaller than a[j]
+        }
+        // ...
+    }
+}
+```
+
+-----
+
+## 3\. Concrete Methods in Interfaces (Java 8+)
+
+[cite\_start]Java interfaces were later **extended** to allow concrete functions to be added, resolving the difficulty in expressing the intended behavior of abstract functions explicitly[cite: 90, 202].
+
+### A. Static Functions
+
+[cite\_start]**Static functions** can be added to an interface[cite: 97, 203].
+
+  * [cite\_start]They **cannot access instance variables**[cite: 98, 205].
+  * [cite\_start]They are invoked directly using the **interface name**[cite: 98].
+
+<!-- end list -->
+
+```java
+public interface Comparable {
+    public abstract int cmp(Comparable s); 
+
+    // Static function definition
+    [cite_start]public static String cmpdoc() { [cite: 100]
+        String s = "Return -1 if this < s, ";
+        s = s + "0 if this == s, ";
+        s = s + "+1 if this > s.";
+        return(s);
+    }
+}
+
+// Invocation example:
+// String doc = Comparable.cmpdoc(); 
+```
+
+### B. Default Functions
+
+[cite\_start]**Default functions** provide a **default implementation** for an interface method[cite: 114, 204].
+
+  * [cite\_start]A class **can override** the default implementation[cite: 115, 206].
+  * [cite\_start]They are invoked like a **normal method**, using the object name[cite: 116, 117].
+
+<!-- end list -->
+
+```java
+public interface Comparable {
+    // ... abstract and static methods ...
+
+    // Default function definition
+    [cite_start]public default int cmp(Comparable s) { [cite: 123]
+        return(0); // Default behavior: treat all objects as equal
+    }
+}
+
+// Invocation example (if not overridden):
+// int result = obj.cmp(anotherObj); // returns 0
+```
+
+-----
+
+## 4\. Conflict Resolution in Multiple Inheritance
+
+[cite\_start]Adding concrete methods (**static/default**) to interfaces **reintroduces conflicts** in multiple inheritance scenarios[cite: 133, 207].
+
+### A. Conflict Between Multiple Interfaces
+
+If a class implements two interfaces that both provide a default method with the **same signature**, the subclass must resolve the conflict.
+
+  * [cite\_start]The **subclass must provide a fresh implementation** of the conflicting method[cite: 153, 208].
+
+<!-- end list -->
+
+```java
+public interface Person {
+    public default String getName() { return("No name"); } // Default 1
+}
+
+public interface Designation {
+    public default String getName() { return("No designation"); } // Default 2
+}
+
+public class Employee implements Person, Designation {
+    // ERROR without this method: must resolve the conflict!
+    @Override
+    public String getName() { 
+        // Developer chooses the actual logic here
+        return "Employee's name"; 
+    }
+}
+```
+
+### B. Conflict Between Class and Interface
+
+[cite\_start]If a class inherits a method from a **superclass** and also implements an interface with a conflicting default method, a **special "class wins" rule** applies[cite: 187, 190, 208].
+
+  * [cite\_start]The **method inherited from the class "wins"** (is used)[cite: 190]. [cite\_start]This is motivated by **reverse compatibility**[cite: 191].
+
+<!-- end list -->
+
+```java
+public class Person {
+    public String getName() { return("No name"); } // Concrete method
+}
+
+public interface Designation {
+    public default String getName() { return("No designation"); } // Default method
+}
+
+public class Employee extends Person implements Designation {
+    // No implementation required here. The getName() from Person is used.
+}
+```
+
