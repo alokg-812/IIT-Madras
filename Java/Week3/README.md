@@ -291,7 +291,7 @@ To overcome the restrictions imposed by static type-checking, **type casting** c
     ```java
     ((Manager) e).setSecretary(s);
     ```
-  * **Run-time Error:** The cast fails (results in an error at run-time) if the object `e` is **not actually a `Manager`**877].
+  * **Run-time Error:** The cast fails (results in an error at run-time) if the object `e` is **not actually a `Manager`**.
   * **Checking Type (`instanceof`):** To avoid run-time errors, the `instanceof` keyword can be used to check the object's type before casting:
     ```java
     if (e instanceof Manager) {
@@ -370,6 +370,7 @@ public boolean equals(Date d) { // Signature is (Date)
 ```
 
 Since the inherited method is `public boolean equals(Object o)`, the overriding method must match this signature precisely. The correct implementation requires a **run-time type check** and a **cast**:
+* [Code example](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week3/OverridingEqualsMethod.java)
 
 ```java
 // THIS IS CORRECT OVERRIDING
@@ -382,29 +383,25 @@ public boolean equals(Object d) { // Signature is (Object)
 }
 ```
 
-  * **Overriding Rules:** When a method is invoked, the Java runtime looks for the "**closest**" match in the hierarchy206, 212, 219, 249]. If a class has a method compatible with multiple inherited methods (e.g., `boolean equals(Manager m)` is compatible with both `boolean equals(Employee e)` and `boolean equals(Object o)`), the closest, most specific compatible method is used242, 243, 258, 259, 260].
+  * **Overriding Rules:** When a method is invoked, the Java runtime looks for the "**closest**" match in the hierarchy. If a class has a method compatible with multiple inherited methods (e.g., `boolean equals(Manager m)` is compatible with both `boolean equals(Employee e)` and `boolean equals(Object o)`), the closest, most specific compatible method is used.
 
 
 ## Lecture 5: Subtyping vs Inheritence
 
-This document clarifies the crucial distinction between **Subtyping** and **Inheritance**, explaining how Java's class hierarchy typically provides both, which can sometimes blur the conceptual difference.
+Crucial distinction between **Subtyping** and **Inheritance**, explaining how Java's class hierarchy typically provides both, which can sometimes blur the conceptual difference.
 
------
+### Subtyping vs. Inheritance: The Core Difference
 
-## 1\. Subtyping vs. Inheritance: The Core Difference
-
-The Java class hierarchy often represents both subtyping and inheritance simultaneously1647, 1663]. However, they represent two distinct concepts:
+The Java class hierarchy often represents both subtyping and inheritance simultaneously. However, they represent two distinct concepts:
 
 | Concept | Focus | Definition | Example (Employee/Manager) |
 | :--- | :--- | :--- | :--- |
-| **Subtyping** | **Compatibility of Interfaces**1727, 1736]. | If B is a subtype of A, the capabilities of B are a **superset** of A1655]. This means wherever an object of type A is required, an object of type B can be used1656, 1728]. | `Employee e = new Manager(...)` is legal, because a `Manager` object can perform every function defined for an `Employee`1657]. |
-| **Inheritance** | **Reuse of Implementations**1739]. | B inherits from A if some functions for B are **written in terms of functions of A**1670, 1740]. The subtype reuses the code of the main type1669]. | `Manager.bonus()` uses `super.Employee.bonus()`1670]. |
+| **Subtyping** | **Compatibility of Interfaces**. | If B is a subtype of A, the capabilities of B are a **superset** of A. This means wherever an object of type A is required, an object of type B can be used. | `Employee e = new Manager(...)` is legal, because a `Manager` object can perform every function defined for an `Employee`. |
+| **Inheritance** | **Reuse of Implementations**. | B inherits from A if some functions for B are **written in terms of functions of A**. The subtype reuses the code of the main type. | `Manager.bonus()` uses `super.Employee.bonus()`. |
 
-The core distinction is: **Subtyping** relates to *what* the object can do (its interface/behavior), and **Inheritance** relates to *how* the object is built (its code structure/implementation)1748, 1751].
+The core distinction is: **Subtyping** relates to *what* the object can do (its interface/behavior), and **Inheritance** relates to *how* the object is built (its code structure/implementation).
 
------
-
-## 2\. Decoupling the Concepts (The Data Structure Example)
+### Decoupling the Concepts (The Data Structure Example)
 
 The slides use a classic data structure example to show that subtyping and inheritance relationships do not always align in the same direction.
 
