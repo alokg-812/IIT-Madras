@@ -305,40 +305,35 @@ To overcome the restrictions imposed by static type-checking, **type casting** c
 
 ## Lecture 4: Class Hierarchy
 
-This document explains the structure of the **Java Class Hierarchy**, focusing on why Java disallows multiple inheritance and the significance of the universal superclass, `Object`.
+Why Java disallows multiple inheritance and the significance of the universal superclass, `Object`.
 
------
+### Multiple Inheritance and The Diamond Problem
 
-## 1\. Multiple Inheritance and The Diamond Problem
+Addressing **multiple inheritance**, where a class attempts to inherit from two or more parent classes.
+<img width="374" height="210" alt="image" src="https://github.com/user-attachments/assets/affe54d4-fce3-4a7d-961d-1e8075f71830" />
 
-The slides begin by addressing **multiple inheritance**, where a class attempts to inherit from two or more parent classes.
+  * **Definition:** Multiple inheritance is when a subclass (`C3`) attempts to extend multiple parent classes (`C1` and `C2`).
+  * **The Conflict (Diamond Problem):** A conflict arises if both parent classes (`C1` and `C2`) define a method with the same signature, such as `public int f()`. If the subclass (`C3`) doesn't override `f()`, it's ambiguous which version of `f()` should be used in `C3`.
+  * **Java's Stance:** **Java does not allow multiple inheritance** to avoid this ambiguity and the resulting complexity.
+      * (In contrast, C++ allows multiple inheritance if the parent classes have no conflict)
 
-  * **Definition:** Multiple inheritance is when a subclass (`C3`) attempts to extend multiple parent classes (`C1` and `C2`)7, 9].
-  * **The Conflict (Diamond Problem):** A conflict arises if both parent classes (`C1` and `C2`) define a method with the same signature, such as `public int f()`18, 23]. If the subclass (`C3`) doesn't override `f()`, it's ambiguous which version of `f()` should be used in `C3`21, 33].
-  * **Java's Stance:** **Java does not allow multiple inheritance** to avoid this ambiguity and the resulting complexity34, 47, 266].
-      * (In contrast, C++ allows multiple inheritance if the parent classes have no conflict48].)
+### The Java Class Hierarchy Structure
 
------
-
-## 2\. The Java Class Hierarchy Structure
-
-Because Java prohibits multiple inheritance, the class structure is **tree-like**57, 65, 268].
+Because Java prohibits multiple inheritance, the class structure is **tree-like**.
 
 ### The Universal Superclass: `Object`
+  * **Root of the Tree:** The entire Java class hierarchy has a **universal superclass** called **`Object`** at its root.
+  * **Implicit Inheritance:** Every class we write implicitly inherits from `Object`.
+  * **Default Methods:** The `Object` class defines several useful methods that are inherited by all classes:
+      * **`public boolean equals(Object o)`:** Defaults to **pointer equality** (`==`), meaning it checks if the two object references point to the exact same location in memory.
+      * **`public String toString()`:** Converts the values of the instance variables to a `String`. This method is implicitly invoked when printing an object (e.g., `System.out.println(o + "")` implicitly calls `o.toString()`).
 
-  * **Root of the Tree:** The entire Java class hierarchy has a **universal superclass** called **`Object`** at its root66, 74, 101, 269].
-  * **Implicit Inheritance:** Every class you write implicitly inherits from `Object`271].
-  * **Default Methods:** The `Object` class defines several useful methods that are inherited by all classes75, 87, 102, 270]:
-      * **`public boolean equals(Object o)`:** Defaults to **pointer equality** (`==`), meaning it checks if the two object references point to the exact same location in memory76, 88, 103, 134].
-      * **`public String toString()`:** Converts the values of the instance variables to a `String`77, 90, 104, 105, 270]. This method is implicitly invoked when printing an object (e.g., `System.out.println(o + "")` implicitly calls `o.toString()` 107, 108]).
+<img width="879" height="91" alt="image" src="https://github.com/user-attachments/assets/6c92a5dd-3b2b-44b6-be1b-5609844da20f" />
 
------
+### Writing Generic Functions with `Object`
 
-## 3\. Writing Generic Functions with `Object`
-
-The universal `Object` class allows developers to write **generic functions** that can operate on any Java object114, 127, 140].
-
-### Example: Generic `find` Function
+The universal `Object` class allows developers to write **generic functions** that can operate on any Java object.
+#### Example: Generic `find` Function
 
 A function designed to search for an element in an array can use `Object` as the type for both the array and the search target:
 
@@ -351,17 +346,16 @@ public int find(Object[] objarr, Object o) {
             return i;
         }
     }
-    return -1;
+    return -1; 
 }
 ```
 
-If a class overrides the `equals()` method, the generic function can be modified to use it. If the function is changed to use `objarr[i].equals(o)`, **dynamic dispatch** will ensure the correct (overridden) `equals()` method is called instead of `Object.equals()`148, 149].
+If a class overrides the `equals()` method, the generic function can be modified to use it. If the function is changed to use `objarr[i].equals(o)`, **dynamic dispatch** will ensure the correct (overridden) `equals()` method is called instead of `Object.equals()`.
 
------
 
-## 4\. Careful Overriding of `equals()`
+### Careful Overriding of `equals()`
 
-When overriding methods inherited from `Object`, one must be careful to match the signature exactly272].
+When overriding methods inherited from `Object`, one must be careful to match the signature exactly.
 
 ### The Correct Signature
 
