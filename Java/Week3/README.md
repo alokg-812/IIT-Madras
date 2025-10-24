@@ -513,7 +513,7 @@ public class Stack {
 
 ### The Problem with Separate Mutators
 
-Using individual `public` mutator methods (like `setDay`, `setMonth`, `setYear`) can lead to **inconsistent updates** by allowing invalid combinations of values to be set separately629, 630]. It is better to allow only a combined update that can validate the entire state at once646].
+Using individual `public` mutator methods (like `setDay`, `setMonth`, `setYear`) can lead to **inconsistent updates** by allowing invalid combinations of values to be set separately. It is better to allow only a combined update that can validate the entire state at once646].
 
 ```java
 public class Date {
@@ -526,9 +526,9 @@ public class Date {
         // ...
     }
 }
-    ```
+```
 
-## 2\. Membership Modifier (`static`)
+### Membership Modifier (`static`)
 
 The `static` modifier is used for entities defined inside classes that **exist without creating objects of the class**.
 
@@ -547,8 +547,8 @@ A private static variable is used as a counter, shared by all instances, to assi
 
 ```java
 public class Order {
-    // Shared state: 'lastorderid' is common to all objects in the class 742]
-    private static int lastorderid = 0; // Private static field 721]
+    // Shared state: 'lastorderid' is common to all objects in the class
+    private static int lastorderid = 0; // Private static field
     
     // Instance state: Unique for each object
     private int orderid;
@@ -558,10 +558,10 @@ public class Order {
         this.orderid = lastorderid; // Assigns the unique ID to the new object
     }
 }
-// Note: Care must be taken about concurrent updates to static variables763].
+// Note: Care must be taken about concurrent updates to static variables.
 ```
 
-## 3\. Immutability Modifier (`final`)
+### Immutability Modifier (`final`)
 
 The `final` modifier denotes that a value **cannot be updated**.
 
