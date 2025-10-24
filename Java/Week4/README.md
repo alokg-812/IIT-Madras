@@ -420,3 +420,114 @@ public class LinkedList {
 
 [cite\_start]In the `LinkedList` example, by making `Node` private, the details of how the list is constructed are entirely internal to the `LinkedList` class, making the overall structure more secure and easier to modify later (e.g., changing it to a doubly linked list [cite: 99]).
 
+## Lecture 4: Interaction with States
+
+Here are detailed notes on **Controlled Interaction with Objects and State** in Java, focusing on the combination of encapsulation, private classes, and interfaces.
+
+## Controlled Interaction with Objects and State Notes 🚦
+
+## 1\. Encapsulation and Data Integrity
+
+[cite\_start]**Encapsulation** is a core principle of object-oriented programming[cite: 7].
+
+  * [cite\_start]**Internal data** is kept **private**[cite: 8, 21].
+  * [cite\_start]**Access to the data** is regulated through **public methods**[cite: 8, 21]. [cite\_start]These methods are often called **accessor** (getter) and **mutator** (setter) methods[cite: 9, 21].
+  * [cite\_start]The primary benefit is that you can **ensure data integrity by regulating access**[cite: 22, 39, 56].
+
+### Example: Regulating `Date` Access
+
+Instead of allowing separate, uncontrolled updates to individual components, a single mutator method can ensure the combination is valid.
+
+```java
+public class Date {
+    private int day, month, year; [cite_start]// Internal data is private [cite: 36, 53]
+
+    // Accessor (Getter) methods
+    public int getDay() { /* ... returns day ... */ } 
+    // ... getMonth(), getYear() ...
+
+    // Mutator (Setter) method that regulates access
+    [cite_start]public void setDate(int d, int m, int y) { [cite: 38, 55]
+        [cite_start]// Validate d-m-y combination here [cite: 41, 58]
+        // ... Logic to check if the date is valid ...
+        this.day = d;
+        this.month = m;
+        this.year = y;
+        [cite_start]// Update date as a whole, rather than individual components [cite: 43, 60]
+    }
+}
+```
+
+-----
+
+## 2\. Controlled Interaction with State
+
+[cite\_start]Sometimes, simply validating the input data isn't sufficient; the validity of an action depends on the **current state** of the system or the user's interaction history (an "**Interaction with state**" [cite: 119]).
+
+### Scenario: Regulating Database Queries
+
+Consider a `RailwayBooking` system where seat availability can be queried. [cite\_start]To control spamming by bots, a user should be required to **log in before querying**[cite: 85, 100].
+
+[cite\_start]The ability to query (`getStatus`) must be connected to the **logged in status of the user**[cite: 102, 118, 131].
+
+### Solution: Combining Interfaces and Private Classes
+
+The solution uses **objects** to control the interaction:
+
+1.  [cite\_start]On successful login, the user receives a special **Query Object**[cite: 146].
+2.  [cite\_start]This Query Object is created from a **private class** (an inner class) that has access to the main `RailwayBooking`'s private data (like `railwaydb`)[cite: 147, 171].
+3.  [cite\_start]An **Interface** is used to tell the external user what the capabilities of the returned object are, without exposing the private class definition[cite: 197, 198].
+
+#### Implementation Breakdown
+
+| Component | Explanation | Example Code Snippet |
+| :--- | :--- | :--- |
+| **Interface** | [cite\_start]Describes the capability (`getStatus`) of the object returned on login[cite: 198]. [cite\_start]External code only knows about this type, not the private class[cite: 303]. | `public interface QIF{ public abstract int getStatus(...); [cite_start]}` [cite: 199, 202] |
+| **Outer Class** | [cite\_start]Handles the login and returns an object of the **Interface** type[cite: 205]. | `public QIF login(String u, String p){ // ... return new QueryObject(); }` |
+| **Private Class** | [cite\_start]The **inner class** that actually implements the capability and can look up the `railwaydb`[cite: 147, 171]. [cite\_start]It implements the public interface[cite: 212]. | [cite\_start]`private class QueryObject implements QIF { ... }` [cite: 212] |
+
+-----
+
+## 3\. Tracking State with the Query Object
+
+[cite\_start]The Query Object can **remember the state of the interaction** by maintaining its own **instance variables**[cite: 275, 276, 304].
+
+### Example: Limiting Queries per Login
+
+To limit the number of queries per login, the private `QueryObject` can maintain a counter.
+
+```java
+public class RailwayBooking {
+    private BookingDB railwaydb;
+    public QIF login(String u, String p){
+        // ... (login logic)
+        return new QueryObject(); // returns an object of the private class
+    }
+
+    private class QueryObject implements QIF {
+        private int numqueries = 0; [cite_start]// Tracks the state of the interaction [cite: 287]
+        private static final int QLIM = 10; // Query limit
+
+        @Override
+        public int getStatus(int trainno, Date d) {
+            [cite_start]if (numqueries < QLIM) { [cite: 289]
+                // Look up railwaydb (has access to outer class's private members)
+                [cite_start]// respond, increment numqueries [cite: 290]
+                numqueries++;
+                // ...
+            }
+            // else: return an error or unavailable status
+            return 0;
+        }
+    }
+}
+```
+
+### Summary of Controlled Access
+
+[cite\_start]This pattern provides **controlled access to an object** [cite: 300] [cite\_start]by combining three key elements[cite: 301]:
+
+1.  [cite\_start]**Private Class**: Provides the implementation and maintains the **state of the interaction** using instance variables[cite: 302, 304].
+2.  [cite\_start]**Interface**: Defines the **publicly known capabilities** of the returned object[cite: 303].
+3.  [cite\_start]**Outer Class Method**: Serves as the **gatekeeper** that creates and returns the object only upon a valid pre-condition (e.g., login)[cite: 302].
+
