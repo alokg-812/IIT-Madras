@@ -531,3 +531,104 @@ public class RailwayBooking {
 2.  [cite\_start]**Interface**: Defines the **publicly known capabilities** of the returned object[cite: 303].
 3.  [cite\_start]**Outer Class Method**: Serves as the **gatekeeper** that creates and returns the object only upon a valid pre-condition (e.g., login)[cite: 302].
 
+## Lecture 5: Callbacks
+
+Here are detailed notes on **Callbacks** in Java, explaining the concept, the challenges of creating a generic solution, and how **Interfaces** solve the problem.
+
+# Java Callbacks Notes 📞
+
+## 1\. Concept of Callbacks
+
+A **callback facility** is used when one object (**Owner**) initiates an action by another object (**Worker**) that runs in parallel, and the Worker needs to notify the Owner when the action is complete.
+
+  * [cite\_start]**Scenario Example**: A class **`Myclass` (m)** creates a **`Timer` (t)** object[cite: 8, 16, 28].
+  * [cite\_start]`Myclass` calls `t.start()` to start the timer running in parallel[cite: 17, 29].
+  * [cite\_start]`Myclass` continues its execution[cite: 20, 32].
+  * [cite\_start]When the time limit expires, the `Timer` **notifies** `Myclass` by calling a function like `timerdone()`[cite: 35, 36, 37].
+
+### Basic Implementation (Specific to `Myclass`)
+
+[cite\_start]To allow the `Timer` to notify its creator, the creator must pass its **identity** (`this`) to the `Timer` when creating it[cite: 61, 80, 113, 147].
+
+| Component | Code | Explanation |
+| :--- | :--- | :--- |
+| **Owner** (`Myclass`) | [cite\_start]`Timer t = new Timer(this);` [cite: 49] | [cite\_start]Passes itself (`this`) to the Timer constructor[cite: 50, 66]. |
+| **Worker** (`Timer`) | `private Myclass owner;` `public Timer(Myclass o){ owner = o; [cite_start]}` [cite: 95, 96, 97] | [cite\_start]Stores the creator object (`Myclass`) as its `owner`[cite: 95, 97]. |
+| **Callback** | `public void start(){ owner.timerdone(); [cite_start]}` [cite: 103, 104] | [cite\_start]When the Worker is done, it calls the `timerdone()` method on the stored `owner`[cite: 104, 135]. |
+
+[cite\_start]**Note**: The `Timer` class often implements the `Runnable` interface, which indicates it can run in parallel[cite: 83, 84, 93, 116, 117].
+
+-----
+
+## 2\. Challenge: Creating a Generic Worker
+
+[cite\_start]The basic implementation is **specific to `Myclass`**[cite: 119, 153]. [cite\_start]To make a generic `Timer` that can notify *any* class, the design must be generalized[cite: 155, 180].
+
+### Attempt 1: Using `Object`
+
+[cite\_start]You could make the `Timer` constructor accept the generic type **`Object`**[cite: 188, 197, 198].
+
+```java
+// Timer constructor accepts the most generic type
+public class Timer implements Runnable {
+    private Object owner;
+    public Timer(Object o) { owner = o; } 
+
+    public void start() {
+        // Must cast the owner back to the expected type!
+        ((Myclass) [cite_start]owner).timerdone(); [cite: 203, 232]
+    }
+}
+```
+
+  * [cite\_start]**Problem**: You **need to cast** the `owner` back to the specific `Myclass` type[cite: 218, 235]. If the `Timer` is used by a different class, the cast will fail, making the `Timer` still not truly generic.
+
+-----
+
+## 3\. Solution: Using Interfaces for Callbacks
+
+[cite\_start]**Interfaces** provide the elegant solution to making callbacks generic[cite: 244, 289]. [cite\_start]They define the **capability** the owner must possess to be notified[cite: 290].
+
+### Implementation with Interfaces
+
+1.  [cite\_start]**Define a Callback Interface**[cite: 245, 246]: This interface specifies the methods the Worker will call.
+
+    ```java
+    [cite_start]public interface TimerOwner { [cite: 247, 248]
+        [cite_start]public abstract void timerdone(); [cite: 249, 250]
+    }
+    ```
+
+2.  [cite\_start]**Owner Implements the Interface** [cite: 262, 263][cite\_start]: `Myclass` must implement the `TimerOwner` interface, guaranteeing it has the required `timerdone()` method[cite: 265, 266, 273].
+
+    ```java
+    [cite_start]public class Myclass implements TimerOwner { [cite: 265, 266]
+        // ...
+        [cite_start]public void timerdone() { ... } [cite: 273]
+    }
+    ```
+
+3.  **Worker Stores the Interface Type**: The `Timer` stores the owner as the **interface type** (`TimerOwner`). This eliminates the need for casting.
+
+    ```java
+    [cite_start]public class Timer implements Runnable { [cite: 279]
+        private TimerOwner owner; // Stores the object as the interface type
+        
+        public Timer(TimerOwner o) { owner = o; [cite_start]} [cite: 279]
+        
+        public void start() {
+            // No cast needed! Any object passed must have implemented TimerOwner
+            [cite_start]owner.timerdone(); [cite: 279]
+        }
+    }
+    ```
+
+[cite\_start]This structure ensures the `owner` object has the required capability, allowing the callback to be **generic**[cite: 289]. [cite\_start]The object being notified (`owner`) doesn't even need to be the object that created the `Timer`[cite: 287, 288].
+
+## 4\. Summary
+
+  * [cite\_start]Callbacks are useful when a class is **spawned in parallel** and needs to notify an object when it's done[cite: 285, 286].
+  * [cite\_start]The **interface** defines the necessary capability (`timerdone()`)[cite: 289, 290].
+  * The use of an interface allows the Worker object to be **generic** and decouple itself from the specific type of the Owner class.
+
+  
