@@ -388,44 +388,43 @@ public boolean equals(Object d) { // Signature is (Object)
 
 ## Lecture 5: Subtyping vs Inheritence
 
-Crucial distinction between **Subtyping** and **Inheritance**, explaining how Java's class hierarchy typically provides both, which can sometimes blur the conceptual difference.
+This document clarifies the crucial distinction between **Subtyping** and **Inheritance**, explaining how Java's class hierarchy typically provides both, which can sometimes blur the conceptual difference.
 
-### Subtyping vs. Inheritance: The Core Difference
+-----
 
-The Java class hierarchy often represents both subtyping and inheritance simultaneously. However, they represent two distinct concepts:
+## 1\. Subtyping vs. Inheritance: The Core Difference
+
+The Java class hierarchy often represents both subtyping and inheritance simultaneously1647, 1663]. However, they represent two distinct concepts:
 
 | Concept | Focus | Definition | Example (Employee/Manager) |
 | :--- | :--- | :--- | :--- |
-| **Subtyping** | **Compatibility of Interfaces**. | If B is a subtype of A, the capabilities of B are a **superset** of A. This means wherever an object of type A is required, an object of type B can be used. | `Employee e = new Manager(...)` is legal, because a `Manager` object can perform every function defined for an `Employee`. |
-| **Inheritance** | **Reuse of Implementations**. | B inherits from A if some functions for B are **written in terms of functions of A**. The subtype reuses the code of the main type. | `Manager.bonus()` uses `super.Employee.bonus()`. |
+| **Subtyping** | **Compatibility of Interfaces**1727, 1736]. | If B is a subtype of A, the capabilities of B are a **superset** of A1655]. This means wherever an object of type A is required, an object of type B can be used1656, 1728]. | `Employee e = new Manager(...)` is legal, because a `Manager` object can perform every function defined for an `Employee`1657]. |
+| **Inheritance** | **Reuse of Implementations**1739]. | B inherits from A if some functions for B are **written in terms of functions of A**1670, 1740]. The subtype reuses the code of the main type1669]. | `Manager.bonus()` uses `super.Employee.bonus()`1670]. |
 
 The core distinction is: **Subtyping** relates to *what* the object can do (its interface/behavior), and **Inheritance** relates to *how* the object is built (its code structure/implementation).
 
-### Decoupling the Concepts (The Data Structure Example)
+-----
 
-The slides use a classic data structure example to show that subtyping and inheritance relationships do not always align in the same direction.
+## 2\. Decoupling the Concepts (The Data Structure Example)
 
-### Data Structure Definitions 1677, 1678]
-
+### Data Structure Definitions
   * **Queue:** Methods include `insert-rear`, `delete-front`.
   * **Stack:** Methods include `insert-front`, `delete-front`.
   * **Deque (Double-Ended Queue):** Methods include `insert-front`, `delete-front`, `insert-rear`, `delete-rear`.
 
-### Subtyping Relationship 1709, 1710, 1711]
-
+### Subtyping Relationship
   * **Logic:** Since a Deque has all the functionality (methods) of both a Queue and a Stack, it can be substituted for either one.
   * **Conclusion (Based on Capability):**
     $$\text{Deque} \text{ is a subtype of } \text{Queue}$$
     $$\text{Deque} \text{ is a subtype of } \text{Stack}$$
 
-### Inheritance Relationship 1712, 1713]
-
+### Inheritance Relationship
   * **Logic:** For code reuse, it is often easier to implement the simpler structures (Queue and Stack) by limiting the functionality of the more complex structure (Deque). For instance, a Queue implementation might *reuse* the implementation of Deque by only exposing `insert-rear` and `delete-front`.
   * **Conclusion (Based on Code Reuse):**
     $$\text{Queue} \text{ inherits from } \text{Deque}$$
     $$\text{Stack} \text{ inherits from } \text{Deque}$$
 
-### Example Code (Conceptual)
+#### Example Code (Conceptual)
 
 This example shows how `Queue` reuses the implementation of `Deque` by *limiting access* (inheritance for code reuse), even though `Deque` is the logical *subtype*.
 
@@ -458,9 +457,8 @@ public class Queue extends Deque {
 }
 ```
 
-## 3\. The Blurring of Concepts
-
-The use of a single mechanism—the **class hierarchy** (`extends` keyword)—to implement both **subtyping** and **inheritance** can **blur the distinction between the two**1719, 1725, 1753]. In many practical Java scenarios, a subclass (`B`) is *both* a subtype *and* an inheritor of its superclass (`A`).
+### The Blurring of Concepts
+The use of a single mechanism—the **class hierarchy** (`extends` keyword)—to implement both **subtyping** and **inheritance** can **blur the distinction between the two**. In many practical Java scenarios, a subclass (`B`) is *both* a subtype *and* an inheritor of its superclass (`A`).
 
 However, understanding the difference is key to good object-oriented design:
 
@@ -469,22 +467,18 @@ However, understanding the difference is key to good object-oriented design:
 
 ## Lecture 6: Modifiers
 
-This document provides a detailed explanation of **Java Modifiers**, which are keywords used in declarations to enforce various features of Object-Oriented Programming (OOP) such as encapsulation, class membership, and immutability. These modifiers can be applied to **classes, instance variables, and methods**480].
+Java Modifiers are keywords used in declarations to enforce various features of Object-Oriented Programming (OOP) such as encapsulation, class membership, and immutability. These modifiers can be applied to **classes, instance variables, and methods**.
 
------
-
-## 1\. Access Control Modifiers (`public` vs. `private`)
-
-These modifiers are essential for enforcing **encapsulation of data**453].
+### Access Control Modifiers (`public` vs. `private`)
+These modifiers are essential for enforcing **encapsulation of data**.
 
 | Modifier | Application | Purpose & Standard Use |
 | :--- | :--- | :--- |
-| **`private`** | Instance Variables, Methods | Limits visibility to **within the declared class only**511]. **Typically, instance variables are `private`** to protect the object's state500]. |
-| **`public`** | Classes, Methods, Variables | Grants **universal access**512]. **Methods to query (accessor) and update (mutator) the state are typically `public`**502]. |
+| **`private`** | Instance Variables, Methods | Limits visibility to **within the declared class only**. **Typically, instance variables are `private`** to protect the object's state. |
+| **`public`** | Classes, Methods, Variables | Grants **universal access**. **Methods to query (accessor) and update (mutator) the state are typically `public`**. |
 
 ### The Role of `private` Methods
-
-While most methods are public, **private methods also make sense**817]. They are used for internal, helper functionality that should not be exposed to the outside world.
+While most methods are public, **private methods also make sense**. They are used for internal, helper functionality that should not be exposed to the outside world.
 
 **Example: Private Methods in a `Stack` Class**
 
@@ -521,7 +515,7 @@ public class Stack {
 
 ### The Problem with Separate Mutators
 
-Using individual `public` mutator methods (like `setDay`, `setMonth`, `setYear`) can lead to **inconsistent updates** by allowing invalid combinations of values to be set separately629, 630]. It is better to allow only a combined update that can validate the entire state at once646].
+Using individual `public` mutator methods (like `setDay`, `setMonth`, `setYear`) can lead to **inconsistent updates** by allowing invalid combinations of values to be set separately. It is better to allow only a combined update that can validate the entire state at once646].
 
 ```java
 public class Date {
@@ -534,9 +528,9 @@ public class Date {
         // ...
     }
 }
-    ```
+```
 
-## 2\. Membership Modifier (`static`)
+### Membership Modifier (`static`)
 
 The `static` modifier is used for entities defined inside classes that **exist without creating objects of the class**.
 
@@ -555,8 +549,8 @@ A private static variable is used as a counter, shared by all instances, to assi
 
 ```java
 public class Order {
-    // Shared state: 'lastorderid' is common to all objects in the class 742]
-    private static int lastorderid = 0; // Private static field 721]
+    // Shared state: 'lastorderid' is common to all objects in the class
+    private static int lastorderid = 0; // Private static field
     
     // Instance state: Unique for each object
     private int orderid;
@@ -566,10 +560,10 @@ public class Order {
         this.orderid = lastorderid; // Assigns the unique ID to the new object
     }
 }
-// Note: Care must be taken about concurrent updates to static variables763].
+// Note: Care must be taken about concurrent updates to static variables.
 ```
 
-## 3\. Immutability Modifier (`final`)
+### Immutability Modifier (`final`)
 
 The `final` modifier denotes that a value **cannot be updated**.
 
