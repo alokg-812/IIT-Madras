@@ -264,10 +264,13 @@ for (int i = 0; i < emparray.length; i++){
     // When i=1, calls Manager.bonus() due to dynamic dispatch
     System.out.println(emparray[i].bonus(5.0));
 }
-// Every Employee in emparray "knows" how to calculate its bonus correctly! 695]
+// Every Employee in emparray "knows" how to calculate its bonus correctly!
 ```
 
+
 ### Overloading vs. Overriding
+
+<img width="558" height="427" alt="image" src="https://github.com/user-attachments/assets/ab890eba-b3ca-481c-95ef-beefe90a7ba1" />
 
 Different forms of polymorphism related to method signatures:
 
@@ -279,23 +282,26 @@ Different forms of polymorphism related to method signatures:
 | **Context** | In the same class (e.g., multiple constructors, `Arrays.sort()` methods) | Across a superclass and subclass | Across a superclass and subclass |
 
 ### Type Casting and Reflection
-d
+
 To overcome the restrictions imposed by static type-checking, **type casting** can be used.
 
   * **Type Casting:** The process of converting a reference from one type to another862]. This is used to access subclass-specific methods (like `setSecretary()`) when the reference is held by the superclass type (`Employee e`).
   * **Casting Syntax:** To call the `setSecretary()` method on the `Employee` reference `e`, it must be explicitly cast back to `Manager`:
+  * [Code Example](https://github.com/alokg-812/IIT-Madras/blob/main/Java/Week3/TypeCasting.java)
     ```java
-    ((Manager) e).setSecretary(s); // 863]
+    ((Manager) e).setSecretary(s);
     ```
   * **Run-time Error:** The cast fails (results in an error at run-time) if the object `e` is **not actually a `Manager`**877].
   * **Checking Type (`instanceof`):** To avoid run-time errors, the `instanceof` keyword can be used to check the object's type before casting:
     ```java
-    if (e instanceof Manager) { // 892, 910]
+    if (e instanceof Manager) {
         ((Manager) e).setSecretary(s); 
     }
     ```
-  * **Reflection:** Using `instanceof` to test the object's type at run-time is a simple example of **reflection**, which is when a program can "think about oneself" or examine its own structure914, 915].
-  * **Basic Type Casting:** Casting is also used for basic types (e.g., converting a `double` to an `int`)935, 936].
+  * **Reflection:** Using `instanceof` to test the object's type at run-time is a simple example of **reflection**, which is when a program can "think about oneself" or examine its own structure.
+  * **Basic Type Casting:** Casting is also used for basic types (e.g., converting a `double` to an `int`).
+<img width="1378" height="274" alt="image" src="https://github.com/user-attachments/assets/b08b1e03-2bde-40c7-963d-3742b2baff70" />
+
 
 ## Lecture 4: Class Hierarchy
 
