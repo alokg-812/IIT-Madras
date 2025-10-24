@@ -321,3 +321,102 @@ public class Employee extends Person implements Designation {
 }
 ```
 
+## Lecture 3: Private Classes
+
+Here are detailed notes on **Private Classes (Inner Classes)** in Java, explaining the concept of nested objects, encapsulation, and their specific use case with examples.
+
+# Java Private Classes (Inner Classes) Notes 🔒
+
+## 1\. Nested Objects
+
+[cite\_start]An object can have **nested objects** as its **instance variables**[cite: 7, 144]. This is a common form of composition, where one class uses another class to define its state.
+
+### Example: `Employee` using `Date`
+
+[cite\_start]In this standard scenario, `Employee` uses `Date` for its `joindate`[cite: 9, 13].
+
+```java
+[cite_start]// Date is a public class, available to other classes [cite: 25, 38]
+public class Date {
+    private int day, month, year; [cite_start]// Instance variables for Date [cite: 16, 29]
+}
+
+public class Employee {
+    private String name;
+    private double salary;
+    private Date joindate; [cite_start]// Instance variable is a user-defined type [cite: 8, 13, 23]
+}
+```
+
+[cite\_start]In this case, `Date` is a **public class** and is accessible to any other class in the application[cite: 25].
+
+-----
+
+## 2\. The Need for Private Classes
+
+[cite\_start]In some situations, the **structure of nested objects need not be exposed** to the outside world[cite: 145, 153].
+
+### Use Case: The `LinkedList` and `Node` Structure
+
+[cite\_start]A `LinkedList` is built using a **`Node`** class[cite: 51, 72]. The `Node` class defines the internal structure of the list.
+
+[cite\_start]If `Node` is a **public class**[cite: 71], it exposes its internal details (like `data` and `next`) to anyone using the `LinkedList`.
+
+```java
+[cite_start]// Node is public, exposing its structure [cite: 73, 74]
+public class Node {
+    public Object data;
+    public Node next;
+}
+
+public class LinkedList {
+    private int size;
+    private Node first; [cite_start]// Uses Node internally [cite: 57, 58, 80, 81]
+
+    public Object head() { /* ... implementation ... */ } // Interface of LinkedList
+    // ...
+}
+```
+
+[cite\_start]The internal structure of the list (whether it has a `next` pointer or is a doubly linked list with a `prev` field [cite: 76, 99][cite\_start]) **does not affect the public interface** of the `LinkedList` (like `head()` or `insert()`)[cite: 78, 103, 126]. Therefore, the internal `Node` class should be hidden.
+
+### The Solution: Inner Classes
+
+[cite\_start]Instead of making `Node` a public class, we can make it a **private class**[cite: 106]. [cite\_start]A private class that is defined inside another class is also called an **inner class**[cite: 111, 129].
+
+  * [cite\_start]**Definition:** The inner class is **nested within** the enclosing class (`LinkedList`)[cite: 107, 128].
+
+<!-- end list -->
+
+```java
+public class LinkedList {
+    private int size;
+    private Node first; // The inner class Node is used internally
+
+    // This is the public interface for the users of LinkedList
+    public Object head() { 
+        // ... uses 'first.data' and 'first.next'
+    }
+
+    // The Node class is hidden from external classes
+    private class Node { // Declared as private: only accessible within LinkedList
+        public Object data;
+        public Node next;
+    }
+}
+```
+
+-----
+
+## 3\. Benefits of Private Classes
+
+[cite\_start]Private classes provide an **additional degree of data encapsulation**[cite: 146, 154].
+
+| Concept | Description |
+| :--- | :--- |
+| **Encapsulation** | Hiding the `Node` class prevents external code from manipulating the list's internal structure directly, ensuring the `LinkedList` remains consistent. |
+| **Access Control** | [cite\_start]Objects of the private class (`Node` objects) can **see the private components of the enclosing class** (`LinkedList`)[cite: 137]. |
+| **Controlled Access** | [cite\_start]Private classes can be combined with interfaces to provide **controlled access** to an object's state[cite: 155]. |
+
+[cite\_start]In the `LinkedList` example, by making `Node` private, the details of how the list is constructed are entirely internal to the `LinkedList` class, making the overall structure more secure and easier to modify later (e.g., changing it to a doubly linked list [cite: 99]).
+
