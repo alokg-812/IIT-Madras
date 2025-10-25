@@ -54,7 +54,7 @@ shapeArr[1] = new Square(...);    // Stores a concrete object
 
 // Calling the method on the array calls the appropriate subclass method (Polymorphism)
 shapeArr[i].perimeter(); // Calls Circle's perimeter, then Square's, etc.
-``` 
+````
 
 ### Generic Functions and Abstract Classes
 
@@ -418,19 +418,18 @@ public class Date {
     // ... getMonth(), getYear() ...
 
     // Mutator (Setter) method that regulates access
-    public void setDate(int d, int m, int y) { 8, 55]
-        // Validate d-m-y combination here 1, 58]
+    public void setDate(int d, int m, int y) {
+        // Validate d-m-y combination here
         // ... Logic to check if the date is valid ...
         this.day = d;
         this.month = m;
         this.year = y;
-        // Update date as a whole, rather than individual components 3, 60]
+        // Update date as a whole, rather than individual components
     }
 }
 ```
 
-
-## 2\. Controlled Interaction with State
+### Controlled Interaction with State
 
 Sometimes, simply validating the input data isn't sufficient; the validity of an action depends on the **current state** of the system or the user's interaction history (an "**Interaction with state**" 19]).
 
