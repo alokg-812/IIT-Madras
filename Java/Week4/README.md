@@ -249,15 +249,15 @@ public interface Comparable {
 ```
 
 
-## 4\. Conflict Resolution in Multiple Inheritance
+### Conflict Resolution in Multiple Inheritance
 
-Adding concrete methods (**static/default**) to interfaces **reintroduces conflicts** in multiple inheritance scenarios33, 207].
+Adding concrete methods (**static/default**) to interfaces **reintroduces conflicts** in multiple inheritance scenarios.
 
 ### A. Conflict Between Multiple Interfaces
 
 If a class implements two interfaces that both provide a default method with the **same signature**, the subclass must resolve the conflict.
 
-  * The **subclass must provide a fresh implementation** of the conflicting method53, 208].
+  * The **subclass must provide a fresh implementation** of the conflicting method.
 
 <!-- end list -->
 
@@ -282,9 +282,9 @@ public class Employee implements Person, Designation {
 
 ### B. Conflict Between Class and Interface
 
-If a class inherits a method from a **superclass** and also implements an interface with a conflicting default method, a **special "class wins" rule** applies87, 190, 208].
+If a class inherits a method from a **superclass** and also implements an interface with a conflicting default method, a **special "class wins" rule** applies.
 
-  * The **method inherited from the class "wins"** (is used)90]. This is motivated by **reverse compatibility**91].
+  * The **method inherited from the class "wins"** (is used). This is motivated by **reverse compatibility**.
 
 <!-- end list -->
 
@@ -304,43 +304,40 @@ public class Employee extends Person implements Designation {
 
 ## Lecture 3: Private Classes
 
-Here are detailed notes on **Private Classes (Inner Classes)** in Java, explaining the concept of nested objects, encapsulation, and their specific use case with examples.
+The concept of nested objects, encapsulation, and their specific use cases.
 
-# Java Private Classes (Inner Classes) Notes 🔒
+### Nested Objects
 
-## 1\. Nested Objects
-
-An object can have **nested objects** as its **instance variables**, 144]. This is a common form of composition, where one class uses another class to define its state.
+An object can have **nested objects** as its **instance variables**. This is a common form of composition, where one class uses another class to define its state.
 
 ### Example: `Employee` using `Date`
 
-In this standard scenario, `Employee` uses `Date` for its `joindate`, 13].
+In this standard scenario, `Employee` uses `Date` for its `joindate`.
 
 ```java
-// Date is a public class, available to other classes 5, 38]
+// Date is a public class, available to other classes
 public class Date {
-    private int day, month, year; // Instance variables for Date 6, 29]
+    private int day, month, year; // Instance variables for Date
 }
 
 public class Employee {
     private String name;
     private double salary;
-    private Date joindate; // Instance variable is a user-defined type , 13, 23]
+    private Date joindate; // Instance variable is a user-defined type
 }
 ```
 
-In this case, `Date` is a **public class** and is accessible to any other class in the application5].
+In this case, `Date` is a **public class** and is accessible to any other class in the application.
 
+### The Need for Private Classes
 
-## 2\. The Need for Private Classes
-
-In some situations, the **structure of nested objects need not be exposed** to the outside world45, 153].
+In some situations, the **structure of nested objects need not be exposed** to the outside world.
 
 ### Use Case: The `LinkedList` and `Node` Structure
 
-A `LinkedList` is built using a **`Node`** class1, 72]. The `Node` class defines the internal structure of the list.
+A `LinkedList` is built using a **`Node`** class. The `Node` class defines the internal structure of the list.
 
-If `Node` is a **public class**1], it exposes its internal details (like `data` and `next`) to anyone using the `LinkedList`.
+If `Node` is a **public class**, it exposes its internal details (like `data` and `next`) to anyone using the `LinkedList`.
 
 ```java
 // Node is public, exposing its structure 3, 74]
@@ -358,13 +355,13 @@ public class LinkedList {
 }
 ```
 
-The internal structure of the list (whether it has a `next` pointer or is a doubly linked list with a `prev` field 6, 99]) **does not affect the public interface** of the `LinkedList` (like `head()` or `insert()`)8, 103, 126]. Therefore, the internal `Node` class should be hidden.
+The internal structure of the list (whether it has a `next` pointer or is a doubly linked list with a `prev` field) **does not affect the public interface** of the `LinkedList` (like `head()` or `insert()`). Therefore, the internal `Node` class should be hidden.
 
 ### The Solution: Inner Classes
 
-Instead of making `Node` a public class, we can make it a **private class**06]. A private class that is defined inside another class is also called an **inner class**11, 129].
+Instead of making `Node` a public class, we can make it a **private class**. A private class that is defined inside another class is also called an **inner class**.
 
-  * **Definition:** The inner class is **nested within** the enclosing class (`LinkedList`)07, 128].
+  * **Definition:** The inner class is **nested within** the enclosing class (`LinkedList`).
 
 <!-- end list -->
 
@@ -386,34 +383,29 @@ public class LinkedList {
 }
 ```
 
+### Benefits of Private Classes
 
-## 3\. Benefits of Private Classes
-
-Private classes provide an **additional degree of data encapsulation**46, 154].
+Private classes provide an **additional degree of data encapsulation**.
 
 | Concept | Description |
 | :--- | :--- |
 | **Encapsulation** | Hiding the `Node` class prevents external code from manipulating the list's internal structure directly, ensuring the `LinkedList` remains consistent. |
-| **Access Control** | Objects of the private class (`Node` objects) can **see the private components of the enclosing class** (`LinkedList`)37]. |
-| **Controlled Access** | Private classes can be combined with interfaces to provide **controlled access** to an object's state55]. |
+| **Access Control** | Objects of the private class (`Node` objects) can **see the private components of the enclosing class** (`LinkedList`). |
+| **Controlled Access** | Private classes can be combined with interfaces to provide **controlled access** to an object's state. |
 
-In the `LinkedList` example, by making `Node` private, the details of how the list is constructed are entirely internal to the `LinkedList` class, making the overall structure more secure and easier to modify later (e.g., changing it to a doubly linked list 9]).
+In the `LinkedList` example, by making `Node` private, the details of how the list is constructed are entirely internal to the `LinkedList` class, making the overall structure more secure and easier to modify later (e.g., changing it to a doubly linked list).
 
 ## Lecture 4: Interaction with States
 
-Here are detailed notes on **Controlled Interaction with Objects and State** in Java, focusing on the combination of encapsulation, private classes, and interfaces.
+### Encapsulation and Data Integrity
 
-## Controlled Interaction with Objects and State Notes 🚦
+**Encapsulation** is a core principle of object-oriented programming.
 
-## 1\. Encapsulation and Data Integrity
+  * **Internal data** is kept **private**.
+  * **Access to the data** is regulated through **public methods**. These methods are often called **accessor** (getter) and **mutator** (setter) methods.
+  * The primary benefit is that you can **ensure data integrity by regulating access**.
 
-**Encapsulation** is a core principle of object-oriented programming].
-
-  * **Internal data** is kept **private**, 21].
-  * **Access to the data** is regulated through **public methods**, 21]. These methods are often called **accessor** (getter) and **mutator** (setter) methods, 21].
-  * The primary benefit is that you can **ensure data integrity by regulating access**2, 39, 56].
-
-### Example: Regulating `Date` Access
+#### Example: Regulating `Date` Access
 
 Instead of allowing separate, uncontrolled updates to individual components, a single mutator method can ensure the combination is valid.
 
