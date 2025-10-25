@@ -1,34 +1,32 @@
 # Week 4
-## 1\. Grouping Classes and the Need for Abstraction
+## Lecture 1: Abstract Classes
+### Grouping Classes and the Need for Abstraction
 
-[cite\_start]The class hierarchy is used to **group together related classes**65]. [cite\_start]For example, the classes **`Circle`**, **`Square`**, and **`Rectangle`** are all types of **`Shape`**4].
+The class hierarchy is used to **group together related classes**. For example, the classes **`Circle`**, **`Square`**, and **`Rectangle`** are all types of **`Shape`**.
 
 A common practice is to:
 
-1.  [cite\_start]**Create a parent class** (e.g., `Shape`) that the specific classes (`Circle`, `Square`, `Rectangle`) **extend**2, 40].
-2.  [cite\_start]**Force every subclass to define a specific function** (e.g., `public double perimeter()`)1, 52].
+1.  **Create a parent class** (e.g., `Shape`) that the specific classes (`Circle`, `Square`, `Rectangle`) **extend**.
+2.  **Force every subclass to define a specific function** (e.g., `public double perimeter()`).
 
 ### The Problem with a Concrete Parent Method
 
-[cite\_start]If you define a concrete `perimeter()` function in the `Shape` class, it would return an "absurd value" (e.g., `-1.0`) because a generic `Shape` doesn't have a meaningful perimeter3, 55]. [cite\_start]This approach relies on the subclass to **redefine (override)** this function6].
+If we define a concrete `perimeter()` function in the `Shape` class, it would return an "absurd value" (e.g., `-1.0`) because a generic `Shape` doesn't have a meaningful perimeter. This approach relies on the subclass to **redefine (override)** this function.
 
-[cite\_start]**The Risk**: If a programmer forgets to redefine the method in a subclass, the class will incorrectly inherit the absurd default value, which is a logic error that **should not depend on programmer discipline**0, 71].
+**The Risk**: If a programmer forgets to redefine the method in a subclass, the class will incorrectly inherit the absurd default value, which is a logic error that **should not depend on programmer discipline**.
 
------
 
-## 2\. Abstract Methods and Classes
+### Abstract Methods and Classes
 
 ### Abstract Method
 
-[cite\_start]The **better solution** is to provide an **abstract definition** for the required function in the parent class7, 78].
-
-  * [cite\_start]An **abstract method** has a signature but **no body** (no implementation)9].
-  * [cite\_start]**Syntax Example**: `public abstract double perimeter();`9].
-  * [cite\_start]It **forces subclasses** to provide a concrete implementation8, 266].
+The **better solution** is to provide an **abstract definition** for the required function in the parent class.
+  * An **abstract method** has a signature but **no body** (no implementation).
+  * **Syntax Example**: `public abstract double perimeter();`.
+  * It **forces subclasses** to provide a concrete implementation.
 
 ### Abstract Class
-
-[cite\_start]Any class that contains one or more **abstract methods** must itself be declared as **`abstract`**08, 109, 267].
+Any class that contains one or more **abstract methods** must itself be declared as **`abstract`**.
 
   * **Syntax Example**:
     ````java
@@ -36,20 +34,18 @@ A common practice is to:
         // ...
         public abstract double perimeter();
     }
-    ``` 10, 112, 113]
-
     ````
 
 ### Key Properties of Abstract Classes
 
 | Property | Description |
 | :--- | :--- |
-| **Instantiation** | [cite\_start]You **cannot create objects** from an abstract class8, 268]. You cannot do `new Shape()`. |
-| **Variables** | [cite\_start]You **can still declare variables** whose type is an abstract class20, 269]. This is useful for polymorphism (see example below). |
+| **Instantiation** | We **cannot create objects** from an abstract class. We cannot do `new Shape()`. |
+| **Variables** | We **can still declare variables** whose type is an abstract class. This is useful for polymorphism (see example below). |
 
-### Example of Abstract Class Usage (Polymorphism)
+#### Example of Abstract Class Usage (Polymorphism)
 
-[cite\_start]You can create an array of `Shape` objects, and each element can hold a concrete subclass object (like `Circle`, `Square`, or `Rectangle`)27, 131, 133, 135].
+We can create an array of `Shape` objects, and each element can hold a concrete subclass object (like `Circle`, `Square`, or `Rectangle`).
 
 ````java
 Shape shapeArr[] = new Shape[3]; // Variable declaration is allowed
@@ -58,15 +54,13 @@ shapeArr[1] = new Square(...);    // Stores a concrete object
 
 // Calling the method on the array calls the appropriate subclass method (Polymorphism)
 shapeArr[i].perimeter(); // Calls Circle's perimeter, then Square's, etc.
-``` 27, 131, 133, 142, 143]
+``` 
 
----
+### Generic Functions and Abstract Classes
 
-## 3. Generic Functions and Abstract Classes
+Abstract classes can be used to describe **capabilities**, allowing for the creation of **generic functions** that operate on various object types.
 
-Abstract classes can be used to describe **capabilities**, allowing for the creation of **generic functions** that operate on various object types49, 270].
-
-### Example: The `Comparable` Abstract Class
+#### Example: The `Comparable` Abstract Class
 
 An abstract class called `Comparable` can be defined to force any class that extends it to have a comparison function:
 
@@ -76,9 +70,9 @@ public abstract class Comparable {
     public abstract int cmp(Comparable s); 
     // Returns: -1 if this < s, 0 if this == s, +1 if this > s
 }
-``` 50, 151, 152, 156, 157]
+```
 
-A **generic sort function** can then be written in a class like `SortFunctions`. This function can sort **any array of objects** that extend `Comparable`, using `a[i].cmp(a[j])` for comparisons72, 173, 177].
+A **generic sort function** can then be written in a class like `SortFunctions`. This function can sort **any array of objects** that extend `Comparable`, using `a[i].cmp(a[j])` for comparisons.
 
 ```java
 public class SortFunctions {
@@ -87,23 +81,21 @@ public class SortFunctions {
         // ... uses a[i].cmp(a[j]) to compare elements
     }
 }
-``` 73, 174, 177]
+```
 
----
-
-## 4. Interfaces and Multiple Inheritance
+### Interfaces and Multiple Inheritance
 
 ### The Problem of Multiple Inheritance
 
-Java classes can only **extend one parent class** (single inheritance)16, 259, 272].
+Java classes can only **extend one parent class** (single inheritance).
 
-**Example**: A `Circle` class *already* extends `Shape`. If you want to use the generic sort function, `Circle` would also need to extend `Comparable`, but Java does not allow this second extension14, 215, 216].
+**Example**: A `Circle` class *already* extends `Shape`. If you want to use the generic sort function, `Circle` would also need to extend `Comparable`, but Java does not allow this second extension.
 
 ### The Solution: Interfaces
 
 An **interface** is essentially an **abstract class with no concrete components**25, 251, 271]. It defines a contract of required methods.
 
-* **Syntax**: Use the keyword `interface`25].
+* **Syntax**: Use the keyword `interface`.
 
 ```java
 public interface Comparable {
@@ -114,9 +106,9 @@ public interface Comparable {
 
 ### Implementing an Interface
 
-A class that "extends" an interface is said to **implement** it39, 255].
+A class that "extends" an interface is said to **implement** it.
 
-* A class can **extend only one parent class**, but it can **implement multiple interfaces**59, 272].
+* A class can **extend only one parent class**, but it can **implement multiple interfaces**.
 
 **Example**: `Circle` can extend `Shape` (the single parent class) and implement `Comparable` (one of many possible interfaces):
 
@@ -125,30 +117,24 @@ public class Circle extends Shape implements Comparable {
     public double perimeter() { /* ... implementation ... */ } // From Shape
     public int cmp(Comparable s) { /* ... implementation ... */ }  // From Comparable
 }
-``` 40, 241, 242]
-
-````
+```
 
 ## Lecture 2: Interfaces
 
-Here are detailed notes on Java **Interfaces**, including their purpose, methods, and conflict resolution, with Java examples.
+### Core Concept of Interfaces
 
-# Java Interfaces Notes 📝
-
-## 1\. Core Concept of Interfaces
-
-[cite\_start]An **Interface** is a purely **abstract class**[cite: 8]. [cite\_start]Its primary purpose is to express **abstract capabilities** [cite: 200] [cite\_start]or a specific "slice" of capabilities for a class[cite: 15].
+An **Interface** is a purely **abstract class**. Its primary purpose is to express **abstract capabilities** or a specific "slice" of capabilities for a class.
 
 | Feature | Description |
 | :--- | :--- |
-| **Methods** | [cite\_start]All methods in a classic interface are implicitly **abstract** (no method body)[cite: 9]. |
-| **Inheritance** | [cite\_start]A class **implements** an interface[cite: 10]. |
-| **Multiple Inheritance** | [cite\_start]Classes can **implement multiple interfaces**[cite: 12]. [cite\_start]This works because abstract functions have no body, so there's **no contradictory inheritance** of implementation[cite: 13]. |
-| **Implementation** | [cite\_start]The implementing class must **provide concrete code** for every abstract function defined in the interface[cite: 11]. |
+| **Methods** | All methods in a classic interface are implicitly **abstract** (no method body). |
+| **Inheritance** | A class **implements** an interface. |
+| **Multiple Inheritance** | Classes can **implement multiple interfaces**. This works because abstract functions have no body, so there's **no contradictory inheritance** of implementation. |
+| **Implementation** | The implementing class must **provide concrete code** for every abstract function defined in the interface. |
 
-### Example: The `Comparable` Interface
+#### Example: The `Comparable` Interface
 
-[cite\_start]An interface can be used to describe the capability of an object being **comparable**[cite: 51].
+An interface can be used to describe the capability of an object being **comparable**.
 
 ```java
 // Interface definition
@@ -184,13 +170,12 @@ public class MyInteger implements Comparable {
 }
 ```
 
------
 
-## 2\. Using Interfaces for Limited Capabilities
+### Using Interfaces for Limited Capabilities
 
-[cite\_start]Interfaces are crucial for enabling **generic functions** that operate on various data types[cite: 21, 65]. [cite\_start]They ensure that another class only needs to know about the **relevant capabilities** exposed by the interface[cite: 15]. [cite\_start]All other aspects of the underlying type are **irrelevant** to the generic function[cite: 30, 73].
+Interfaces are crucial for enabling **generic functions** that operate on various data types. They ensure that another class only needs to know about the **relevant capabilities** exposed by the interface. All other aspects of the underlying type are **irrelevant** to the generic function.
 
-### Example: Generic Quicksort Function
+#### Example: Generic Quicksort Function
 
 A generic `quicksort` function needs only one capability from the elements it sorts: the ability to be compared.
 
@@ -198,7 +183,7 @@ A generic `quicksort` function needs only one capability from the elements it so
 public class SortFunctions {
     // The argument type is Comparable[], meaning it accepts 
     // an array of *any* object type that implements Comparable.
-    [cite_start]public static void quicksort(Comparable[] a) { [cite: 33, 69]
+    public static void quicksort(Comparable[] a) {
         // ... Usual code for quicksort ...
         
         // To compare two elements a[i] and a[j], 
@@ -211,18 +196,15 @@ public class SortFunctions {
 }
 ```
 
------
+### Concrete Methods in Interfaces (Java 8+)
 
-## 3\. Concrete Methods in Interfaces (Java 8+)
-
-[cite\_start]Java interfaces were later **extended** to allow concrete functions to be added, resolving the difficulty in expressing the intended behavior of abstract functions explicitly[cite: 90, 202].
+Java interfaces were later **extended** to allow concrete functions to be added, resolving the difficulty in expressing the intended behavior of abstract functions explicitly.
 
 ### A. Static Functions
 
-[cite\_start]**Static functions** can be added to an interface[cite: 97, 203].
-
-  * [cite\_start]They **cannot access instance variables**[cite: 98, 205].
-  * [cite\_start]They are invoked directly using the **interface name**[cite: 98].
+**Static functions** can be added to an interface.
+  * They **cannot access instance variables**.
+  * They are invoked directly using the **interface name**.
 
 <!-- end list -->
 
@@ -231,7 +213,7 @@ public interface Comparable {
     public abstract int cmp(Comparable s); 
 
     // Static function definition
-    [cite_start]public static String cmpdoc() { [cite: 100]
+    public static String cmpdoc() { 00]
         String s = "Return -1 if this < s, ";
         s = s + "0 if this == s, ";
         s = s + "+1 if this > s.";
@@ -245,10 +227,10 @@ public interface Comparable {
 
 ### B. Default Functions
 
-[cite\_start]**Default functions** provide a **default implementation** for an interface method[cite: 114, 204].
+**Default functions** provide a **default implementation** for an interface method14, 204].
 
-  * [cite\_start]A class **can override** the default implementation[cite: 115, 206].
-  * [cite\_start]They are invoked like a **normal method**, using the object name[cite: 116, 117].
+  * A class **can override** the default implementation15, 206].
+  * They are invoked like a **normal method**, using the object name16, 117].
 
 <!-- end list -->
 
@@ -257,7 +239,7 @@ public interface Comparable {
     // ... abstract and static methods ...
 
     // Default function definition
-    [cite_start]public default int cmp(Comparable s) { [cite: 123]
+    public default int cmp(Comparable s) { 23]
         return(0); // Default behavior: treat all objects as equal
     }
 }
@@ -266,17 +248,16 @@ public interface Comparable {
 // int result = obj.cmp(anotherObj); // returns 0
 ```
 
------
 
 ## 4\. Conflict Resolution in Multiple Inheritance
 
-[cite\_start]Adding concrete methods (**static/default**) to interfaces **reintroduces conflicts** in multiple inheritance scenarios[cite: 133, 207].
+Adding concrete methods (**static/default**) to interfaces **reintroduces conflicts** in multiple inheritance scenarios33, 207].
 
 ### A. Conflict Between Multiple Interfaces
 
 If a class implements two interfaces that both provide a default method with the **same signature**, the subclass must resolve the conflict.
 
-  * [cite\_start]The **subclass must provide a fresh implementation** of the conflicting method[cite: 153, 208].
+  * The **subclass must provide a fresh implementation** of the conflicting method53, 208].
 
 <!-- end list -->
 
@@ -301,9 +282,9 @@ public class Employee implements Person, Designation {
 
 ### B. Conflict Between Class and Interface
 
-[cite\_start]If a class inherits a method from a **superclass** and also implements an interface with a conflicting default method, a **special "class wins" rule** applies[cite: 187, 190, 208].
+If a class inherits a method from a **superclass** and also implements an interface with a conflicting default method, a **special "class wins" rule** applies87, 190, 208].
 
-  * [cite\_start]The **method inherited from the class "wins"** (is used)[cite: 190]. [cite\_start]This is motivated by **reverse compatibility**[cite: 191].
+  * The **method inherited from the class "wins"** (is used)90]. This is motivated by **reverse compatibility**91].
 
 <!-- end list -->
 
@@ -329,41 +310,40 @@ Here are detailed notes on **Private Classes (Inner Classes)** in Java, explaini
 
 ## 1\. Nested Objects
 
-[cite\_start]An object can have **nested objects** as its **instance variables**[cite: 7, 144]. This is a common form of composition, where one class uses another class to define its state.
+An object can have **nested objects** as its **instance variables**, 144]. This is a common form of composition, where one class uses another class to define its state.
 
 ### Example: `Employee` using `Date`
 
-[cite\_start]In this standard scenario, `Employee` uses `Date` for its `joindate`[cite: 9, 13].
+In this standard scenario, `Employee` uses `Date` for its `joindate`, 13].
 
 ```java
-[cite_start]// Date is a public class, available to other classes [cite: 25, 38]
+// Date is a public class, available to other classes 5, 38]
 public class Date {
-    private int day, month, year; [cite_start]// Instance variables for Date [cite: 16, 29]
+    private int day, month, year; // Instance variables for Date 6, 29]
 }
 
 public class Employee {
     private String name;
     private double salary;
-    private Date joindate; [cite_start]// Instance variable is a user-defined type [cite: 8, 13, 23]
+    private Date joindate; // Instance variable is a user-defined type , 13, 23]
 }
 ```
 
-[cite\_start]In this case, `Date` is a **public class** and is accessible to any other class in the application[cite: 25].
+In this case, `Date` is a **public class** and is accessible to any other class in the application5].
 
------
 
 ## 2\. The Need for Private Classes
 
-[cite\_start]In some situations, the **structure of nested objects need not be exposed** to the outside world[cite: 145, 153].
+In some situations, the **structure of nested objects need not be exposed** to the outside world45, 153].
 
 ### Use Case: The `LinkedList` and `Node` Structure
 
-[cite\_start]A `LinkedList` is built using a **`Node`** class[cite: 51, 72]. The `Node` class defines the internal structure of the list.
+A `LinkedList` is built using a **`Node`** class1, 72]. The `Node` class defines the internal structure of the list.
 
-[cite\_start]If `Node` is a **public class**[cite: 71], it exposes its internal details (like `data` and `next`) to anyone using the `LinkedList`.
+If `Node` is a **public class**1], it exposes its internal details (like `data` and `next`) to anyone using the `LinkedList`.
 
 ```java
-[cite_start]// Node is public, exposing its structure [cite: 73, 74]
+// Node is public, exposing its structure 3, 74]
 public class Node {
     public Object data;
     public Node next;
@@ -371,20 +351,20 @@ public class Node {
 
 public class LinkedList {
     private int size;
-    private Node first; [cite_start]// Uses Node internally [cite: 57, 58, 80, 81]
+    private Node first; // Uses Node internally 7, 58, 80, 81]
 
     public Object head() { /* ... implementation ... */ } // Interface of LinkedList
     // ...
 }
 ```
 
-[cite\_start]The internal structure of the list (whether it has a `next` pointer or is a doubly linked list with a `prev` field [cite: 76, 99][cite\_start]) **does not affect the public interface** of the `LinkedList` (like `head()` or `insert()`)[cite: 78, 103, 126]. Therefore, the internal `Node` class should be hidden.
+The internal structure of the list (whether it has a `next` pointer or is a doubly linked list with a `prev` field 6, 99]) **does not affect the public interface** of the `LinkedList` (like `head()` or `insert()`)8, 103, 126]. Therefore, the internal `Node` class should be hidden.
 
 ### The Solution: Inner Classes
 
-[cite\_start]Instead of making `Node` a public class, we can make it a **private class**[cite: 106]. [cite\_start]A private class that is defined inside another class is also called an **inner class**[cite: 111, 129].
+Instead of making `Node` a public class, we can make it a **private class**06]. A private class that is defined inside another class is also called an **inner class**11, 129].
 
-  * [cite\_start]**Definition:** The inner class is **nested within** the enclosing class (`LinkedList`)[cite: 107, 128].
+  * **Definition:** The inner class is **nested within** the enclosing class (`LinkedList`)07, 128].
 
 <!-- end list -->
 
@@ -406,19 +386,18 @@ public class LinkedList {
 }
 ```
 
------
 
 ## 3\. Benefits of Private Classes
 
-[cite\_start]Private classes provide an **additional degree of data encapsulation**[cite: 146, 154].
+Private classes provide an **additional degree of data encapsulation**46, 154].
 
 | Concept | Description |
 | :--- | :--- |
 | **Encapsulation** | Hiding the `Node` class prevents external code from manipulating the list's internal structure directly, ensuring the `LinkedList` remains consistent. |
-| **Access Control** | [cite\_start]Objects of the private class (`Node` objects) can **see the private components of the enclosing class** (`LinkedList`)[cite: 137]. |
-| **Controlled Access** | [cite\_start]Private classes can be combined with interfaces to provide **controlled access** to an object's state[cite: 155]. |
+| **Access Control** | Objects of the private class (`Node` objects) can **see the private components of the enclosing class** (`LinkedList`)37]. |
+| **Controlled Access** | Private classes can be combined with interfaces to provide **controlled access** to an object's state55]. |
 
-[cite\_start]In the `LinkedList` example, by making `Node` private, the details of how the list is constructed are entirely internal to the `LinkedList` class, making the overall structure more secure and easier to modify later (e.g., changing it to a doubly linked list [cite: 99]).
+In the `LinkedList` example, by making `Node` private, the details of how the list is constructed are entirely internal to the `LinkedList` class, making the overall structure more secure and easier to modify later (e.g., changing it to a doubly linked list 9]).
 
 ## Lecture 4: Interaction with States
 
@@ -428,11 +407,11 @@ Here are detailed notes on **Controlled Interaction with Objects and State** in 
 
 ## 1\. Encapsulation and Data Integrity
 
-[cite\_start]**Encapsulation** is a core principle of object-oriented programming[cite: 7].
+**Encapsulation** is a core principle of object-oriented programming].
 
-  * [cite\_start]**Internal data** is kept **private**[cite: 8, 21].
-  * [cite\_start]**Access to the data** is regulated through **public methods**[cite: 8, 21]. [cite\_start]These methods are often called **accessor** (getter) and **mutator** (setter) methods[cite: 9, 21].
-  * [cite\_start]The primary benefit is that you can **ensure data integrity by regulating access**[cite: 22, 39, 56].
+  * **Internal data** is kept **private**, 21].
+  * **Access to the data** is regulated through **public methods**, 21]. These methods are often called **accessor** (getter) and **mutator** (setter) methods, 21].
+  * The primary benefit is that you can **ensure data integrity by regulating access**2, 39, 56].
 
 ### Example: Regulating `Date` Access
 
@@ -440,57 +419,55 @@ Instead of allowing separate, uncontrolled updates to individual components, a s
 
 ```java
 public class Date {
-    private int day, month, year; [cite_start]// Internal data is private [cite: 36, 53]
+    private int day, month, year; // Internal data is private 6, 53]
 
     // Accessor (Getter) methods
     public int getDay() { /* ... returns day ... */ } 
     // ... getMonth(), getYear() ...
 
     // Mutator (Setter) method that regulates access
-    [cite_start]public void setDate(int d, int m, int y) { [cite: 38, 55]
-        [cite_start]// Validate d-m-y combination here [cite: 41, 58]
+    public void setDate(int d, int m, int y) { 8, 55]
+        // Validate d-m-y combination here 1, 58]
         // ... Logic to check if the date is valid ...
         this.day = d;
         this.month = m;
         this.year = y;
-        [cite_start]// Update date as a whole, rather than individual components [cite: 43, 60]
+        // Update date as a whole, rather than individual components 3, 60]
     }
 }
 ```
 
------
 
 ## 2\. Controlled Interaction with State
 
-[cite\_start]Sometimes, simply validating the input data isn't sufficient; the validity of an action depends on the **current state** of the system or the user's interaction history (an "**Interaction with state**" [cite: 119]).
+Sometimes, simply validating the input data isn't sufficient; the validity of an action depends on the **current state** of the system or the user's interaction history (an "**Interaction with state**" 19]).
 
 ### Scenario: Regulating Database Queries
 
-Consider a `RailwayBooking` system where seat availability can be queried. [cite\_start]To control spamming by bots, a user should be required to **log in before querying**[cite: 85, 100].
+Consider a `RailwayBooking` system where seat availability can be queried. To control spamming by bots, a user should be required to **log in before querying**5, 100].
 
-[cite\_start]The ability to query (`getStatus`) must be connected to the **logged in status of the user**[cite: 102, 118, 131].
+The ability to query (`getStatus`) must be connected to the **logged in status of the user**02, 118, 131].
 
 ### Solution: Combining Interfaces and Private Classes
 
 The solution uses **objects** to control the interaction:
 
-1.  [cite\_start]On successful login, the user receives a special **Query Object**[cite: 146].
-2.  [cite\_start]This Query Object is created from a **private class** (an inner class) that has access to the main `RailwayBooking`'s private data (like `railwaydb`)[cite: 147, 171].
-3.  [cite\_start]An **Interface** is used to tell the external user what the capabilities of the returned object are, without exposing the private class definition[cite: 197, 198].
+1.  On successful login, the user receives a special **Query Object**46].
+2.  This Query Object is created from a **private class** (an inner class) that has access to the main `RailwayBooking`'s private data (like `railwaydb`)47, 171].
+3.  An **Interface** is used to tell the external user what the capabilities of the returned object are, without exposing the private class definition97, 198].
 
 #### Implementation Breakdown
 
 | Component | Explanation | Example Code Snippet |
 | :--- | :--- | :--- |
-| **Interface** | [cite\_start]Describes the capability (`getStatus`) of the object returned on login[cite: 198]. [cite\_start]External code only knows about this type, not the private class[cite: 303]. | `public interface QIF{ public abstract int getStatus(...); [cite_start]}` [cite: 199, 202] |
-| **Outer Class** | [cite\_start]Handles the login and returns an object of the **Interface** type[cite: 205]. | `public QIF login(String u, String p){ // ... return new QueryObject(); }` |
-| **Private Class** | [cite\_start]The **inner class** that actually implements the capability and can look up the `railwaydb`[cite: 147, 171]. [cite\_start]It implements the public interface[cite: 212]. | [cite\_start]`private class QueryObject implements QIF { ... }` [cite: 212] |
+| **Interface** | Describes the capability (`getStatus`) of the object returned on login98]. External code only knows about this type, not the private class03]. | `public interface QIF{ public abstract int getStatus(...); }` 99, 202] |
+| **Outer Class** | Handles the login and returns an object of the **Interface** type05]. | `public QIF login(String u, String p){ // ... return new QueryObject(); }` |
+| **Private Class** | The **inner class** that actually implements the capability and can look up the `railwaydb`47, 171]. It implements the public interface12]. | `private class QueryObject implements QIF { ... }` 12] |
 
------
 
 ## 3\. Tracking State with the Query Object
 
-[cite\_start]The Query Object can **remember the state of the interaction** by maintaining its own **instance variables**[cite: 275, 276, 304].
+The Query Object can **remember the state of the interaction** by maintaining its own **instance variables**75, 276, 304].
 
 ### Example: Limiting Queries per Login
 
@@ -505,14 +482,14 @@ public class RailwayBooking {
     }
 
     private class QueryObject implements QIF {
-        private int numqueries = 0; [cite_start]// Tracks the state of the interaction [cite: 287]
+        private int numqueries = 0; // Tracks the state of the interaction 87]
         private static final int QLIM = 10; // Query limit
 
         @Override
         public int getStatus(int trainno, Date d) {
-            [cite_start]if (numqueries < QLIM) { [cite: 289]
+            if (numqueries < QLIM) { 89]
                 // Look up railwaydb (has access to outer class's private members)
-                [cite_start]// respond, increment numqueries [cite: 290]
+                // respond, increment numqueries 90]
                 numqueries++;
                 // ...
             }
@@ -525,11 +502,11 @@ public class RailwayBooking {
 
 ### Summary of Controlled Access
 
-[cite\_start]This pattern provides **controlled access to an object** [cite: 300] [cite\_start]by combining three key elements[cite: 301]:
+This pattern provides **controlled access to an object** 00] by combining three key elements01]:
 
-1.  [cite\_start]**Private Class**: Provides the implementation and maintains the **state of the interaction** using instance variables[cite: 302, 304].
-2.  [cite\_start]**Interface**: Defines the **publicly known capabilities** of the returned object[cite: 303].
-3.  [cite\_start]**Outer Class Method**: Serves as the **gatekeeper** that creates and returns the object only upon a valid pre-condition (e.g., login)[cite: 302].
+1.  **Private Class**: Provides the implementation and maintains the **state of the interaction** using instance variables02, 304].
+2.  **Interface**: Defines the **publicly known capabilities** of the returned object03].
+3.  **Outer Class Method**: Serves as the **gatekeeper** that creates and returns the object only upon a valid pre-condition (e.g., login)02].
 
 ## Lecture 5: Callbacks
 
@@ -541,32 +518,31 @@ Here are detailed notes on **Callbacks** in Java, explaining the concept, the ch
 
 A **callback facility** is used when one object (**Owner**) initiates an action by another object (**Worker**) that runs in parallel, and the Worker needs to notify the Owner when the action is complete.
 
-  * [cite\_start]**Scenario Example**: A class **`Myclass` (m)** creates a **`Timer` (t)** object[cite: 8, 16, 28].
-  * [cite\_start]`Myclass` calls `t.start()` to start the timer running in parallel[cite: 17, 29].
-  * [cite\_start]`Myclass` continues its execution[cite: 20, 32].
-  * [cite\_start]When the time limit expires, the `Timer` **notifies** `Myclass` by calling a function like `timerdone()`[cite: 35, 36, 37].
+  * **Scenario Example**: A class **`Myclass` (m)** creates a **`Timer` (t)** object, 16, 28].
+  * `Myclass` calls `t.start()` to start the timer running in parallel7, 29].
+  * `Myclass` continues its execution0, 32].
+  * When the time limit expires, the `Timer` **notifies** `Myclass` by calling a function like `timerdone()`5, 36, 37].
 
 ### Basic Implementation (Specific to `Myclass`)
 
-[cite\_start]To allow the `Timer` to notify its creator, the creator must pass its **identity** (`this`) to the `Timer` when creating it[cite: 61, 80, 113, 147].
+To allow the `Timer` to notify its creator, the creator must pass its **identity** (`this`) to the `Timer` when creating it1, 80, 113, 147].
 
 | Component | Code | Explanation |
 | :--- | :--- | :--- |
-| **Owner** (`Myclass`) | [cite\_start]`Timer t = new Timer(this);` [cite: 49] | [cite\_start]Passes itself (`this`) to the Timer constructor[cite: 50, 66]. |
-| **Worker** (`Timer`) | `private Myclass owner;` `public Timer(Myclass o){ owner = o; [cite_start]}` [cite: 95, 96, 97] | [cite\_start]Stores the creator object (`Myclass`) as its `owner`[cite: 95, 97]. |
-| **Callback** | `public void start(){ owner.timerdone(); [cite_start]}` [cite: 103, 104] | [cite\_start]When the Worker is done, it calls the `timerdone()` method on the stored `owner`[cite: 104, 135]. |
+| **Owner** (`Myclass`) | `Timer t = new Timer(this);` 9] | Passes itself (`this`) to the Timer constructor0, 66]. |
+| **Worker** (`Timer`) | `private Myclass owner;` `public Timer(Myclass o){ owner = o; }` 5, 96, 97] | Stores the creator object (`Myclass`) as its `owner`5, 97]. |
+| **Callback** | `public void start(){ owner.timerdone(); }` 03, 104] | When the Worker is done, it calls the `timerdone()` method on the stored `owner`04, 135]. |
 
-[cite\_start]**Note**: The `Timer` class often implements the `Runnable` interface, which indicates it can run in parallel[cite: 83, 84, 93, 116, 117].
+**Note**: The `Timer` class often implements the `Runnable` interface, which indicates it can run in parallel3, 84, 93, 116, 117].
 
------
 
 ## 2\. Challenge: Creating a Generic Worker
 
-[cite\_start]The basic implementation is **specific to `Myclass`**[cite: 119, 153]. [cite\_start]To make a generic `Timer` that can notify *any* class, the design must be generalized[cite: 155, 180].
+The basic implementation is **specific to `Myclass`**19, 153]. To make a generic `Timer` that can notify *any* class, the design must be generalized55, 180].
 
 ### Attempt 1: Using `Object`
 
-[cite\_start]You could make the `Timer` constructor accept the generic type **`Object`**[cite: 188, 197, 198].
+You could make the `Timer` constructor accept the generic type **`Object`**88, 197, 198].
 
 ```java
 // Timer constructor accepts the most generic type
@@ -576,59 +552,58 @@ public class Timer implements Runnable {
 
     public void start() {
         // Must cast the owner back to the expected type!
-        ((Myclass) [cite_start]owner).timerdone(); [cite: 203, 232]
+        ((Myclass) owner).timerdone(); 03, 232]
     }
 }
 ```
 
-  * [cite\_start]**Problem**: You **need to cast** the `owner` back to the specific `Myclass` type[cite: 218, 235]. If the `Timer` is used by a different class, the cast will fail, making the `Timer` still not truly generic.
+  * **Problem**: You **need to cast** the `owner` back to the specific `Myclass` type18, 235]. If the `Timer` is used by a different class, the cast will fail, making the `Timer` still not truly generic.
 
------
 
 ## 3\. Solution: Using Interfaces for Callbacks
 
-[cite\_start]**Interfaces** provide the elegant solution to making callbacks generic[cite: 244, 289]. [cite\_start]They define the **capability** the owner must possess to be notified[cite: 290].
+**Interfaces** provide the elegant solution to making callbacks generic44, 289]. They define the **capability** the owner must possess to be notified90].
 
 ### Implementation with Interfaces
 
-1.  [cite\_start]**Define a Callback Interface**[cite: 245, 246]: This interface specifies the methods the Worker will call.
+1.  **Define a Callback Interface**45, 246]: This interface specifies the methods the Worker will call.
 
     ```java
-    [cite_start]public interface TimerOwner { [cite: 247, 248]
-        [cite_start]public abstract void timerdone(); [cite: 249, 250]
+    public interface TimerOwner { 47, 248]
+        public abstract void timerdone(); 49, 250]
     }
     ```
 
-2.  [cite\_start]**Owner Implements the Interface** [cite: 262, 263][cite\_start]: `Myclass` must implement the `TimerOwner` interface, guaranteeing it has the required `timerdone()` method[cite: 265, 266, 273].
+2.  **Owner Implements the Interface** 62, 263]: `Myclass` must implement the `TimerOwner` interface, guaranteeing it has the required `timerdone()` method65, 266, 273].
 
     ```java
-    [cite_start]public class Myclass implements TimerOwner { [cite: 265, 266]
+    public class Myclass implements TimerOwner { 65, 266]
         // ...
-        [cite_start]public void timerdone() { ... } [cite: 273]
+        public void timerdone() { ... } 73]
     }
     ```
 
 3.  **Worker Stores the Interface Type**: The `Timer` stores the owner as the **interface type** (`TimerOwner`). This eliminates the need for casting.
 
     ```java
-    [cite_start]public class Timer implements Runnable { [cite: 279]
+    public class Timer implements Runnable { 79]
         private TimerOwner owner; // Stores the object as the interface type
         
-        public Timer(TimerOwner o) { owner = o; [cite_start]} [cite: 279]
+        public Timer(TimerOwner o) { owner = o; } 79]
         
         public void start() {
             // No cast needed! Any object passed must have implemented TimerOwner
-            [cite_start]owner.timerdone(); [cite: 279]
+            owner.timerdone(); 79]
         }
     }
     ```
 
-[cite\_start]This structure ensures the `owner` object has the required capability, allowing the callback to be **generic**[cite: 289]. [cite\_start]The object being notified (`owner`) doesn't even need to be the object that created the `Timer`[cite: 287, 288].
+This structure ensures the `owner` object has the required capability, allowing the callback to be **generic**89]. The object being notified (`owner`) doesn't even need to be the object that created the `Timer`87, 288].
 
 ## 4\. Summary
 
-  * [cite\_start]Callbacks are useful when a class is **spawned in parallel** and needs to notify an object when it's done[cite: 285, 286].
-  * [cite\_start]The **interface** defines the necessary capability (`timerdone()`)[cite: 289, 290].
+  * Callbacks are useful when a class is **spawned in parallel** and needs to notify an object when it's done85, 286].
+  * The **interface** defines the necessary capability (`timerdone()`)89, 290].
   * The use of an interface allows the Worker object to be **generic** and decouple itself from the specific type of the Owner class.
 
 ## Lecture 6: Iterators
@@ -639,43 +614,42 @@ Here are detailed notes on **Iterators** in Java, focusing on how they solve the
 
 ## 1\. The Problem of Generic Iteration
 
-[cite\_start]A **linear list** is a generic collection of objects whose internal implementation can vary[cite: 173, 174].
+A **linear list** is a generic collection of objects whose internal implementation can vary73, 174].
 
-  * [cite\_start]**Internal Implementations** can be based on an **array** [cite: 181, 182] [cite\_start]or a **linked list** (using a private `Node` inner class)[cite: 199, 212].
+  * **Internal Implementations** can be based on an **array** 81, 182] or a **linked list** (using a private `Node` inner class)99, 212].
 
-[cite\_start]The goal is to create a loop that can run through all values in the list (**iteration**)[cite: 217].
+The goal is to create a loop that can run through all values in the list (**iteration**)17].
 
 ### The Encapsulation Conflict
 
-[cite\_start]Direct iteration requires exposing the list's private data structure, which violates **encapsulation**[cite: 253]:
+Direct iteration requires exposing the list's private data structure, which violates **encapsulation**53]:
 
-  * [cite\_start]If the list were a **public array**, the iteration loop would expose the array's size and index access[cite: 226]:
+  * If the list were a **public array**, the iteration loop would expose the array's size and index access26]:
     ```java
     // Requires public access to the internal 'data' array and 'length'
     for (int i = 0; i < data.length; i++) { /* ... do something with data[i] ... */ }
     ```
-  * [cite\_start]If the list were a **public linked list**, the iteration loop would expose the private `Node` structure[cite: 235, 241]:
+  * If the list were a **public linked list**, the iteration loop would expose the private `Node` structure35, 241]:
     ```java
     // Requires public access to the internal 'head' Node
     for (Node m = head; m != null; m = m.next) { /* ... do something with m.data ... */ }
     ```
 
-[cite\_start]Furthermore, external code often **doesn't know which implementation is in use** (array or linked list)[cite: 273].
+Furthermore, external code often **doesn't know which implementation is in use** (array or linked list)73].
 
------
 
 ## 2\. The Iterator Abstraction
 
-[cite\_start]The **Iterator** pattern abstracts the traversal process, allowing external code to iterate over a data structure without knowing its underlying implementation[cite: 288, 289, 273].
+The **Iterator** pattern abstracts the traversal process, allowing external code to iterate over a data structure without knowing its underlying implementation88, 289, 273].
 
 ### The `Iterator` Interface
 
-[cite\_start]The functionality is encapsulated in a public interface called `Iterator`[cite: 305].
+The functionality is encapsulated in a public interface called `Iterator`05].
 
 | Method | Purpose | Abstraction |
 | :--- | :--- | :--- |
-| `has_next()` | Checks if there is another element available. | [cite\_start]`while (there is a next element)` [cite: 301, 307] |
-| `get_next()` | Returns the next element and advances the position. | [cite\_start]`get the next element; do something with it` [cite: 292, 308] |
+| `has_next()` | Checks if there is another element available. | `while (there is a next element)` 01, 307] |
+| `get_next()` | Returns the next element and advances the position. | `get the next element; do something with it` 92, 308] |
 
 ```java
 public interface Iterator {
@@ -684,22 +658,21 @@ public interface Iterator {
 }
 ```
 
------
 
 ## 3\. Implementing the Iterator
 
-[cite\_start]To support iteration, the main data structure (`Linearlist`) must be able to **export an object** that implements the `Iterator` interface[cite: 342, 427].
+To support iteration, the main data structure (`Linearlist`) must be able to **export an object** that implements the `Iterator` interface42, 427].
 
 ### Solving the State Problem (Nested Loops)
 
-[cite\_start]Since iteration is a type of **interaction with state** [cite: 425][cite\_start], and you need to remember the current position in the list[cite: 322, 426], a dedicated object is required. [cite\_start]This also allows for **nested loops**[cite: 330, 407].
+Since iteration is a type of **interaction with state** 25], and you need to remember the current position in the list22, 426], a dedicated object is required. This also allows for **nested loops**30, 407].
 
-[cite\_start]The solution is to use an **inner private class** that implements `Iterator` and creates a **fresh object** for each iteration process[cite: 342, 355].
+The solution is to use an **inner private class** that implements `Iterator` and creates a **fresh object** for each iteration process42, 355].
 
 | Component | Code | Explanation |
 | :--- | :--- | :--- |
-| **Inner Class** | `private class Iter implements Iterator { private Node position; ... }` | [cite\_start]A private class whose definition depends on the list's implementation[cite: 367, 379]. [cite\_start]It holds the necessary **position pointer**[cite: 351]. |
-| **Export Method**| `public Iterator get_iterator(){ Iter it = new Iter(); return(it); }` | [cite\_start]The public method in `Linearlist` that creates and returns a **new**, fresh `Iterator` object[cite: 356, 357]. |
+| **Inner Class** | `private class Iter implements Iterator { private Node position; ... }` | A private class whose definition depends on the list's implementation67, 379]. It holds the necessary **position pointer**51]. |
+| **Export Method**| `public Iterator get_iterator(){ Iter it = new Iter(); return(it); }` | The public method in `Linearlist` that creates and returns a **new**, fresh `Iterator` object56, 357]. |
 
 ### External List Traversal
 
@@ -718,7 +691,7 @@ while (i.has_next()) {
 
 ### Handling Nested Loops
 
-[cite\_start]For nested loops, simply **acquire multiple iterators**, one for each loop[cite: 407]. Each iterator object maintains its own internal state (`position`) independently:
+For nested loops, simply **acquire multiple iterators**, one for each loop07]. Each iterator object maintains its own internal state (`position`) independently:
 
 ```java
 Iterator i = l.get_iterator(); // Outer iterator
@@ -733,4 +706,4 @@ while (i.has_next()) {
 }
 ```
 
-[cite\_start]**Note**: The Java enhanced `for` loop (`for (type x : a)`) implicitly constructs and uses an iterator behind the scenes[cite: 427, 428].
+**Note**: The Java enhanced `for` loop (`for (type x : a)`) implicitly constructs and uses an iterator behind the scenes27, 428].
