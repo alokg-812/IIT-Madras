@@ -1,24 +1,40 @@
 import java.util.*;
-//Add your code for ComplexNum here
+import java.text.DecimalFormat;
 class ComplexNum<T extends Number> {
-    private double T r, i;
+    private T r, i;
     ComplexNum(T r, T i) {
         this.r = r;
         this.i = i;
     }
+
     public <U extends Number> ComplexNum<Double> add(ComplexNum<U> other) {
         double realSum = this.r.doubleValue() + other.r.doubleValue();
         double imagSum = this.i.doubleValue() + other.i.doubleValue();
         return new ComplexNum<Double>(realSum, imagSum);
     }
+
+    private String formatNumber(double val) {
+        if (val == Math.floor(val)) {
+            return String.format("%.1f", val);
+        } else {
+            DecimalFormat df = new DecimalFormat("#.##########");
+            return df.format(val);
+        }
+    }
     @Override
     public String toString() {
-        if (i.doubleValue() >= 0)
-            return r + " + " + i + "i";
+        double real = r.doubleValue();
+        double imag = i.doubleValue();
+        String realStr = formatNumber(real);
+        String imagStr = formatNumber(Math.abs(imag));
+
+        if (imag >= 0)
+            return realStr + " + " + imagStr + "i";
         else
-            return r + " - " + Math.abs(i.doubleValue()) + "i";
+            return realStr + " - " + imagStr + "i";
     }
 }
+
 
 class FClass{
 public static void main(String[] args) {
