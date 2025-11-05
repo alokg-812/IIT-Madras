@@ -473,7 +473,7 @@ public class RailwayBooking {
     }
 
     private class QueryObject implements QIF {
-        private int numqueries = 0; // Tracks the state of the interaction 87]
+        private int numqueries = 0; // Tracks the state of the interaction
         private static final int QLIM = 10; // Query limit
 
         @Override
@@ -520,7 +520,7 @@ To allow the `Timer` to notify its creator, the creator must pass its **identity
 | **Worker** (`Timer`) | `private Myclass owner;` `public Timer(Myclass o){ owner = o; }` | Stores the creator object (`Myclass`) as its `owner`. |
 | **Callback** | `public void start(){ owner.timerdone(); }` | When the Worker is done, it calls the `timerdone()` method on the stored `owner`. |
 
-**Note**: The `Timer` class often implements the `Runnable` interface, which indicates it can run in parallel.
+> **Note**: The `Timer` class often implements the `Runnable` interface, which indicates it can run in parallel.
 
 
 ### Challenge: Creating a Generic Worker
@@ -556,87 +556,82 @@ public class Timer implements Runnable {
 1.  **Define a Callback Interface**: This interface specifies the methods the Worker will call.
 
     ```java
-    public interface TimerOwner { 47, 248]
-        public abstract void timerdone(); 49, 250]
+    public interface TimerOwner {
+        public abstract void timerdone();
     }
     ```
 
-2.  **Owner Implements the Interface** 62, 263]: `Myclass` must implement the `TimerOwner` interface, guaranteeing it has the required `timerdone()` method65, 266, 273].
+2.  **Owner Implements the Interface**: `Myclass` must implement the `TimerOwner` interface, guaranteeing it has the required `timerdone()` method.
 
     ```java
-    public class Myclass implements TimerOwner { 65, 266]
+    public class Myclass implements TimerOwner {
         // ...
-        public void timerdone() { ... } 73]
+        public void timerdone() { ... }
     }
     ```
 
 3.  **Worker Stores the Interface Type**: The `Timer` stores the owner as the **interface type** (`TimerOwner`). This eliminates the need for casting.
 
     ```java
-    public class Timer implements Runnable { 79]
+    public class Timer implements Runnable {
         private TimerOwner owner; // Stores the object as the interface type
         
-        public Timer(TimerOwner o) { owner = o; } 79]
+        public Timer(TimerOwner o) { owner = o; }
         
         public void start() {
             // No cast needed! Any object passed must have implemented TimerOwner
-            owner.timerdone(); 79]
+            owner.timerdone();
         }
     }
     ```
 
-This structure ensures the `owner` object has the required capability, allowing the callback to be **generic**89]. The object being notified (`owner`) doesn't even need to be the object that created the `Timer`87, 288].
+This structure ensures the `owner` object has the required capability, allowing the callback to be **generic**. The object being notified (`owner`) doesn't even need to be the object that created the `Timer`.
 
-## 4\. Summary
+### Summary
 
-  * Callbacks are useful when a class is **spawned in parallel** and needs to notify an object when it's done85, 286].
-  * The **interface** defines the necessary capability (`timerdone()`)89, 290].
+  * Callbacks are useful when a class is **spawned in parallel** and needs to notify an object when it's done.
+  * The **interface** defines the necessary capability (`timerdone()`).
   * The use of an interface allows the Worker object to be **generic** and decouple itself from the specific type of the Owner class.
 
 ## Lecture 6: Iterators
 
-Here are detailed notes on **Iterators** in Java, focusing on how they solve the problem of iteration across different data structures while maintaining encapsulation.
+### The Problem of Generic Iteration
 
-# Java Iterators Notes 🔄
+A **linear list** is a generic collection of objects whose internal implementation can vary.
 
-## 1\. The Problem of Generic Iteration
+  * **Internal Implementations** can be based on an **array** or a **linked list** (using a private `Node` inner class).
 
-A **linear list** is a generic collection of objects whose internal implementation can vary73, 174].
-
-  * **Internal Implementations** can be based on an **array** 81, 182] or a **linked list** (using a private `Node` inner class)99, 212].
-
-The goal is to create a loop that can run through all values in the list (**iteration**)17].
+The goal is to create a loop that can run through all values in the list (**iteration**).
 
 ### The Encapsulation Conflict
 
-Direct iteration requires exposing the list's private data structure, which violates **encapsulation**53]:
+Direct iteration requires exposing the list's private data structure, which violates **encapsulation**:
 
-  * If the list were a **public array**, the iteration loop would expose the array's size and index access26]:
+  * If the list were a **public array**, the iteration loop would expose the array's size and index access:
     ```java
     // Requires public access to the internal 'data' array and 'length'
     for (int i = 0; i < data.length; i++) { /* ... do something with data[i] ... */ }
     ```
-  * If the list were a **public linked list**, the iteration loop would expose the private `Node` structure35, 241]:
+  * If the list were a **public linked list**, the iteration loop would expose the private `Node` structure:
     ```java
     // Requires public access to the internal 'head' Node
     for (Node m = head; m != null; m = m.next) { /* ... do something with m.data ... */ }
     ```
 
-Furthermore, external code often **doesn't know which implementation is in use** (array or linked list)73].
+Furthermore, external code often **doesn't know which implementation is in use** (array or linked list).
 
+### The Iterator Abstraction
 
-## 2\. The Iterator Abstraction
-
-The **Iterator** pattern abstracts the traversal process, allowing external code to iterate over a data structure without knowing its underlying implementation88, 289, 273].
+The **Iterator** pattern abstracts the traversal process, allowing external code to iterate over a data structure without knowing its underlying implementation.
 
 ### The `Iterator` Interface
 
-The functionality is encapsulated in a public interface called `Iterator`05].
+The functionality is encapsulated in a public interface called `Iterator`.
 
 | Method | Purpose | Abstraction |
 | :--- | :--- | :--- |
-| `has_next()` | Checks if there is another element available. | `while (there is a next element)` 01, 307] |
-| `get_next()` | Returns the next element and advances the position. | `get the next element; do something with it` 92, 308] |
+| `has_next()` | Checks if there is another element available. | `while (there is a next element)` |
+| `get_next()` | Returns the next element and advances the position. | `get the next element; do something with it` |
 
 ```java
 public interface Iterator {
@@ -644,22 +639,20 @@ public interface Iterator {
     public abstract Object get_next();
 }
 ```
+### Implementing the Iterator
 
-
-## 3\. Implementing the Iterator
-
-To support iteration, the main data structure (`Linearlist`) must be able to **export an object** that implements the `Iterator` interface42, 427].
+To support iteration, the main data structure (`Linearlist`) must be able to **export an object** that implements the `Iterator` interface.
 
 ### Solving the State Problem (Nested Loops)
 
-Since iteration is a type of **interaction with state** 25], and you need to remember the current position in the list22, 426], a dedicated object is required. This also allows for **nested loops**30, 407].
+Since iteration is a type of **interaction with state**, and you need to remember the current position in the list, a dedicated object is required. This also allows for **nested loops**.
 
-The solution is to use an **inner private class** that implements `Iterator` and creates a **fresh object** for each iteration process42, 355].
+The solution is to use an **inner private class** that implements `Iterator` and creates a **fresh object** for each iteration process.
 
 | Component | Code | Explanation |
 | :--- | :--- | :--- |
-| **Inner Class** | `private class Iter implements Iterator { private Node position; ... }` | A private class whose definition depends on the list's implementation67, 379]. It holds the necessary **position pointer**51]. |
-| **Export Method**| `public Iterator get_iterator(){ Iter it = new Iter(); return(it); }` | The public method in `Linearlist` that creates and returns a **new**, fresh `Iterator` object56, 357]. |
+| **Inner Class** | `private class Iter implements Iterator { private Node position; ... }` | A private class whose definition depends on the list's implementation. It holds the necessary **position pointer**. |
+| **Export Method**| `public Iterator get_iterator(){ Iter it = new Iter(); return(it); }` | The public method in `Linearlist` that creates and returns a **new**, fresh `Iterator` object. |
 
 ### External List Traversal
 
@@ -678,7 +671,7 @@ while (i.has_next()) {
 
 ### Handling Nested Loops
 
-For nested loops, simply **acquire multiple iterators**, one for each loop07]. Each iterator object maintains its own internal state (`position`) independently:
+For nested loops, simply **acquire multiple iterators**, one for each loop. Each iterator object maintains its own internal state (`position`) independently:
 
 ```java
 Iterator i = l.get_iterator(); // Outer iterator
@@ -693,4 +686,4 @@ while (i.has_next()) {
 }
 ```
 
-**Note**: The Java enhanced `for` loop (`for (type x : a)`) implicitly constructs and uses an iterator behind the scenes27, 428].
+> **Note**: The Java enhanced `for` loop (`for (type x : a)`) implicitly constructs and uses an iterator behind the scenes.
