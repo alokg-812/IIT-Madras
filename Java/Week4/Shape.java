@@ -12,7 +12,6 @@ class Rectangle extends Shapes {
         this.breadth = breadth;
     }
 
-    @Override
     public double perimeter() {
         return 2.0 * (length + breadth);
     }
@@ -25,7 +24,6 @@ class Square extends Shapes {
         this.side = side;
     }
 
-    @Override
     public double perimeter() {
         return 4.0 * side;
     }
@@ -38,7 +36,6 @@ class Circle extends Shapes {
         this.radius = radius;
     }
 
-    @Override
     public double perimeter() {
         return 2.0 * Math.PI * radius;
     }
@@ -57,5 +54,10 @@ public class Shape {
             sizearr[i] = shapearray[i].perimeter();
             System.out.println("Perimeter of shape " + i + " = " + sizearr[i]);
         }
+
+        Shapes sh[] = new Shapes[1];
+        sh[0] = new Shapes(3);
+
+
     }
 }
