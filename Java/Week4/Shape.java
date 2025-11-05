@@ -54,10 +54,5 @@ public class Shape {
             sizearr[i] = shapearray[i].perimeter();
             System.out.println("Perimeter of shape " + i + " = " + sizearr[i]);
         }
-
-        Shapes sh[] = new Shapes[1];
-        sh[0] = new Shapes(3);
-
-
     }
 }
