@@ -93,7 +93,7 @@ Java classes can only **extend one parent class** (single inheritance).
 
 ### The Solution: Interfaces
 
-An **interface** is essentially an **abstract class with no concrete components**25, 251, 271]. It defines a contract of required methods.
+An **interface** is essentially an **abstract class with no concrete components**. It defines a contract of required methods.
 
 * **Syntax**: Use the keyword `interface`.
 
@@ -108,7 +108,7 @@ public interface Comparable {
 
 A class that "extends" an interface is said to **implement** it.
 
-* A class can **extend only one parent class**, but it can **implement multiple interfaces**.
+* A class can **extend only one parent class**, but it can        **implement multiple interfaces**.
 
 **Example**: `Circle` can extend `Shape` (the single parent class) and implement `Comparable` (one of many possible interfaces):
 
@@ -213,7 +213,7 @@ public interface Comparable {
     public abstract int cmp(Comparable s); 
 
     // Static function definition
-    public static String cmpdoc() { 00]
+    public static String cmpdoc() {
         String s = "Return -1 if this < s, ";
         s = s + "0 if this == s, ";
         s = s + "+1 if this > s.";
@@ -227,10 +227,10 @@ public interface Comparable {
 
 ### B. Default Functions
 
-**Default functions** provide a **default implementation** for an interface method14, 204].
+**Default functions** provide a **default implementation** for an interface method.
 
-  * A class **can override** the default implementation15, 206].
-  * They are invoked like a **normal method**, using the object name16, 117].
+  * A class **can override** the default implementation.
+  * They are invoked like a **normal method**, using the object name.
 
 <!-- end list -->
 
@@ -239,7 +239,7 @@ public interface Comparable {
     // ... abstract and static methods ...
 
     // Default function definition
-    public default int cmp(Comparable s) { 23]
+    public default int cmp(Comparable s) {
         return(0); // Default behavior: treat all objects as equal
     }
 }
@@ -340,7 +340,7 @@ A `LinkedList` is built using a **`Node`** class. The `Node` class defines the i
 If `Node` is a **public class**, it exposes its internal details (like `data` and `next`) to anyone using the `LinkedList`.
 
 ```java
-// Node is public, exposing its structure 3, 74]
+// Node is public, exposing its structure
 public class Node {
     public Object data;
     public Node next;
@@ -348,7 +348,7 @@ public class Node {
 
 public class LinkedList {
     private int size;
-    private Node first; // Uses Node internally 7, 58, 80, 81]
+    private Node first; // Uses Node internally
 
     public Object head() { /* ... implementation ... */ } // Interface of LinkedList
     // ...
@@ -411,7 +411,7 @@ Instead of allowing separate, uncontrolled updates to individual components, a s
 
 ```java
 public class Date {
-    private int day, month, year; // Internal data is private 6, 53]
+    private int day, month, year; // Internal data is private
 
     // Accessor (Getter) methods
     public int getDay() { /* ... returns day ... */ } 
@@ -431,34 +431,34 @@ public class Date {
 
 ### Controlled Interaction with State
 
-Sometimes, simply validating the input data isn't sufficient; the validity of an action depends on the **current state** of the system or the user's interaction history (an "**Interaction with state**" 19]).
+Sometimes, simply validating the input data isn't sufficient; the validity of an action depends on the **current state** of the system or the user's interaction history (an "**Interaction with state**").
 
 ### Scenario: Regulating Database Queries
 
-Consider a `RailwayBooking` system where seat availability can be queried. To control spamming by bots, a user should be required to **log in before querying**5, 100].
+Consider a `RailwayBooking` system where seat availability can be queried. To control spamming by bots, a user should be required to **log in before querying**.
 
-The ability to query (`getStatus`) must be connected to the **logged in status of the user**02, 118, 131].
+The ability to query (`getStatus`) must be connected to the **logged in status of the user**.
 
 ### Solution: Combining Interfaces and Private Classes
 
 The solution uses **objects** to control the interaction:
 
-1.  On successful login, the user receives a special **Query Object**46].
-2.  This Query Object is created from a **private class** (an inner class) that has access to the main `RailwayBooking`'s private data (like `railwaydb`)47, 171].
-3.  An **Interface** is used to tell the external user what the capabilities of the returned object are, without exposing the private class definition97, 198].
+1.  On successful login, the user receives a special **Query Object**.
+2.  This Query Object is created from a **private class** (an inner class) that has access to the main `RailwayBooking`'s private data (like `railwaydb`).
+3.  An **Interface** is used to tell the external user what the capabilities of the returned object are, without exposing the private class definition.
 
 #### Implementation Breakdown
 
 | Component | Explanation | Example Code Snippet |
 | :--- | :--- | :--- |
-| **Interface** | Describes the capability (`getStatus`) of the object returned on login98]. External code only knows about this type, not the private class03]. | `public interface QIF{ public abstract int getStatus(...); }` 99, 202] |
-| **Outer Class** | Handles the login and returns an object of the **Interface** type05]. | `public QIF login(String u, String p){ // ... return new QueryObject(); }` |
-| **Private Class** | The **inner class** that actually implements the capability and can look up the `railwaydb`47, 171]. It implements the public interface12]. | `private class QueryObject implements QIF { ... }` 12] |
+| **Interface** | Describes the capability (`getStatus`) of the object returned on login. External code only knows about this type, not the private class. | `public interface QIF{ public abstract int getStatus(...); }` |
+| **Outer Class** | Handles the login and returns an object of the **Interface** type. | `public QIF login(String u, String p){ // ... return new QueryObject(); }` |
+| **Private Class** | The **inner class** that actually implements the capability and can look up the `railwaydb`. It implements the public interface. | `private class QueryObject implements QIF { ... }` |
 
 
-## 3\. Tracking State with the Query Object
+## Tracking State with the Query Object
 
-The Query Object can **remember the state of the interaction** by maintaining its own **instance variables**75, 276, 304].
+The Query Object can **remember the state of the interaction** by maintaining its own **instance variables**.
 
 ### Example: Limiting Queries per Login
 
@@ -478,9 +478,9 @@ public class RailwayBooking {
 
         @Override
         public int getStatus(int trainno, Date d) {
-            if (numqueries < QLIM) { 89]
+            if (numqueries < QLIM) {
                 // Look up railwaydb (has access to outer class's private members)
-                // respond, increment numqueries 90]
+                // respond, increment numqueries
                 numqueries++;
                 // ...
             }
@@ -493,47 +493,43 @@ public class RailwayBooking {
 
 ### Summary of Controlled Access
 
-This pattern provides **controlled access to an object** 00] by combining three key elements01]:
+This pattern provides **controlled access to an object** by combining three key elements:
 
-1.  **Private Class**: Provides the implementation and maintains the **state of the interaction** using instance variables02, 304].
-2.  **Interface**: Defines the **publicly known capabilities** of the returned object03].
-3.  **Outer Class Method**: Serves as the **gatekeeper** that creates and returns the object only upon a valid pre-condition (e.g., login)02].
+1.  **Private Class**: Provides the implementation and maintains the **state of the interaction** using instance variables.
+2.  **Interface**: Defines the **publicly known capabilities** of the returned object.
+3.  **Outer Class Method**: Serves as the **gatekeeper** that creates and returns the object only upon a valid pre-condition (e.g., login).
 
 ## Lecture 5: Callbacks
 
-Here are detailed notes on **Callbacks** in Java, explaining the concept, the challenges of creating a generic solution, and how **Interfaces** solve the problem.
-
-# Java Callbacks Notes 📞
-
-## 1\. Concept of Callbacks
+### Concept of Callbacks
 
 A **callback facility** is used when one object (**Owner**) initiates an action by another object (**Worker**) that runs in parallel, and the Worker needs to notify the Owner when the action is complete.
 
-  * **Scenario Example**: A class **`Myclass` (m)** creates a **`Timer` (t)** object, 16, 28].
-  * `Myclass` calls `t.start()` to start the timer running in parallel7, 29].
-  * `Myclass` continues its execution0, 32].
-  * When the time limit expires, the `Timer` **notifies** `Myclass` by calling a function like `timerdone()`5, 36, 37].
+  * **Scenario Example**: A class **`Myclass` (m)** creates a **`Timer` (t)** object.
+  * `Myclass` calls `t.start()` to start the timer running in parallel.
+  * `Myclass` continues its execution.
+  * When the time limit expires, the `Timer` **notifies** `Myclass` by calling a function like `timerdone()`.
 
 ### Basic Implementation (Specific to `Myclass`)
 
-To allow the `Timer` to notify its creator, the creator must pass its **identity** (`this`) to the `Timer` when creating it1, 80, 113, 147].
+To allow the `Timer` to notify its creator, the creator must pass its **identity** (`this`) to the `Timer` when creating it.
 
 | Component | Code | Explanation |
 | :--- | :--- | :--- |
-| **Owner** (`Myclass`) | `Timer t = new Timer(this);` 9] | Passes itself (`this`) to the Timer constructor0, 66]. |
-| **Worker** (`Timer`) | `private Myclass owner;` `public Timer(Myclass o){ owner = o; }` 5, 96, 97] | Stores the creator object (`Myclass`) as its `owner`5, 97]. |
-| **Callback** | `public void start(){ owner.timerdone(); }` 03, 104] | When the Worker is done, it calls the `timerdone()` method on the stored `owner`04, 135]. |
+| **Owner** (`Myclass`) | `Timer t = new Timer(this);` | Passes itself (`this`) to the Timer constructor. |
+| **Worker** (`Timer`) | `private Myclass owner;` `public Timer(Myclass o){ owner = o; }` | Stores the creator object (`Myclass`) as its `owner`. |
+| **Callback** | `public void start(){ owner.timerdone(); }` | When the Worker is done, it calls the `timerdone()` method on the stored `owner`. |
 
-**Note**: The `Timer` class often implements the `Runnable` interface, which indicates it can run in parallel3, 84, 93, 116, 117].
+**Note**: The `Timer` class often implements the `Runnable` interface, which indicates it can run in parallel.
 
 
-## 2\. Challenge: Creating a Generic Worker
+### Challenge: Creating a Generic Worker
 
-The basic implementation is **specific to `Myclass`**19, 153]. To make a generic `Timer` that can notify *any* class, the design must be generalized55, 180].
+The basic implementation is **specific to `Myclass`**. To make a generic `Timer` that can notify *any* class, the design must be generalized.
 
 ### Attempt 1: Using `Object`
 
-You could make the `Timer` constructor accept the generic type **`Object`**88, 197, 198].
+We could make the `Timer` constructor accept the generic type **`Object`**.
 
 ```java
 // Timer constructor accepts the most generic type
@@ -543,21 +539,21 @@ public class Timer implements Runnable {
 
     public void start() {
         // Must cast the owner back to the expected type!
-        ((Myclass) owner).timerdone(); 03, 232]
+        ((Myclass) owner).timerdone();
     }
 }
 ```
 
-  * **Problem**: You **need to cast** the `owner` back to the specific `Myclass` type18, 235]. If the `Timer` is used by a different class, the cast will fail, making the `Timer` still not truly generic.
+  * **Problem**: We **need to cast** the `owner` back to the specific `Myclass` type. If the `Timer` is used by a different class, the cast will fail, making the `Timer` still not truly generic.
 
 
-## 3\. Solution: Using Interfaces for Callbacks
+### Solution: Using Interfaces for Callbacks
 
-**Interfaces** provide the elegant solution to making callbacks generic44, 289]. They define the **capability** the owner must possess to be notified90].
+**Interfaces** provide the elegant solution to making callbacks generic. They define the **capability** the owner must possess to be notified.
 
 ### Implementation with Interfaces
 
-1.  **Define a Callback Interface**45, 246]: This interface specifies the methods the Worker will call.
+1.  **Define a Callback Interface**: This interface specifies the methods the Worker will call.
 
     ```java
     public interface TimerOwner { 47, 248]
