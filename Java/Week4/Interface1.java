@@ -1,3 +1,6 @@
+package Java.Week4;
+
+
 // Interface definition
 interface Animal {
     void eat();    // abstract method (no body)
