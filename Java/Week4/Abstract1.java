@@ -10,6 +10,9 @@ abstract class Parent{
 
     abstract public void greet1();
     abstract public void greet2();
+    public void greet3(){
+        System.out.println("Greet 3");
+    };
 }
 
 class Child1 extends Parent{
@@ -49,5 +52,6 @@ public class Abstract1 {
         // Child3 c3 = new Child3(); // This also will generate error
         c1.greet1();
         c1.greet2();
+        Parent p1 = new Child1(); // allowed 
     }
 }
