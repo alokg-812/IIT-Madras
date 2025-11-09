@@ -7,11 +7,16 @@ package Java.OPPEPractice;
 import java.util.*;
 
 public class CharactersAtEvenIndices {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = sc.next();
-        char[] arr = str.toCharArray();
-        System.out.println(str);
-        System.out.println(arr[0]);
+        evenDisplay(str);
     }    
+    
+    public static void evenDisplay(String s){
+        for(int i = 0;i<s.length();i+=2){
+            System.out.println(s.charAt(i));
+        }
+    }
 }
