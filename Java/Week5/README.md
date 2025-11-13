@@ -1,6 +1,6 @@
 # Week 5
 
-## 🎓 Lecture 1: Polymorphism Revisited (Detailed Notes)
+## 🎓 Lecture 1: Polymorphism Revisited
 
 ### 1. Object-Oriented Polymorphism: Dynamic Dispatch ⚙️
 
@@ -88,7 +88,7 @@ When designing polymorphic functions, especially those that copy data, **type co
 * **Subclass Relationships in Generics:** Generics allow describing subclass relationships between the type variables themselves using the `extends` keyword.
     * *Example:* `public static <S extends T, T> void arraycopy (S[] src, T[] tgt){...}`. [cite_start]This ensures the source type `S` must be a subclass of the target type `T`, enforcing type safety at compile time[cite: 311, 312].
 
-## 🎓 Lecture 2: Java Generics (Detailed Notes)
+## 🎓 Lecture 2: Java Generics
 
 ### 1\. Motivation for Java Generics (Recap) 💡
 
@@ -221,7 +221,7 @@ It is critical to be careful not to **accidentally hide (or mask)** a class's ty
 | **Contrast (Correct)** | This is different from a `static` generic method like `arraycopy`, where the method **must** declare its own type variable `<T>` because static methods are not tied to the class's generic type[cite: 612]. |
 
 
-## 🎓 Lecture 3: Java Generics and Subtyping (Detailed Notes)
+## 🎓 Lecture 3: Java Generics and Subtyping
 
 ### 1\. The Peculiar Case of Array Subtyping (Covariance)
 
@@ -346,7 +346,7 @@ This is used when you only need to **write** values into the list (like a target
   * **Explanation:** By using `? super T` for the target list, we guarantee that the target list is capable of safely holding objects of type $T$ (or a supertype of $T$) copied from the source list[cite: 285].
 
 
-## 🎓 Lecture 4: Reflection (Detailed Notes)
+## 🎓 Lecture 4: Reflection
 
 ### 1\. What is Reflection? 🤔
 
