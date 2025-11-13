@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" /><title>Courses</title></head>
+<body>
+    <h1>Courses</h1>
+    <p><a href="{{ url_for('create_course') }}">Add course</a> |
+       <a href="{{ url_for('index') }}">Go to Students</a></p>
+
+    {% if not courses %}
+        <p>No courses found.</p>
+    {% else %}
+    <table id="all-courses" border="1" cellpadding="6">
+        <tr>
+            <th>SNo</th>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Course Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for c in courses %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td><a href="{{ url_for('course_detail', course_id=c.course_id) }}">{{ c.course_code }}</a></td>
+            <td>{{ c.course_name }}</td>
+            <td>{{ c.course_description or '' }}</td>
+            <td>
+                <a href="{{ url_for('update_course', course_id=c.course_id) }}">Update</a>
+                <a href="{{ url_for('delete_course', course_id=c.course_id) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
