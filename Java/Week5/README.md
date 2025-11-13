@@ -4,16 +4,16 @@
 
 ### 1. Object-Oriented Polymorphism: Dynamic Dispatch ⚙️
 
-[cite_start]**Polymorphism** literally means "many forms"[cite: 7]. [cite_start]In Object-Oriented Programming (OOP), it primarily refers to the effect of **dynamic dispatch**[cite: 8].
+**Polymorphism** literally means "many forms". In Object-Oriented Programming (OOP), it primarily refers to the effect of **dynamic dispatch**.
 
 #### **A. Dynamic Dispatch Explained**
-[cite_start]Dynamic dispatch is the process of deciding *which* implementation of a method to call at **runtime** (when the program is executing), based on the actual type of the object, not the type of the variable holding the object[cite: 8, 11, 12].
+Dynamic dispatch is the process of deciding *which* implementation of a method to call at **runtime** (when the program is executing), based on the actual type of the object, not the type of the variable holding the object.
 
 | Key Concept | Definition |
 | :--- | :--- |
-| **Subclass (S)** | [cite_start]A class that inherits features from another class (the superclass T)[cite: 9]. |
-| **Superclass (T)** | [cite_start]The parent class from which a subclass (S) inherits[cite: 9]. |
-| **Method Overriding** | [cite_start]The subclass (S) provides a specific implementation for a method ($f()$) that is already defined in its superclass (T)[cite: 10]. |
+| **Subclass (S)** | A class that inherits features from another class (the superclass T). |
+| **Superclass (T)** | The parent class from which a subclass (S) inherits. |
+| **Method Overriding** | The subclass (S) provides a specific implementation for a method ($f()$) that is already defined in its superclass (T). |
 
 **Scenario & Outcome:**
 [cite_start]If a variable $v$ is declared as the Superclass type ($T$), but is assigned an object of the Subclass type ($S$) [cite: 11][cite_start], the call to $v.f()$ uses the method definition from **S**[cite: 12].
