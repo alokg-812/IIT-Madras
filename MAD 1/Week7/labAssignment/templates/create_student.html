@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" /><title>Add Student</title></head>
+<body>
+    <h1>Add Student</h1>
+    <form action="{{ url_for('create_student') }}" method="POST" id="create-student-form">
+        <div>
+            <label>Roll Number:</label>
+            <input type="text" name="roll" required />
+        </div>
+        <div>
+            <label>First Name:</label>
+            <input type="text" name="f_name" required />
+        </div>
+        <div>
+            <label>Last Name:</label>
+            <input type="text" name="l_name" />
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <p><a href="{{ url_for('index') }}">Go Back</a></p>
+</body>
+</html>
