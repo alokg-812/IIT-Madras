@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Students</title>
+</head>
+<body>
+    <h1>Students</h1>
+    <p><a href="{{ url_for('create_student') }}">Add student</a> |
+       <a href="{{ url_for('courses') }}">Go to courses</a></p>
+
+    {% if not students %}
+        <p>No students found.</p>
+    {% else %}
+    <table id="all-students" border="1" cellpadding="6">
+        <tr>
+            <th>SNo</th>
+            <th>Roll Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
+        </tr>
+        {% for s in students %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td><a href="{{ url_for('student_detail', student_id=s.student_id) }}">{{ s.roll_number }}</a></td>
+            <td>{{ s.first_name }}</td>
+            <td>{{ s.last_name or '' }}</td>
+            <td>
+                <a href="{{ url_for('update_student', student_id=s.student_id) }}">Update</a>
+                <a href="{{ url_for('delete_student', student_id=s.student_id) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
