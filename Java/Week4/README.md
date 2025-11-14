@@ -108,7 +108,7 @@ public interface Comparable {
 
 A class that "extends" an interface is said to **implement** it.
 
-* A class can **extend only one parent class**, but it can        **implement multiple interfaces**.
+* A class can **extend only one parent class**, but it can **implement multiple interfaces**.
 
 **Example**: `Circle` can extend `Shape` (the single parent class) and implement `Comparable` (one of many possible interfaces):
 
@@ -206,8 +206,6 @@ Java interfaces were later **extended** to allow concrete functions to be added,
   * They **cannot access instance variables**.
   * They are invoked directly using the **interface name**.
 
-<!-- end list -->
-
 ```java
 public interface Comparable {
     public abstract int cmp(Comparable s); 
@@ -220,7 +218,6 @@ public interface Comparable {
         return(s);
     }
 }
-
 // Invocation example:
 // String doc = Comparable.cmpdoc(); 
 ```
@@ -229,23 +226,15 @@ public interface Comparable {
 
 **Default functions** provide a **default implementation** for an interface method.
 
-  * A class **can override** the default implementation.
+  * A class **overrides** the default implementation.
   * They are invoked like a **normal method**, using the object name.
-
-<!-- end list -->
 
 ```java
 public interface Comparable {
-    // ... abstract and static methods ...
-
-    // Default function definition
     public default int cmp(Comparable s) {
-        return(0); // Default behavior: treat all objects as equal
+        return(0); // has to be overridden else error
     }
 }
-
-// Invocation example (if not overridden):
-// int result = obj.cmp(anotherObj); // returns 0
 ```
 
 
@@ -259,15 +248,17 @@ If a class implements two interfaces that both provide a default method with the
 
   * The **subclass must provide a fresh implementation** of the conflicting method.
 
-<!-- end list -->
-
 ```java
 public interface Person {
-    public default String getName() { return("No name"); } // Default 1
+    public default String getName(){
+        return("No name");
+    } // Default 1
 }
 
 public interface Designation {
-    public default String getName() { return("No designation"); } // Default 2
+    public default String getName(){
+        return("No designation");
+    } // Default 2
 }
 
 public class Employee implements Person, Designation {
@@ -286,15 +277,17 @@ If a class inherits a method from a **superclass** and also implements an interf
 
   * The **method inherited from the class "wins"** (is used). This is motivated by **reverse compatibility**.
 
-<!-- end list -->
-
 ```java
 public class Person {
-    public String getName() { return("No name"); } // Concrete method
+    public String getName() { 
+        return("No name");
+    } // Concrete method
 }
 
 public interface Designation {
-    public default String getName() { return("No designation"); } // Default method
+    public default String getName() { 
+        return("No designation"); 
+    } // Default method
 }
 
 public class Employee extends Person implements Designation {
