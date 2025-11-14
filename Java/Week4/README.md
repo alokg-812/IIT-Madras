@@ -310,13 +310,13 @@ In this standard scenario, `Employee` uses `Date` for its `joindate`.
 ```java
 // Date is a public class, available to other classes
 public class Date {
-    private int day, month, year; // Instance variables for Date
+    private int day, month, year;
 }
 
 public class Employee {
     private String name;
     private double salary;
-    private Date joindate; // Instance variable is a user-defined type
+    private Date joindate; // Instance variable
 }
 ```
 
@@ -352,11 +352,9 @@ The internal structure of the list (whether it has a `next` pointer or is a doub
 
 ### The Solution: Inner Classes
 
-Instead of making `Node` a public class, we can make it a **private class**. A private class that is defined inside another class is also called an **inner class**.
+Instead of making `Node` a public class, we can make it a **private class**. A private class that is defined inside another class is also called an _**`inner class`**_.
 
   * **Definition:** The inner class is **nested within** the enclosing class (`LinkedList`).
-
-<!-- end list -->
 
 ```java
 public class LinkedList {
@@ -393,7 +391,6 @@ In the `LinkedList` example, by making `Node` private, the details of how the li
 ### Encapsulation and Data Integrity
 
 **Encapsulation** is a core principle of object-oriented programming.
-
   * **Internal data** is kept **private**.
   * **Access to the data** is regulated through **public methods**. These methods are often called **accessor** (getter) and **mutator** (setter) methods.
   * The primary benefit is that you can **ensure data integrity by regulating access**.
@@ -435,7 +432,6 @@ The ability to query (`getStatus`) must be connected to the **logged in status o
 ### Solution: Combining Interfaces and Private Classes
 
 The solution uses **objects** to control the interaction:
-
 1.  On successful login, the user receives a special **Query Object**.
 2.  This Query Object is created from a **private class** (an inner class) that has access to the main `RailwayBooking`'s private data (like `railwaydb`).
 3.  An **Interface** is used to tell the external user what the capabilities of the returned object are, without exposing the private class definition.
