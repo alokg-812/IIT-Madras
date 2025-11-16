@@ -1,6 +1,5 @@
 import java.util.*;
-
-// Define class Items
+//Define classes Items, Customer
 class Items implements Cloneable {
     public String[] item;
 
@@ -22,7 +21,13 @@ class Items implements Cloneable {
 
     @Override
     public String toString() {
-        return Arrays.toString(item);
+        // join items with a space and add a trailing space to match expected output format
+        if (item == null || item.length == 0) return "";
+        StringBuilder sb = new StringBuilder();
+        for (String s : item) {
+            sb.append(s).append(' ');
+        }
+        return sb.toString();
     }
 }
 
@@ -57,24 +62,20 @@ class Customer implements Cloneable {
     }
 }
 
+
 public class Order {
-    public static void main(String[] args) throws CloneNotSupportedException {
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt(); // number of items
-        String[] itm = new String[n];
-
-        for (int i = 0; i < n; i++) {
-            itm[i] = sc.next();  // items bought by Naresh
-        }
-
-        var c1 = new Customer("naresh", new Items(itm));
-        Customer c2 = c1.clone();   // deep clone
-
-        c2.getItems().item[0] = sc.next();   // Update first item for Suresh
-        c2.setName("suresh");                // Update name
-
-        System.out.println(c1);
-        System.out.println(c2);
-    }
-}
+  public static void main(String[] args) throws CloneNotSupportedException{
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt(); // number of items
+    String[] itm = new String[n];
+    for(int i = 0; i < n; i++){
+      itm[i] = sc.next(); // list of items
+    } 
+    var c1 = new Customer("naresh", new Items(itm));
+    Customer c2 = c1.clone();   
+    c2.getItems().item[0] = sc.next();   //Update first item of c2
+    c2.setName("suresh"); //Update name of c2
+    System.out.println(c1);
+    System.out.println(c2);
+  }
+}   
