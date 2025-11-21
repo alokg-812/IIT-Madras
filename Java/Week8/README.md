@@ -359,3 +359,110 @@ We’ve completed the three core topics of Week 8:
 3. Higher-Order Functions & Lambdas
 
 ## Lecture 4: Streams
+### 1. What is a Stream?
+A **Stream** is a sequence of elements that supports functional-style operations (filter, map, reduce, etc.) in a pipeline, without modifying the original data source.
+
+**Key Points (Memorize)**
+- Streams are NOT collections
+- Streams do NOT store data
+- Streams are lazy when possible
+- Streams can be processed only ONCE
+- Streams are designed for lambdas
+
+### 2. Stream Pipeline = Source → Intermediate Operations → Terminal Operation
+
+| Part                    | Examples                                | Returns         | Lazy?       | Can have many? |
+|-------------------------|-----------------------------------------|-----------------|-------------|----------------|
+| Source                  | list.stream(), Arrays.stream(arr), Stream.of("a","b") | Stream<T>     | —           | 1              |
+| Intermediate Operations | filter(), map(), sorted(), distinct(), limit() | Stream<T> | YES (lazy)  | 0 or many      |
+| Terminal Operation      | collect(), forEach(), count(), anyMatch(), reduce() | Result / void | NO (eager) | Exactly 1      |
+
+### 3. Most Important Stream Operations (Golden Table)
+
+| Category        | Operation         | Lambda Type      | Meaning                                      | Example                                      |
+|-----------------|-------------------|------------------|----------------------------------------------|----------------------------------------------|
+| Filter          | filter()          | Predicate<T>     | Keep only matching elements                  | `.filter(s -> s.length() > 5)`               |
+| Transform       | map()             | Function<T,R>    | Convert each element                         | `.map(String::toUpperCase)`                  |
+|                 | flatMap()         | Function<T,Stream<R>> | Flatten nested streams                  | `.flatMap(list -> list.stream())`            |
+| Sort            | sorted()          | — or Comparator  | Natural or custom order                      | `.sorted(Comparator.reverseOrder())`        |
+| Remove dupes    | distinct()        | —                | Remove duplicates (uses equals())            | `.distinct()`                                |
+| Peek            | peek()            | Consumer<T>      | Debug: do something without changing         | `.peek(System.out::println)`                 |
+| Limit/Skip      | limit(n), skip(n) | —                | Take first n / skip first n                  | `.limit(10)`                                 |
+| Match           | anyMatch()        | Predicate        | At least one matches?                        | `.anyMatch(s -> s.startsWith("A"))`          |
+|                 | allMatch()        | Predicate        | All match?                                   | `.allMatch(s -> s.length() > 0)`             |
+|                 | noneMatch()       | Predicate        | No one matches?                              |                                              |
+| Find            | findFirst()       | —                | First element (Optional<T>)                  | `.findFirst()`                               |
+|                 | findAny()         | —                | Any element (parallel friendly)              |                                              |
+| Reduce          | reduce()          | BinaryOperator   | Combine all into one value                   | `.reduce(0, Integer::sum)`                   |
+| Collect         | collect()         | Collector        | Gather results into List/Set/Map/etc.        | `.collect(Collectors.toList())`              |
+
+### 4. Real-Life Examples (Write Any 3 in Exam – Full Marks)
+
+```java
+List<String> names = Arrays.asList("Alice", "Bob", "Ankit", "Priya", "Amit");
+
+// 1. Uppercase + length > 4 + sorted + collect
+List<String> result = names.stream()
+    .map(String::toUpperCase)
+    .filter(s -> s.length() > 4)
+    .sorted()
+    .collect(Collectors.toList());
+// → ["ALICE", "ANKIT", "PRIYA"]
+
+// 2. Count names starting with A
+long count = names.stream()
+    .filter(s -> s.startsWith("A"))
+    .count();                                   // → 3
+
+// 3. Join all names with comma
+String joined = names.stream()
+    .collect(Collectors.joining(", "));         // → "Alice, Bob, Ankit, ..."
+
+// 4. Group by length (Map<Integer, List<String>>)
+Map<Integer, List<String>> byLength = names.stream()
+    .collect(Collectors.groupingBy(String::length));
+```
+
+### 5. Collectors – The Most Useful Ones
+
+| Collector                                    | Result Type                    | Example Use Case                        |
+|----------------------------------------------|--------------------------------|-----------------------------------------|
+| Collectors.toList()                          | List<T>                        | Default collection                      |
+| Collectors.toSet()                           | Set<T>                         | Remove duplicates                       |
+| Collectors.toCollection(TreeSet::new)        | Any collection you want        | Sorted set                              |
+| Collectors.joining(", ")                     | String                         | CSV output                              |
+| Collectors.counting()                        | Long                           | Count in groupingBy                     |
+| Collectors.groupingBy(Function)              | Map<K, List<T>>                | Group names by length                   |
+| Collectors.partitioningBy(Predicate)         | Map<Boolean, List<T>>          | Split into true/false                   |
+| Collectors.mapping(... , Collectors.toList())| Nested mapping                | Advanced grouping                       |
+
+### 6. Primitive Streams (Avoid Boxing Overhead)
+
+```java
+IntStream.range(1, 100)          // 1 to 99
+         .filter(n -> n % 2 == 0)
+         .sum();
+
+DoubleStream.of(1.1, 2.2, 3.3)
+            .average()
+            .orElse(0.0);
+```
+
+### 7. One-Page Cheat Sheet
+
+| Task                                  | Stream Code                                                      |
+|---------------------------------------|------------------------------------------------------------------|
+| Filter + collect                      | `.filter(p).collect(Collectors.toList())`                        |
+| Transform + collect                   | `.map(f).collect(Collectors.toList())`                           |
+| Find first match                      | `.filter(p).findFirst()`                                         |
+| Any / All / None match                | `.anyMatch(p)` / `.allMatch(p)` / `.noneMatch(p)`                |
+| Sum / Max / Min                       | `.mapToInt(ToIntFunction).sum()`                                 |
+| Group by property                     | `.collect(Collectors.groupingBy(Class::getProp))`                |
+| Parallel (just add one word!)         | `.parallelStream()` or `.stream().parallel()`                    |
+
+### Final Exam Mantra
+
+“Streams = lazy, functional-style pipelines on collections.  
+Intermediate operations (filter, map, sorted) return Stream and are lazy.  
+Terminal operation (collect, forEach, reduce) triggers execution.  
+Never reuse a stream after terminal operation.”
