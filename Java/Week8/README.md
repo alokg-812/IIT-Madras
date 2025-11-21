@@ -128,8 +128,101 @@ e2.getJoiningDate().setYear(2020);  // changes e1 too! → BUG
 | Shallow vs Deep          | Shallow = references shared; Deep = everything independent   |
 | Best modern practice     | Prefer copy constructor over clone()                          |
 
-
 ## Lecture 2: Type Inference
+### 1. What is Type Inference?
+
+**Layman Explanation**  
+The compiler is smart enough to figure out the type by itself, so you don’t have to write it again and again.
+
+**Technical Definition**  
+The Java compiler uses context (right-hand side, generic method calls, lambda parameters, etc.) to automatically infer the correct type instead of forcing you to write it explicitly.
+
+### 2. Evolution of Type Inference in Java (Timeline – Must Know for Exams)
+
+| Java Version | Feature Introduced                 | Before                                 | After (with inference)                             |
+|--------------|------------------------------------|----------------------------------------|----------------------------------------------------|
+| Java 5       | Generics                           | `List<String> list = new ArrayList<String>();` | Still had to write `<String>` twice                |
+| Java 7       | Diamond Operator `<>`              | `List<String> list = new ArrayList<String>();` | `List<String> list = new ArrayList<>();`           |
+| Java 8       | Lambda + Target Typing             | Very verbose anonymous classes         | `Runnable r = () -> System.out.println("Hi");`     |
+| Java 10      | `var` (local variable type inference) | `ArrayList<String> list = new ArrayList<>();` | `var list = new ArrayList<String>();`              |
+| Java 11+     | `var` in lambda parameters (preview, then permanent) | `(String a, String b) -> a + b`       | `var a, var b) -> a + b` is wrong → `(var a, var b) -> a + b` |
+
+### 3. The Diamond Operator `<>` (Java 7+)
+
+**Before Java 7**
+```java
+Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
+```
+
+**With Diamond (clean & safe)**
+```java
+Map<String, List<Integer>> map = new HashMap<>();
+// Compiler infers: HashMap<String, List<Integer>>
+```
+
+Works with all generic classes (ArrayList, HashSet, custom classes, etc.)
+
+### 4. `var` – Local Variable Type Inference (Java 10+)
+
+**Layman Rule**  
+You can write `var` instead of the type when declaring local variables — but only if the compiler can clearly see the type from the right-hand side.
+
+**Correct Usage**
+```java
+var name = "Rohan";                  // infers String
+var list = new ArrayList<String>();  // infers ArrayList<String>
+var map = Map.of("A", 1, "B", 2);    // infers Map<String,Integer>
+var stream = list.stream();          // infers Stream<String>
+```
+
+**Wrong / Not Allowed**
+```java
+var x;                     // ERROR – no initializer
+var arr = null;            // ERROR – cannot infer
+var[] nums = {1,2,3};      // ERROR – not allowed
+public var field = 10;     // ERROR – only local variables
+var method() { ... }       // ERROR – not for method return types
+```
+
+### 5. `var` in Lambda Parameters (Java 11+)
+
+```java
+// Old way
+BiFunction<String, String, Integer> f = (String a, String b) -> a.length() + b.length();
+
+// With var (cleaner)
+BiFunction<String, String, Integer> f = (var a, var b) -> a.length() + b.length();
+```
+
+we can even add annotations:
+```java
+(var x, @NonNull var y) -> x + y
+```
+
+### 6. Golden Rules & Limitations of `var`
+
+| Allowed                                       | Not Allowed                                              |
+|-----------------------------------------------|----------------------------------------------------------|
+| Local variables with initializer              | Method parameters, return types, fields                 |
+| Enhanced for-loop: `for (var s : strings)`    | `var` without initializer                               |
+| try-with-resources: `try (var in = new FileInputStream(...))` | `var` in array: `var[] arr = new int[5];`           |
+| Lambda parameters (with parentheses)          | `var x = null;`                                          |
+
+### 7. One-Page Cheat Sheet
+
+| Feature                | Syntax Example                                    | Java Version | What the compiler infers                     |
+|------------------------|---------------------------------------------------|--------------|----------------------------------------------|
+| Diamond Operator       | `List<String> list = new ArrayList<>();`          | 7+           | Full generic type from left side             |
+| var (local)            | `var count = 10;`                                 | 10+          | int                                          |
+| var with generics      | `var map = new HashMap<String, Integer>();`       | 10+          | HashMap<String,Integer>                      |
+| var in loops           | `for (var i = 0; i < 10; i++)`                    | 10+          | int                                          |
+| var in lambda          | `(var x, var y) -> x + y`                         | 11+          | Type from target functional interface       |
+
+### 8. Final Summary (One-Liner for Exams)
+
+“Java gradually added type inference to reduce boilerplate:  
+Diamond `<>` (Java 7) → lambdas (Java 8) → `var` for local variables (Java 10) → `var` in lambdas (Java 11).  
+It makes code cleaner without losing type safety.”
 
 ## Lecture 3: Higher Order Functions
 
