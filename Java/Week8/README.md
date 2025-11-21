@@ -225,5 +225,137 @@ Diamond `<>` (Java 7) → lambdas (Java 8) → `var` for local variables (Java 1
 It makes code cleaner without losing type safety.”
 
 ## Lecture 3: Higher Order Functions
+### 1. What is a Higher-Order Function?
+
+**Layman Explanation**  
+A function that does at least one of these two things:  
+1. Accepts another function as parameter  
+2. Returns a function  
+
+Just like you can pass a String or int to a method, higher-order functions let you pass behavior (code) itself.
+
+**Old Java way (before Java 8)** → Use interfaces  
+**New Java 8+ way** → Use lambda expressions & functional interfaces
+
+### 2. The Old Painful Way (Pre-Java 8) – Anonymous Inner Classes
+
+```java
+button.setOnClickListener(new OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        System.out.println("Button clicked!");
+    }
+});
+
+list.sort(new Comparator<String>() {
+    @Override
+    public int compare(String a, String b) {
+        return a.length() - b.length();
+    }
+});
+```
+
+→ Extremely verbose for one-line logic!
+
+### 3. The Magic of Java 8: Lambda Expressions
+
+**Same examples with lambdas (100% standard now)**
+
+```java
+// 1. Passing behavior to a button
+button.setOnClickListener(v -> System.out.println("Clicked!"));
+
+// 2. Sorting with custom logic
+list.sort((a, b) -> a.length() - b.length());
+
+// 3. Timer callback (your lecture example)
+timer.setCallback(() -> System.out.println("Time's up!"));
+```
+
+### 4. Lambda Syntax – Memorize This Table
+
+| Number of params | Syntax                          | Example                                      |
+|------------------|---------------------------------|----------------------------------------------|
+| 0 params         | `() -> expression`              | `() -> Math.random()`                        |
+| 1 param          | `x -> expression`               | `s -> s.length()`                            |
+| 1 param (with type) | `(String s) -> s.length()`   | `(int x) -> x * x`                           |
+| 2+ params        | `(x, y) -> expression`          | `(a, b) -> a + b`                            |
+| Multi-statement  | `(x, y) -> { stmt1; stmt2; return value; }` | `(x, y) -> { log.info("Adding"); return x+y; }` |
+
+### 5. Functional Interfaces – The Key to Lambdas
+
+**Definition**  
+An interface with exactly ONE abstract method → can be used with lambda.
+
+**Built-in Functional Interfaces You Must Know (java.util.function)**
+
+| Interface          | Abstract Method                  | Common Use Case                          | Example Lambda                          |
+|-------------------|----------------------------------|------------------------------------------|-----------------------------------------|
+| Predicate<T>       | boolean test(T t)                | Filter collection                        | `s -> s.startsWith("A")`                |
+| Function<T,R>      | R apply(T t)                     | Transform/map                            | `s -> s.toUpperCase()`                  |
+| Consumer<T>        | void accept(T t)                 | ForEach, logging                         | `s -> System.out.println(s)`            |
+| Supplier<T>        | T get()                          | Factory, lazy generation                 | `() -> new ArrayList<>()`               |
+| BiFunction<T,U,R>  | R apply(T t, U u)                | Reduce, combine two values               | `(a,b) -> a + b`                        |
+| Comparator<T>      | int compare(T o1, T o2)          | Sorting                                  | `(a,b) -> a.length() - b.length()`      |
+| Runnable           | void run()                       | Threads, timers                          | `() -> System.out.println("Hi")`        |
+
+### 6. Real Examples (Write These in Exams)
+
+```java
+// 1. Filter only long names
+List<String> longNames = names.stream()
+                              .filter(s -> s.length() > 5)
+                              .collect(Collectors.toList());
+
+// 2. Transform to uppercase
+List<String> upper = names.stream()
+                          .map(String::toUpperCase)   // method reference!
+                          .collect(Collectors.toList());
+
+// 3. Print each
+names.forEach(System.out::println);   // Consumer
+
+// 4. Timer callback (your lecture example)
+timer.setTimeout(() -> showGameOver(), 30000);
+```
+
+### 7. Method References – Even Cleaner Than Lambdas (Java 8)
+
+| Type                        | Syntax                     | Equivalent Lambda                      |
+|-----------------------------|----------------------------|----------------------------------------|
+| Static method               | `Class::staticMethod`      | `x -> Class.staticMethod(x)`           |
+| Instance method (specific)  | `obj::instanceMethod`      | `x -> obj.instanceMethod(x)`           |
+| Instance method (generic)   | `Class::instanceMethod`    | `(obj,x) -> obj.instanceMethod(x)`     |
+| Constructor                 | `Class::new`               | `() -> new Class()`                    |
+
+**Examples**
+```java
+list.forEach(System.out::println);           // Consumer
+list.sort(String::compareToIgnoreCase);      // Comparator
+list.stream().map(String::toUpperCase);
+Supplier<ArrayList<String>> supplier = ArrayList::new;
+```
+
+### 8. One-Page Golden Summary
+
+| Concept                    | Old Way (Pre-8)               | Modern Way (Java 8+)                     |
+|----------------------------|-------------------------------|------------------------------------------|
+| Pass behavior              | Anonymous inner class         | Lambda `x -> ...`                        |
+| One-method interface       | Write full interface          | Use @FunctionalInterface + lambda        |
+| Print list                 | for-loop                      | `list.forEach(System.out::println)`      |
+| Sort with custom logic     | Comparator anonymous class   | `list.sort((a,b) -> ...)`                |
+| Timer/callback             | Interface + inner class       | `timer.setCallback(() -> doSomething())` |
+
+### Final Summary
+
+“Higher-order functions = passing behavior as data.  
+Java 8 introduced lambda expressions and functional interfaces (Predicate, Function, Consumer, Supplier) to make it clean and concise.  
+Method references (::) are syntactic sugar for common lambdas.”
+
+
+We’ve completed the three core topics of Week 8:
+1. Cloning
+2. Type Inference (var, diamond)
+3. Higher-Order Functions & Lambdas
 
 ## Lecture 4: Streams
