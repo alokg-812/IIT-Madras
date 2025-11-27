@@ -37,88 +37,87 @@ Structural polymorphism allows us to write generic functions that work on many t
 Java uses the built-in class hierarchy and interfaces to achieve this:
 
 1.  **Using the `Object` Class for Generality:**
-    * Since every class in Java inherits from **`Object`**, a function that accepts an array of **`Object[]`** can technically hold elements of **any type** (e.g., `public void reverse (Object[] objarr)`) 97].
+    * Since every class in Java inherits from **`Object`**, a function that accepts an array of **`Object[]`** can technically hold elements of **any type** (e.g., `public void reverse (Object[] objarr)`).
 2.  **Using `Object.equals()` for Comparison:**
-    * For a polymorphic **`find`** function (`public int find (Object[] objarr, Object o)`), the comparison $objarr[i] == o$ is actually intended to translate to a call to **`Object.equals()`**, 120, 123].
+    * For a polymorphic **`find`** function (`public int find (Object[] objarr, Object o)`), the comparison $objarr[i] == o$ is actually intended to translate to a call to **`Object.equals()`**.
 3.  **Using Interfaces for Capabilities (Sorting):**
-    * To enforce a capability like **comparison** (required for sorting), Java uses **Interfaces**]. An interface captures the required methods.
-    * Any class that implements the `Comparable` interface guarantees it has a method to compare itself with another object (e.g., `public abstract int cmp (Comparable s)`), 137].
-    * A generic sort function (like `quicksort`) can then accept an array of `Comparable[] a`, and use $a[i].cmp(a[j])$ for comparisons, 144].
+    * To enforce a capability like **comparison** (required for sorting), Java uses **Interfaces**. An interface captures the required methods.
+    * Any class that implements the `Comparable` interface guarantees it has a method to compare itself with another object (e.g., `public abstract int cmp (Comparable s)`).
+    * A generic sort function (like `quicksort`) can then accept an array of `Comparable[] a`, and use $a[i].cmp(a[j])$ for comparisons.
 
 ***
 
-### 3. Type Consistency and Array Copying ⚖️
+### 3. Type Consistency and Array Copying
 
 When designing polymorphic functions, especially those that copy data, **type consistency** is critical.
 
 #### **A. The `arraycopy` Problem**
-A polymorphic `arraycopy` function (e.g., `public static void arraycopy (Object[] src, Object[] tgt)`) must ensure that the **target array (`tgt`) is type compatible with the source array (`src`)**]. The goal is that **Type errors should be flagged at compile time**].
+A polymorphic `arraycopy` function (e.g., `public static void arraycopy (Object[] src, Object[] tgt)`) must ensure that the **target array (`tgt`) is type compatible with the source array (`src`)**. The goal is that **Type errors should be flagged at compile time**.
 
 #### **B. Array Subtyping Rules**
 
 | Scenario | Example (Classes $T$ and Subclass $S$ where $S$ extends $T$) | Validity | Explanation |
 | :--- | :--- | :--- | :--- |
-| **Illegal Copy** | `arraycopy(datearr, emparr)` ] | **Run-time Error** ] | The types `Date` and `Employee` are unrelated. The `emparr` cannot safely hold a `Date` object, 173]. |
-| **Allowed Copy (Subtype to Supertype)** | `arraycopy (etktarr, tktarr)` ] | **Allowed** ] | The source array (`ETicket[]`, a subclass) can be copied to the target array (`Ticket[]`, a superclass), 194, 195]. This is because a Subtype object can always be treated as its Supertype object]. |
-| **Illegal Copy (Supertype to Subtype)** | `arraycopy (tktarr, ektarr)` ] | **Illegal** ] | The **converse is illegal**]. You cannot copy a general `Ticket[]` array into a specific `ETicket[]` array because the `Ticket` array might contain objects that are *not* `ETicket` objects, 218]. |
+| **Illegal Copy** | `arraycopy(datearr, emparr)` | **Run-time Error** | The types `Date` and `Employee` are unrelated. The `emparr` cannot safely hold a `Date` object. |
+| **Allowed Copy (Subtype to Supertype)** | `arraycopy (etktarr, tktarr)` | **Allowed** | The source array (`ETicket[]`, a subclass) can be copied to the target array (`Ticket[]`, a superclass). This is because a Subtype object can always be treated as its Supertype object. |
+| **Illegal Copy (Supertype to Subtype)** | `arraycopy (tktarr, ektarr)` | **Illegal** | The **converse is illegal**. You cannot copy a general `Ticket[]` array into a specific `ETicket[]` array because the `Ticket` array might contain objects that are *not* `ETicket` objects. |
 
-***
 
-### 4. Polymorphic Data Structures & Generics 🔗
+### 4. Polymorphic Data Structures & Generics
 
-**Polymorphic data structures** (like arrays and lists) should allow arbitrary elements]. In early Java, this was achieved by having the data structure store values of type **`Object`**].
+**Polymorphic data structures** (like arrays and lists) should allow arbitrary elements. In early Java, this was achieved by having the data structure store values of type **`Object`**.
 
 #### **A. Problems with `Object`-based Polymorphic Lists**
-Using the base `Object` class for data storage leads to two major problems]:
+Using the base `Object` class for data storage leads to two major problems:
 
 1.  **Type Information is Lost, requiring Casts:**
-    * The `head()` method returns a generic `Object`, 280].
-    * The user must **manually cast** the result back to the specific type (e.g., `Ticket`) to use its specific methods: `t2 = (Ticket) (list.head());`, 279].
+    * The `head()` method returns a generic `Object`.
+    * The user must **manually cast** the result back to the specific type (e.g., `Ticket`) to use its specific methods: `t2 = (Ticket) (list.head());`.
 2.  **List Need Not Be Homogenous:**
-    * Since the list accepts any `Object`, it can unknowingly mix unrelated types, like a `Ticket` and a `Date`, leading to type confusion and potential runtime errors when elements are retrieved, 298, 299, 301].
+    * Since the list accepts any `Object`, it can unknowingly mix unrelated types, like a `Ticket` and a `Date`, leading to type confusion and potential runtime errors when elements are retrieved.
 
-#### **B. Generic Programming in Java (The Solution) ✨**
+#### **B. Generic Programming in Java (The Solution)**
 
-Java added **generic programming** to solve the limitations of `Object`-based data structures].
+Java added **generic programming** to solve the limitations of `Object`-based data structures.
 
-* **Type Parameters:** Classes and functions can now have **type parameters** (represented by angle brackets `< >`)].
-    * *Example:* `class LinearList<T>`: This list holds values of a specified type `T`].
-* **Type Safety:** Methods now return the specified type: `public T head() { ... }` returns a value of the same type `T` as the enclosing class, eliminating the need for manual casting and preventing accidental mixing of types].
+* **Type Parameters:** Classes and functions can now have **type parameters** (represented by angle brackets `< >`).
+    * *Example:* `class LinearList<T>`: This list holds values of a specified type `T`.
+* **Type Safety:** Methods now return the specified type: `public T head() { ... }` returns a value of the same type `T` as the enclosing class, eliminating the need for manual casting and preventing accidental mixing of types.
 * **Subclass Relationships in Generics:** Generics allow describing subclass relationships between the type variables themselves using the `extends` keyword.
-    * *Example:* `public static <S extends T, T> void arraycopy (S[] src, T[] tgt){...}`. This ensures the source type `S` must be a subclass of the target type `T`, enforcing type safety at compile time, 312].
+    * *Example:* `public static <S extends T, T> void arraycopy (S[] src, T[] tgt){...}`. This ensures the source type `S` must be a subclass of the target type `T`, enforcing type safety at compile time.
 
-## 🎓 Lecture 2: Java Generics
+## Lecture 2: Java Generics
 
-### 1\. Motivation for Java Generics (Recap) 💡
+### Motivation for Java Generics (Recap)
 
 Generics were introduced to Java to properly address the two key aspects of polymorphism:
+1. Structural Polymorphism in Functions
+2. Polymorphic Data Structures
 
-#### **A. Structural Polymorphism in Functions** , 322]
+#### A. Structural Polymorphism in Functions
+This is about writing functions that work across multiple types, provided they support the necessary **capabilities**:
+  * **Reverse an array/list:** Works for **any type**.
+  * **Search for an element:** Needs an **equality check**.
+  * **Sort an array/list:** Needs the ability to **compare values**.
+  * **Constraints:** May need to impose constraints on argument types, such as when copying an array where the source type must *extend* the target type.
 
-This is about writing functions that work across multiple types, provided they support the necessary **capabilities**]:
+#### B. Polymorphic Data Structures
 
-  * **Reverse an array/list:** Works for **any type**].
-  * **Search for an element:** Needs an **equality check**].
-  * **Sort an array/list:** Needs the ability to **compare values**].
-  * **Constraints:** May need to impose constraints on argument types, such as when copying an array where the source type must *extend* the target type].
+Data structures (like lists and arrays) should be able to hold values of an **arbitrary type**. They must also satisfy two requirements that the old `Object`-based approach failed to meet:
 
-#### **B. Polymorphic Data Structures** ]
+  * They must be **homogenous** (contain only one specified type).
+  * The user **should not have to cast** return values.
 
-Data structures (like lists and arrays) should be able to hold values of an **arbitrary type**]. They must also satisfy two requirements that the old `Object`-based approach failed to meet:
-
-  * They must be **homogenous** (contain only one specified type)].
-  * The user **should not have to cast** return values].
-
-Generics solve these problems by introducing **type variables**, 340].
+Generics solve these problems by introducing **type variables**.
 
 
-### 2\. Generics in Functions (Generic Methods) 🛠️
+### Generics in Functions (Generic Methods)
 
-In Java, methods can be made generic by using a **type quantifier** (the type variable in angle brackets) *before* the return type, 359, 376].
+In Java, methods can be made generic by using a **type quantifier** (the type variable in angle brackets) *before* the return type.
 
-#### **A. Generic Reverse**
+#### A. Generic Reverse
 
-This function works for any type `T`]:
+This function works for any type `T`:
 
 ```java
 // "For every type T..."
@@ -127,12 +126,11 @@ public <T> void reverse (T[] objarr) {
     // usual array reversal code using T objects
 }
 ```
+  * **Explanation:** The `<T>` acts as a declaration: "For every type T, this method is valid". This replaces the need for the less-safe `Object[]` array.
 
-  * **Explanation:** The `<T>` acts as a declaration: "For every type T, this method is valid"]. This replaces the need for the less-safe `Object[]` array.
+#### B. Generic Find
 
-#### **B. Generic Find**
-
-This function ensures that the array and the search object have compatible types].
+This function ensures that the array and the search object have compatible types.
 
 ```java
 public <T> int find (T[] objarr, T o){
@@ -140,12 +138,12 @@ public <T> int find (T[] objarr, T o){
 }
 ```
 
-  * **Benefit:** Searching for a value of an incompatible type (e.g., searching a `Ticket[]` array for a `Date` object) is now caught as a **compile-time error**, enhancing type safety, 382].
+  * **Benefit:** Searching for a value of an incompatible type (e.g., searching a `Ticket[]` array for a `Date` object) is now caught as a **compile-time error**, enhancing type safety.
 
-#### **C. Generic Array Copy (Type Consistency)**
+#### C. Generic Array Copy (Type Consistency)
 
-1.  **Strict Array Copy (Identical Types)** ]
-    This simple form requires the source and target arrays to have an **identical type** `T`].
+1.  **Strict Array Copy (Identical Types)**
+    This simple form requires the source and target arrays to have an **identical type** `T`.
 
     ```java
     public static <T> void arraycopy (T[] src, T[] tgt){ 
@@ -153,8 +151,8 @@ public <T> int find (T[] objarr, T o){
     }
     ```
 
-2.  **More Generous Array Copy (Subtyping)** ]
-    To allow copying a subclass array into a superclass array, generics use the `extends` keyword to define constraints between type variables, 410].
+2.  **More Generous Array Copy (Subtyping)**
+    To allow copying a subclass array into a superclass array, generics use the `extends` keyword to define constraints between type variables.
 
     ```java
     public static <S extends T, T> // S must be a Subtype of T
@@ -162,15 +160,14 @@ public <T> int find (T[] objarr, T o){
         // ... copy logic ...
     }
     ```
+      * **Explanation:** This definition allows the source type `S` to be a **subtype** of the target type `T`. For example, `ETicket[]` (`S`) can be copied into a `Ticket[]` (`T`).
 
-      * **Explanation:** This definition allows the source type `S` to be a **subtype** of the target type `T`]. For example, `ETicket[]` (`S`) can be copied into a `Ticket[]` (`T`).
 
+### Generics in Classes (Polymorphic Data Structures)
 
-### 3\. Generics in Classes (Polymorphic Data Structures) 🧱
+Generics allow a class to be defined with a **type parameter** that applies to the class as a whole.
 
-Generics allow a class to be defined with a **type parameter** that applies to the class as a whole, 501].
-
-#### **A. Generic `LinkedList<T>` Structure**
+#### A. Generic `LinkedList<T>` Structure
 
 ```java
 public class LinkedList<T> { // T is the class's type parameter
@@ -191,44 +188,44 @@ public class LinkedList<T> { // T is the class's type parameter
 }
 ```
 
-  * **Scope of T:** The type parameter `T` applies throughout the class ], including the fields of internal classes like `Node` , 480], the return value of `head()` ], and the argument of `insert()`].
+  * **Scope of T:** The type parameter `T` applies throughout the class, including the fields of internal classes like `Node`, the return value of `head()`, and the argument of `insert()`.
 
 #### **B. Instantiating Generic Classes**
 
-Generic classes are instantiated using a **concrete type** in the angle brackets `< >`].
+Generic classes are instantiated using a **concrete type** in the angle brackets `< >`.
 
 ```java
 // The list is now guaranteed to hold only Ticket objects (Homogenous)
-LinkedList<Ticket> ticketlist = new LinkedList<Ticket>(); ]
+LinkedList<Ticket> ticketlist = new LinkedList<Ticket>();
 
 // The list is now guaranteed to hold only Date objects
-LinkedList<Date> datelist = new LinkedList<Date>(); ]
+LinkedList<Date> datelist = new LinkedList<Date>();
 ```
 
   * **Benefit:** When using `ticketlist`, the `head()` method will return a `Ticket` object directly, eliminating the need for manual casting and enforcing type safety at compile time.
 
 
-### 4\. Important Caveat: Hiding Type Variables ⚠️
+### Important Caveat: Hiding Type Variables
 
-It is critical to be careful not to **accidentally hide (or mask)** a class's type variable, 536].
+It is critical to be careful not to **accidentally hide (or mask)** a class's type variable.
 
   * **The Error:** If you define a generic method *inside* a generic class, the method's type quantifier will create a **new, local type variable** that hides the class's variable.
 
 | Code Example (Incorrect) | Explanation |
 | :--- | :--- |
-| ` java public class LinkedList<T>{ // Class T public <T> void insert (T newdata) { // Method T... **NEW T** } }  ` | The **quantifier `<T>` masks** the type parameter `T` of `LinkedList`, 583]. The `T` in the argument of `insert()` is a **new, independent T**, 560, 582]. |
-| **Contrast (Correct)** | This is different from a `static` generic method like `arraycopy`, where the method **must** declare its own type variable `<T>` because static methods are not tied to the class's generic type]. |
+| ` java public class LinkedList<T>{ // Class T public <T> void insert (T newdata) { // Method T... **NEW T** } }  ` | The **quantifier `<T>` masks** the type parameter `T` of `LinkedList`. The `T` in the argument of `insert()` is a **new, independent T**. |
+| **Contrast (Correct)** | This is different from a `static` generic method like `arraycopy`, where the method **must** declare its own type variable `<T>` because static methods are not tied to the class's generic type. |
 
 
-## 🎓 Lecture 3: Java Generics and Subtyping
+## Lecture 3: Java Generics and Subtyping
 
-### 1\. The Peculiar Case of Array Subtyping (Covariance)
+### The Peculiar Case of Array Subtyping (Covariance)
 
 In Java, array subtyping exhibits a property called **covariance**.
 
 | Key Concept | Definition |
 | :--- | :--- |
-| **Covariance** | A principle where if type $S$ is a subtype of type $T$, then the array type $S[]$ is also considered a subtype of the array type $T[]$51, 52]. |
+| **Covariance** | A principle where if type $S$ is a subtype of type $T$, then the array type $S[]$ is also considered a subtype of the array type $T[]$. |
 
 **Example of Covariance:**
 If `ETicket` is a subclass of `Ticket`, the following assignment is **allowed** by the compiler:
@@ -250,9 +247,9 @@ ticketarr[5] = new Ticket(); // Not OK.
 ```
 
 
-### 2\. Generic Subtyping (Invariance)
+### Generic Subtyping (Invariance)
 
-Unlike arrays, **generic classes are not covariant** 301]. This is a crucial difference designed to preserve type safety at compile time.
+Unlike arrays, **generic classes are not covariant**. This is a crucial difference designed to preserve type safety at compile time.
 
 | Key Concept | Definition |
 | :--- | :--- |
@@ -263,20 +260,20 @@ Unlike arrays, **generic classes are not covariant** 301]. This is a crucial dif
 ```java
 // This will result in a compile-time error.
 LinkedList<String> stringList;
-LinkedList<Object> objectList = stringList; // Not compatible 66].
+LinkedList<Object> objectList = stringList; // Not compatible.
 ```
 
   * **Why?** If this were allowed, you could add a non-String object (like an Integer) to `objectList`, which is secretly a `LinkedList<String>`, leading to the same runtime error issue seen with arrays. **Generics prevent this error at compile time.**
 
 #### **The Limitation and Solution**
 
-This strong type safety creates a limitation: A function designed for a general `LinkedList<Object>` cannot operate on a specific `LinkedList<String>` 80].
+This strong type safety creates a limitation: A function designed for a general `LinkedList<Object>` cannot operate on a specific `LinkedList<String>`.
 
 **Solution 1: Generic Methods (`<T>`)**
 We can use a **type quantifier** (`<T>`) to make the method generic:
 
 ```java
-// <T> is a type quantifier: "For every type T, this function is valid." , 127]
+// <T> is a type quantifier: "For every type T, this function is valid."
 public static <T> void printlist (LinkedList<T> l) {
     // Note: T is often not actually used inside the function].
     // We often use Object o as a generic variable to cycle through the list].
@@ -286,14 +283,14 @@ public static <T> void printlist (LinkedList<T> l) {
 ```
 
 **Solution 2: Wildcards (`?`)**
-Since the type variable $T$ is often not needed inside the function, we can simplify the syntax using a **wildcard**].
+Since the type variable $T$ is often not needed inside the function, we can simplify the syntax using a **wildcard**.
 
 | Key Concept | Definition |
 | :--- | :--- |
-| **Wildcard (`?`)** | A generic argument that stands for an **arbitrary unknown type**, 178]. It is used when the specific type $T$ is not required for the return type or to declare local variables, 305]. |
+| **Wildcard (`?`)** | A generic argument that stands for an **arbitrary unknown type**. It is used when the specific type $T$ is not required for the return type or to declare local variables. |
 
 ```java
-public static void printlist (LinkedList<?> l) { // ? means any list type is accepted , 152]
+public static void printlist (LinkedList<?> l) { // ? means any list type is accepted
     Object o;
     // ... iteration and printing code ...
 }
@@ -301,66 +298,66 @@ public static void printlist (LinkedList<?> l) { // ? means any list type is acc
 
 #### **Wildcard Assignment Restriction**
 
-You can declare a variable using a wildcard and assign a concrete generic type to it]:
+We can declare a variable using a wildcard and assign a concrete generic type to it:
 
 ```java
 LinkedList<?> l = new LinkedList<String>();
 ```
 
-However, you cannot add any arbitrary object to $l$:
+However, we cannot add any arbitrary object to $l$:
 
 ```java
 l.add(new Object()); // Compile time error].
 ```
 
-The **compiler cannot guarantee the types match** because it doesn't know what `?` represents (it could be `String`, `Date`, etc.)].
+The **compiler cannot guarantee the types match** because it doesn't know what `?` represents (it could be `String`, `Date`, etc.).
 
 
-### 3\. Bounded Wildcards (Restricting the Unknown Type) 🔏
+### Bounded Wildcards (Restricting the Unknown Type)
 
-**Bounded wildcards** allow you to restrict the arbitrary unknown type (`?`) to classes that either extend a certain class or are a superclass of a certain class].
+**Bounded wildcards** allow you to restrict the arbitrary unknown type (`?`) to classes that either extend a certain class or are a superclass of a certain class.
 
 #### **A. Upper Bounded Wildcard (`? extends T`)**
 
 This is used when you only need to **read** values from the list (like a source).
 
-| Syntax | `LinkedList<? extends T>` ] |
+| Syntax | `LinkedList<? extends T>` |
 | :--- | :--- |
 | **Meaning** | The list can hold objects of type $T$ or **any subclass** of $T$. |
 | **Use Case** | **Reading** data (e.g., retrieving elements and calling methods defined in $T$). |
-| **Example** | `public static void drawAll (LinkedList<? extends Shape> l)`]. |
+| **Example** | `public static void drawAll (LinkedList<? extends Shape> l)`. |
 
-If `Circle`, `Square`, and `Rectangle` all extend `Shape`, and `Shape` has a method `draw()` , 221, 235], this method can accept `LinkedList<Circle>`, `LinkedList<Square>`, or `LinkedList<Shape>` because all elements are guaranteed to be a subtype of `Shape`, meaning they all have a `draw()` method].
+If `Circle`, `Square`, and `Rectangle` all extend `Shape`, and `Shape` has a method `draw()`, this method can accept `LinkedList<Circle>`, `LinkedList<Square>`, or `LinkedList<Shape>` because all elements are guaranteed to be a subtype of `Shape`, meaning they all have a `draw()` method.
 
 #### **B. Lower Bounded Wildcard (`? super T`)**
 
 This is used when you only need to **write** values into the list (like a target).
 
-| Syntax | `LinkedList<? super T>` ] |
+| Syntax | `LinkedList<? super T>` |
 | :--- | :--- |
 | **Meaning** | The list can hold objects of type $T$ or **any superclass** of $T$. |
 | **Use Case** | **Writing** data (e.g., adding elements of type $T$). |
-| **Example** | `public static void listcopy (LinkedList<T> src, LinkedList<? super T> tgt)`, 289]. |
+| **Example** | `public static void listcopy (LinkedList<T> src, LinkedList<? super T> tgt)`. |
 
-  * **Explanation:** By using `? super T` for the target list, we guarantee that the target list is capable of safely holding objects of type $T$ (or a supertype of $T$) copied from the source list].
+  * **Explanation:** By using `? super T` for the target list, we guarantee that the target list is capable of safely holding objects of type $T$ (or a supertype of $T$) copied from the source list.
 
 
-## 🎓 Lecture 4: Reflection
+## Lecture 4: Reflection
 
-### 1\. What is Reflection? 🤔
+### What is Reflection?
 
-**Reflection** is the ability of a program or process to **examine, introspect, and modify its own structure and behavior** at runtime].
+**Reflection** is the ability of a program or process to **examine, introspect, and modify its own structure and behavior** at runtime.
 
 It consists of two main components:
 
 | Component | Definition |
 | :--- | :--- |
-| **Introspection** | The ability of a program to **observe** (examine) and therefore reason about its own state and structure (e.g., checking what class an object belongs to)]. |
-| **Intercession** | The ability of a program to **modify** its execution state or alter its own interpretation or meaning (e.g., dynamically calling a method or setting a field's value)]. |
+| **Introspection** | The ability of a program to **observe** (examine) and therefore reason about its own state and structure (e.g., checking what class an object belongs to). |
+| **Intercession** | The ability of a program to **modify** its execution state or alter its own interpretation or meaning (e.g., dynamically calling a method or setting a field's value). |
 
-#### **Simple Introspection Example**
+#### Simple Introspection Example
 
-A basic form of introspection you've used is the `instanceof` operator]:
+A basic form of introspection you've used is the `instanceof` operator:
 
 ```java
 Employee e = new Manager(...);
@@ -369,29 +366,28 @@ if (e instanceof Manager) {
 }
 ```
 
+### The Need for Full Reflection (The `Class` Object)
 
-### 2\. The Need for Full Reflection (The `Class` Object) 💻
-
-The `instanceof` operator is limited because it requires the type to be known **in advance**].
+The `instanceof` operator is limited because it requires the type to be known **in advance**.
 
 #### **The Problem Scenario: `classequal`**
 
-You cannot use `instanceof` to solve a problem where you need to check if two objects, `o1` and `o2`, are instances of the *same*, but *unknown*, class at runtime, 688]:
+You cannot use `instanceof` to solve a problem where you need to check if two objects, `o1` and `o2`, are instances of the *same*, but *unknown*, class at runtime:
 
 ```java
 public static boolean classequal(Object o1, Object o2){...}
 ```
 
-  * You **cannot** check against all defined classes, as this set is not fixed, 704].
-  * You **cannot** use generic type variables with `instanceof` (e.g., `if (o1 instanceof T)` is syntactically disallowed), 716, 717].
+  * You **cannot** check against all defined classes, as this set is not fixed.
+  * You **cannot** use generic type variables with `instanceof` (e.g., `if (o1 instanceof T)` is syntactically disallowed).
 
 #### **Solution: The `getClass()` Method**
 
-Java provides the `getClass()` method (inherited from `Object`) to solve this].
+Java provides the `getClass()` method (inherited from `Object`) to solve this.
 
 | Method | Syntax | Return Type |
 | :--- | :--- | :--- |
-| **`getClass()`** | `o1.getClass()` | An object of type **`Class`** ] |
+| **`getClass()`** | `o1.getClass()` | An object of type **`Class`** |
 
 **Implementation of `classequal` using Reflection:**
 
