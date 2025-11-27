@@ -8,9 +8,8 @@ Indirection = "Don't talk directly to the real thing — talk to a middleman who
 It’s like having a personal assistant: you don’t care who actually does the job (driver, courier, cook), you just tell the assistant what you want.
 
 **Technical Explanation**  
-In programming, indirection means using a reference/pointer/interface instead of directly using a concrete object. It adds a layer so you can change the actual object behind the scenes without changing the code that uses it.
-
-**Real-Life + Code Example**  
+In programming, indirection means using a reference/pointer/interface instead of directly using a concrete object. It adds a layer so we can change the actual object behind the scenes without changing the code that uses it.
+**Example**  
 ```java
 // Without indirection (direct)
 CircularArrayQueue<String> q = new CircularArrayQueue<String>();
@@ -19,17 +18,13 @@ CircularArrayQueue<String> q = new CircularArrayQueue<String>();
 Queue<String> q = new CircularArrayQueue<String>();   // today
 q = new LinkedListQueue<String>();                    // tomorrow — same variable!
 ```
-Only one line changes when you switch implementation.
+Only one line changes when we switch implementation.
 
 **Key Points to Remember**  
 - Indirection = extra layer → more flexibility  
 - Famous quote: “All problems in CS can be solved by another level of indirection” – Butler Lampson
 
 ### 2. Abstract Data Type (ADT)
-**Layman Explanation**  
-An ADT is like a menu in a restaurant: you only see what you can order (add, remove, size), not how the chef cooks it in the kitchen.
-
-**Technical Explanation**  
 An Abstract Data Type defines WHAT operations are available and WHAT they do, but hides HOW they are implemented.
 
 **Example**  
@@ -43,13 +38,12 @@ Queue ADT:
 - Same ADT → many possible implementations
 
 ### 3. Interface in Java
-**Layman Explanation**  
 A contract that says: “Any class that signs this contract MUST provide these exact methods.”
 
 **Technical Explanation**  
 An interface is a 100% abstract type (before Java 8). It only declares method signatures (and constants). Classes implement it using implements keyword.
 
-**Code Example**
+**Example**
 ```java
 public interface Queue<E> {
     void add(E element);    // same as abstract void add(E element);
@@ -60,11 +54,10 @@ public interface Queue<E> {
 ```
 
 **Key Points**  
-- You declare variables using the interface type → indirection!  
-- You can swap implementations easily
+- We declare variables using the interface type → indirection!  
+- We can swap implementations easily
 
 ### 4. Concrete Implementation
-**Layman Explanation**  
 The actual worker/class that does the real job behind the scenes.
 
 **Technical Explanation**  
@@ -95,7 +88,7 @@ CircularArrayQueue<Date> dateq = new CircularArrayQueue<Date>();
 // Later you realize you need unlimited size → pain!
 dateq.process();      // every method call has to be changed
 ```
-→ You have to change the type everywhere in the code.
+→ We have to change the type everywhere in the code.
 
 ### 7. Solution WITH Indirection (Correct Way)
 ```java
@@ -109,10 +102,9 @@ Rest of your 1000-line program stays exactly the same!
 Only the new line changes → zero ripple effect.
 
 ### 8. Generics <E>
-**Layman Explanation**  
 <E> = placeholder for any data type. Write the class once, use it for Integer, String, Date, Student — anything.
 
-**Code Example**
+**Example**
 ```java
 Queue<String> names = new LinkedListQueue<String>();
 Queue<Integer> numbers = new LinkedListQueue<Integer>();
@@ -133,22 +125,16 @@ Same class, different types → type safety + code reuse.
 > “We can solve any problem in software engineering by adding another level of indirection.”  
 > — David Wheeler / Butler Lampson
 
-
-
 ## Lecture 2: Collection
-Here are your **perfect, exam-ready notes** for **Week 6 – Java Collections Framework** (the second lecture).  
-Same format as before — super easy to revise!
-
 ### 1. Why Java Collections Framework Exists
 **Layman Explanation**  
-Old Java had many ready-made classes like Vector, Stack, Hashtable — but if you picked one and later wanted to change it → you had to rewrite tons of code.  
-So Java said: “Let’s add one level of indirection (just like last lecture!) and make everything swappable.”
+Old Java had many ready-made classes like Vector, Stack, Hashtable — but if I picked one and later wanted to change it → I had to rewrite tons of code.  
+So Java said: “Let’s add one level of indirection and make everything swappable.”
 
 **Technical Reason**  
-Java Collections Framework = a unified hierarchy of **interfaces + abstract classes + concrete classes** so you code against interfaces (flexible) and swap implementations anytime.
+Java Collections Framework = a unified hierarchy of **interfaces + abstract classes + concrete classes** so we code against interfaces (flexible) and swap implementations anytime.
 
-### 2. Collection<E> Interface (The Mother of Most Collections)
-**Layman Explanation**  
+### 2. Collection<E> Interface (The Mother of Most Collections) 
 It’s the “grand contract” that says: “If you’re a collection of objects (list, set, queue, etc.), you MUST support these basic operations.”
 
 **Technical Explanation**  
