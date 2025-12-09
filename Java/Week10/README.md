@@ -356,3 +356,91 @@ public class ConcurrentUpdate {
   * [cite_start]**Lack of Enforcement:** The programming language cannot enforce this pairing; a thread could execute $V(S)$ without having first called $P(S)$[cite: 1491].
 
 [cite_start]Because solutions based on low-level primitives like semaphores are prone to programming errors, high-level languages like Java provide better, built-in synchronization features (like the `synchronized` keyword, which will be covered in later topics)[cite: 1499, 1289].
+
+## 📝 Week 10 Java Notes: Monitors for Synchronization 🧵
+
+This lecture introduces **Monitors** as a high-level, structured programming construct designed to overcome the complexity and error-proneness of low-level primitives like Semaphores. Monitors attach synchronization control directly to the data being protected.
+
+-----
+
+### 1\. What is a Monitor? 🛡️
+
+  * **Problem with Low-Level Primitives:** Low-level synchronization (like semaphores) is difficult to manage and prone to errors (e.g., forgetting a $V(S)$ call).
+  * **Monitor Definition:** A monitor, developed by Per Brinch Hansen and C.A.R. Hoare, is a language construct that acts like an **Abstract Data Type** for concurrent programming.
+      * It **encapsulates data** (variables) and the **methods** that operate on that data.
+      * All methods within the monitor are **implicitly mutually exclusive** (atomic).
+
+#### Key Guarantee
+
+  * **Mutual Exclusion:** The monitor guarantees that **at most one thread** can be executing any function within the monitor at any given time.
+  * **External Queue:** Every monitor is associated with an implicit **external queue** (or set) where threads wait if they attempt to invoke a monitor method while another thread is already active inside.
+
+#### Example: `bank_account` Monitor
+
+In the example provided:
+
+```
+monitor bank_account{
+    double accounts[100];
+
+    boolean transfer (double amount, int source, int target){...} 
+    double audit(){...} 
+}
+```
+
+If Thread 1 is executing `transfer`, and Thread 2 invokes `audit`, Thread 2 must wait in the external queue until Thread 1 exits the `transfer` method.
+
+-----
+
+### 2\. Making Monitors Flexible: `wait()` and `notify()` ⏸️
+
+The initial strict mutual exclusion definition can be too restrictive. For instance, a `transfer` operation might need to **wait** if the source account balance is insufficient. Blocking all other processes while one thread is waiting inside the monitor is inefficient.
+
+To address this, monitors include mechanisms for a thread to temporarily **suspend itself** and **give up the lock**.
+
+#### A. The Need for Suspension
+
+  * If a thread finds a condition preventing it from proceeding (e.g., `if (accounts[source] < amount)`), it must wait for the monitor's state to change (e.g., another transfer deposits money).
+  * Waiting inside the monitor while holding the lock **blocks all other operations**.
+
+#### B. The Operations
+
+| Operation | Purpose | Queue |
+| :--- | :--- | :--- |
+| **`wait()`** | A thread calls `wait()` to **suspend itself**, relinquish the monitor lock, and move to an **internal queue**. | Moves thread from Monitor Active $\rightarrow$ **Internal Queue**. |
+| **`notify()`** | A thread calls `notify()` when it changes the monitor's state (e.g., completes a deposit) to **wake up one** waiting thread. | Moves one thread from Internal Queue $\rightarrow$ External/Entry Queue (or back to compete for the lock). |
+
+#### C. Handling `notify()` (Signal Semantics)
+
+When a thread executes `notify()`, different monitor implementations handle the transition differently:
+
+1.  **Signal and Exit:** The notifying thread immediately exits the monitor. (`notify()` must be the last instruction).
+2.  **Signal and Wait:** The notifying thread swaps roles and immediately joins the internal queue, letting the newly woken thread proceed.
+3.  **Signal and Continue:** The notifying thread keeps control until it completes, and then a woken process steps in.
+
+#### D. Best Practice: Checking the Wait Condition
+
+After a thread is woken up by `notify()`, it must **re-check the condition** it was waiting on.
+
+  * A simple `if (condition) { wait(); }` is insufficient.
+  * A thread may be woken up, but another thread might run and change the state back before the woken thread can execute its critical code (a **lost wake-up** or **stale condition**).
+  * **Best Practice:** `wait()` should always be placed inside a `while` loop to re-evaluate the condition upon waking up.
+
+<!-- end list -->
+
+```
+while (accounts[source] < amount) {
+    wait(); // Re-check condition upon every wake-up
+}
+```
+
+-----
+
+### 3\. Condition Variables 🎯
+
+In larger monitors, using a single internal queue for all waiting threads can be inefficient, as `notify()` may wake up a thread that isn't waiting for the specific state change that occurred.
+
+  * **Condition Variables:** Allow the monitor to have **multiple internal queues**, each associated with a specific **condition**.
+  * In the banking example, the monitor would have a condition variable (or queue) for each account.
+  * A thread waiting for a deposit to `accounts[source]` would call `q[source].wait()`.
+  * A successful transfer that affects `accounts[target]` would call `q[target].notify()`, only waking up threads waiting on that specific account.
