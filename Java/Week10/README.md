@@ -182,3 +182,82 @@ To solve this:
   * **Goal:** Insist that **`transfer()` and `audit()` do not interleave**. Control must never simultaneously be within `transfer()` for one thread and within `audit()` for another.
 
 
+## 📝 Week 10 Java Notes: Mutual Exclusion Protocols 🔒
+
+This lecture explores low-level protocols for achieving **mutual exclusion**—the ability to ensure that only one thread is inside a **critical section** (code that updates shared variables) at any given time.
+
+---
+
+### 1\. The Goal: Mutual Exclusion
+
+  * **Critical Section:** Sections of code where **shared variables are updated**.
+  * **Mutual Exclusion:** A guarantee that **at most one thread** at a time can be executing in a critical section.
+  * **Protocols:** Algorithms designed to achieve mutual exclusion, often using simple shared variables.
+
+---
+
+### 2\. Mutual Exclusion Protocols for Two Processes
+
+The lecture presents attempts to solve the two-process mutual exclusion problem using simple shared variables, highlighting the pitfalls of **Starvation** and **Deadlock**.
+
+#### A. First Attempt (Using `turn`)
+
+This attempt ensures mutual exclusion but has a serious flaw.
+
+| Thread 1 (T1) | Thread 2 (T2) | Purpose & Flaw |
+| :--- | :--- | :--- |
+| `while (turn != 1) {}` | `while (turn != 2) {}` | **Entry:** T1 waits until `turn` is 1; T2 waits until `turn` is 2. |
+| **Critical Section** | **Critical Section** | Only one thread can enter at a time. |
+| `turn = 2;` | `turn = 1;` | **Exit:** The thread explicitly passes the turn to the other thread. |
+
+  * **Guarantees:** **Mutually exclusive access is guaranteed.**
+  * **Flaw:** **Starvation**. If T2 finishes its critical section and sets `turn = 1`, but T1 then permanently shuts down outside its critical section, T2 will reach its entry loop (`while (turn != 2) {}`) and wait forever for T1 to set `turn = 2`. T2 is permanently locked out.
+
+---
+
+#### B. Second Attempt (Using `request` flags)
+
+This attempt also ensures mutual exclusion but risks both threads blocking simultaneously.
+
+| Thread 1 (T1) | Thread 2 (T2) | Purpose & Flaw |
+| :--- | :--- | :--- |
+| `request_1 = true;` | `request_2 = true;` | **Declare Intent:** Both threads set a flag indicating they want to enter. |
+| `while (request_2) {}` | `while (request_1) {}` | **Wait:** T1 waits if T2 has requested access; T2 waits if T1 has requested access. |
+| **Critical Section** | **Critical Section** | |
+| `request_1 = false;` | `request_2 = false;` | **Exit:** The thread clears its request flag. |
+
+  * **Guarantees:** **Mutually exclusive access is guaranteed.**
+  * **Flaw:** **Deadlock**. If both threads try to enter **simultaneously**, they both set their request flags to `true`. Then, T1 sees `request_2` is `true` and waits, and T2 sees `request_1` is `true` and waits. They are now both waiting for the other, resulting in a **deadlock**.
+
+---
+
+### 3\. Peterson's Algorithm (The Solution) 🏆
+
+Peterson's algorithm cleverly **combines the previous two approaches** to achieve mutual exclusion without starvation or deadlock for two processes.
+
+| Thread 1 (T1) | Thread 2 (T2) | Logic |
+| :--- | :--- | :--- |
+| `request_1 = true;` | `request_2 = true;` | **Declare Intent (Flag)** |
+| `turn = 2;` | `turn = 1;` | **Yield to Other (Turn):** T1 sets `turn = 2`, giving priority to T2. T2 sets `turn = 1`, giving priority to T1. The last one to execute this line determines the initial priority. |
+| `while (request_2 && turn == 2) {}` | `while (request_1 && turn == 1) {}` | **Wait Condition:** T1 waits only if T2 is requesting *AND* T2 has the turn. If `turn` is set to T1 (by T1's instruction `turn=2` being overwritten by T2's `turn=1`), T1 enters. |
+| **Critical Section** | **Critical Section** | |
+| `request_1 = false;` | `request_2 = false;` | **Clear Flag** |
+
+  * **Mechanism:** If both threads try simultaneously, the `turn` variable decides who goes first. If only one thread is attempting to enter, the `request` flag of the other thread remains `false`, allowing the active thread to proceed immediately.
+  * **Correctness:** Peterson's algorithm guarantees:
+    1.  **Mutual Exclusion:** Only one process in the critical section.
+    2.  **Progress:** A thread waiting to enter will eventually get to enter.
+    3.  **Bounded Waiting:** A thread that wants to enter won't wait forever.
+
+---
+
+### 4\. Beyond Two Processes 🌐
+
+Generalizing solutions like Peterson's algorithm to **$n$ processes** (where $n > 2$) is **not trivial**.
+
+  * **Lamport's Bakery Algorithm:** A well-known solution for $n$ processes that uses a shared system of tickets/tokens.
+      * Each process "takes a number" (increments a shared counter).
+      * The lowest number is served next.
+      * This is complex because the token counter update is itself not atomic, requiring clever tie-breaking logic.
+  * **Conclusion:** Because it is difficult to construct and argue the correctness of these low-level protocols for arbitrary situations, modern software relies on **higher-level support** provided directly by the programming language (like Java's synchronization mechanisms) or the operating system.
+
