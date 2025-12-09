@@ -201,3 +201,223 @@ public class OptionalDemo {
     }
 }
 ```
+
+## Lecture 2
+
+### 1\. Layman's Terms Explanation 💡
+
+Imagine a **Stream** is a conveyor belt carrying items (data) through a factory.
+
+1.  **Putting Items on the Belt:** You can start the belt by putting items from a storage bin (a **Collection**) onto it.
+2.  **Processing Items:** You can inspect, clean, or modify the items as they pass by (this is the stream processing: `map`, `filter`, etc.).
+3.  **Collecting Results:** When the processing is done, you need a way to store the final results, since the conveyor belt eventually ends. The **`collect()`** operation acts like the final packaging station:
+      * **Packaging into a Crate (`toList`/`toSet`):** Grouping all items into a single list or set.
+      * **Packaging into Labeled Bins (`toMap`):** Storing items based on unique labels (keys), like separating mail by address.
+      * **Creating a Report (`summarizingInt`):** Instead of storing the items, you just measure and report the total count, largest size, average weight, etc.
+      * **Creating Grouped Crates (`groupingBy`/`partitioningBy`):** Automatically sorting and packaging items into separate crates based on a specific characteristic (e.g., all red items in one box, all blue in another).
+
+-----
+
+### 2\. Technical Explanation ⚙️
+
+The core mechanism for converting a stream back into a collection or summary is the **`collect()`** terminal operation, which works with implementations from the **`java.util.stream.Collectors`** class.
+
+#### 2.1. Basic Stream Consumption
+
+Before using `collect()`, there are simpler ways to consume a stream:
+
+| Method | Description | Code Example |
+| :--- | :--- | :--- |
+| **Iterator/Loop** | Streams define a standard iterator, allowing explicit looping. | `mystream.iterator();` |
+| **`forEach(Consumer)`** | Executes an action for each element in the stream. No result is returned. | `mystream.forEach(System.out::println);` |
+| **`toArray()`** | Converts the stream to an array. By default, it returns `Object[]`. | `Object[] result = mystream.toArray();` |
+| **`toArray(IntFunction)`** | Converts to a specific array type by passing an array constructor reference. | `String[] result = mystream.toArray(String[]::new);` |
+
+#### 2.2. Storing as a Collection using `collect()`
+
+The `collect(Collector)` method takes a `Collector` object which defines how to accumulate the stream elements into a final result container.
+
+| Collector Method | Resulting Collection Type | Code Example |
+| :--- | :--- | :--- |
+| **`Collectors.toList()`** | Returns a `List<T>`. | `List<String> result = mystream.collect(Collectors.toList());` |
+| **`Collectors.toSet()`** | Returns a `Set<T>`. | `Set<String> result = mystream.collect(Collectors.toSet());` |
+| **`Collectors.toCollection(Supplier)`** | Returns a concrete, specific collection type (e.g., `TreeSet`, `ArrayList`) using a constructor reference. | `TreeSet<String> result = stream.collect(Collectors.toCollection(TreeSet::new));` |
+
+#### 2.3. Stream Summaries
+
+The `Collectors` class provides methods to aggregate numerical statistics into a single object (`SummaryStatistics`). This often involves transforming the stream elements into numbers first.
+
+  * **Key Methods:** `summarizingInt()`, `summarizingLong()`, `summarizingDouble()`.
+  * **Input:** A function (mapper) to convert the stream element type (`T`) to the required primitive type (e.g., `String::length` converts a `String` to its `int` length).
+  * **Output:** An object (`IntSummaryStatistics`, `LongSummaryStatistics`, etc.) that holds: **count, max, min, sum,** and **average**.
+
+**Example:**
+
+```java
+// Collect statistics on the lengths of strings in the stream
+IntSummaryStatistics summary = mystream.collect(
+    Collectors.summarizingInt(String::length) // Using String::length as the mapper
+);
+
+// Accessing the statistics
+double averageWordLength = summary.getAverage();
+long maxWordLength = summary.getMax(); 
+```
+
+#### 2.4. Converting to a Map
+
+`Collectors.toMap()` is used to convert a stream of objects into a `Map`, requiring two functions: one for the **key** and one for the **value**.
+
+1.  **Basic `toMap` (Key & Value Mapper):**
+
+<!-- end list -->
+
+```java
+// Stream<Person> -> Map<Integer, String>
+Map<Integer, String> idToName = people.collect(
+    Collectors.toMap(Person::getId, Person::getName) // Key: ID, Value: Name
+);
+```
+
+2.  **Using `Function.identity()` (Key Mapper & Object as Value):**
+
+<!-- end list -->
+
+```java
+// Stream<Person> -> Map<Integer, Person>
+Map<Integer, Person> idToPerson = people.collect(
+    Collectors.toMap(Person::getId, Function.identity()) // Key: ID, Value: The entire Person object
+);
+```
+
+3.  **Handling Duplicate Keys:** If the key mapper generates duplicate keys, `IllegalStateException` is thrown. A third argument is needed to resolve the conflict:
+
+<!-- end list -->
+
+```java
+// Duplicate names will occur, so we provide a merge function:
+Map<String, Integer> nameToID = people.collect(
+    Collectors.toMap(
+        Person::getName,    // Key mapper
+        Person::getId,      // Value mapper
+        (existingValue, newValue) -> existingValue // Merge Function: keep the existing value, discard the new one
+    )
+);
+```
+
+#### 2.5. Grouping and Partitioning
+
+These collectors are used when you want to group elements based on a common property.
+
+  * **`Collectors.groupingBy(Function)`:** Groups the stream elements into a `Map<K, List<T>>` where the key `K` is determined by the grouping function, and the value is a `List` of all elements that share that key.
+
+<!-- end list -->
+
+```java
+// Group all Person objects by their name
+Map<String, List<Person>> nameToPersons = people.collect(
+    Collectors.groupingBy(Person::getName) 
+);
+```
+
+  * **`Collectors.partitioningBy(Predicate)`:** A specialized grouping that uses a boolean condition (`Predicate`). It results in a `Map<Boolean, List<T>>`, essentially splitting the stream into two lists: one where the predicate is **True** and one where it is **False**.
+
+<!-- end list -->
+
+```java
+// Partitioning people into those whose name starts with 'A' and the rest
+Map<Boolean, List<Person>> aAndOtherPersons = people.collect(
+    Collectors.partitioningBy(p -> p.getName().startsWith("A"))
+);
+
+List<Person> startingLetterA = aAndOtherPersons.get(true);
+```
+
+-----
+
+### 3\. Illustrative Java Code Examples 💻
+
+```java
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.IntSummaryStatistics;
+import java.util.TreeSet;
+import java.util.function.Function;
+
+// Simple class for demonstration
+class Person {
+    private final int id;
+    private final String name;
+    private final int age;
+
+    public Person(int id, String name, int age) {
+        this.id = id; this.name = name; this.age = age;
+    }
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public String toString() { return name + " (" + id + ")"; }
+}
+
+public class StreamCollectingDemo {
+    public static void main(String[] args) {
+        Stream<Person> peopleStream = Stream.of(
+            new Person(101, "Alice", 30),
+            new Person(102, "Bob", 25),
+            new Person(103, "Alice", 35), // Duplicate Name
+            new Person(104, "Charlie", 25)
+        );
+
+        // --- 1. Collecting to Basic Collections (List & Set) ---
+        List<Person> peopleList = peopleStream.collect(Collectors.toList());
+        System.out.println("1. List Result: " + peopleList);
+        
+        // Recreate stream for next operation (streams are consumed after one terminal operation)
+        peopleStream = Stream.of(new Person(101, "Alice", 30), new Person(102, "Bob", 25), new Person(103, "Alice", 35), new Person(104, "Charlie", 25));
+
+        // --- 2. Collecting to Map with Duplicate Key Handling ---
+        // Using name as key, ID as value. 'Alice' is duplicated.
+        Map<String, Integer> nameToIDMap = peopleStream.collect(
+            Collectors.toMap(
+                Person::getName, 
+                Person::getId,
+                (existing, replacement) -> existing // Merge: If duplicate, keep the existing ID
+            )
+        );
+        System.out.println("2. Map (with merge): " + nameToIDMap);
+        
+        // --- 3. Summarizing Statistics ---
+        Stream<Person> summaryStream = Stream.of(
+            new Person(101, "Alice", 30), new Person(102, "Bob", 25), new Person(103, "Alice", 35), new Person(104, "Charlie", 25)
+        );
+        
+        IntSummaryStatistics ageStats = summaryStream.collect(
+            Collectors.summarizingInt(Person::getAge) // Using age as the number field
+        );
+        System.out.println("3. Age Summary - Average: " + ageStats.getAverage() + ", Max: " + ageStats.getMax());
+
+        // --- 4. Grouping and Partitioning ---
+        Stream<Person> groupingStream = Stream.of(
+            new Person(101, "Alice", 30), new Person(102, "Bob", 25), new Person(103, "Alice", 35), new Person(104, "Charlie", 25)
+        );
+        
+        // Grouping: Group all people by their age
+        Map<Integer, List<Person>> peopleByAge = groupingStream.collect(
+            Collectors.groupingBy(Person::getAge)
+        );
+        System.out.println("4a. Grouped By Age (25): " + peopleByAge.get(25)); // [Bob (102), Charlie (104)]
+
+        // Recreate stream
+        groupingStream = Stream.of(new Person(101, "Alice", 30), new Person(102, "Bob", 25), new Person(103, "Alice", 35), new Person(104, "Charlie", 25));
+        
+        // Partitioning: Split people into those named 'Alice' and those who aren't
+        Map<Boolean, List<Person>> alicePartition = groupingStream.collect(
+            Collectors.partitioningBy(p -> p.getName().equals("Alice"))
+        );
+        System.out.println("4b. Partition (True/Alice): " + alicePartition.get(true)); 
+    }
+}
+```
