@@ -261,3 +261,98 @@ Generalizing solutions like Peterson's algorithm to **$n$ processes** (where $n 
       * This is complex because the token counter update is itself not atomic, requiring clever tie-breaking logic.
   * **Conclusion:** Because it is difficult to construct and argue the correctness of these low-level protocols for arbitrary situations, modern software relies on **higher-level support** provided directly by the programming language (like Java's synchronization mechanisms) or the operating system.
 
+## 📝 Week 10 Java Notes: Test-and-Set and Semaphores 🚦
+
+This lecture focuses on the underlying issue causing race conditions—the non-atomic update process—and introduces a formal synchronization primitive, **Semaphores**, used to solve it.
+
+-----
+
+### 1\. The Root Problem: Non-Atomic Test-and-Set 🚫
+
+#### Layman's Terms Explanation
+
+The core reason updates get lost in concurrent programs is because operations like incrementing a counter ($n++$) aren't single, instant steps. They involve multiple actions:
+
+1.  **Test/Read:** Check the variable's current value (e.g., read $n=10$).
+2.  **Set/Update:** Calculate the new value (e.g., $10+1=11$), then write the new value back to the variable (write $n=11$).
+
+If two threads read the same value of $n$ (10) before either has written its new value back (11), both will independently calculate 11 and write it back, resulting in only a net increase of $1$, not $2$. [cite_start]This sequence of reading and then writing is the **Test-and-Set** operation[cite: 1318].
+
+#### Technical Explanation
+
+  * [cite_start]The fundamental issue preventing consistent concurrent updates of shared variables is the interleaving of **test-and-set** operations[cite: 1311, 1324].
+  * [cite_start]When multiple threads execute this read-modify-write cycle in parallel, updates may **overlap and get lost**[cite: 1326, 1334].
+  * [cite_start]The solution requires combining the test (read) and set (write) into a single, **atomic (indivisible) step** that cannot be interrupted by the operating system's time-slicing mechanism[cite: 1335, 1344]. [cite_start]This requires a specialized **language primitive**[cite: 1345].
+
+-----
+
+### 2\. Semaphores: A Formal Solution 🛑
+
+[cite_start]**Semaphores** (Dijkstra's semaphores) are an example of programming language support for achieving mutual exclusion[cite: 1351, 1357].
+
+#### Layman's Terms Explanation
+
+Imagine a semaphore as a **counter** outside a shared resource (the critical section).
+
+  * **Entering (P operation):** If the counter is above zero, a thread takes a token (decrements the counter) and enters. If the counter is zero, the thread waits outside.
+  * **Exiting (V operation):** When a thread leaves, it returns a token (increments the counter). If there were threads waiting, one is woken up and allowed to enter.
+
+By initializing the counter to $1$, only one thread can ever hold the token at a time, ensuring **mutual exclusion**.
+
+#### Technical Explanation
+
+  * [cite_start]A semaphore $S$ is an **integer variable** that supports an **atomic test-and-set operation**[cite: 1360, 1370].
+  * A semaphore supports two atomic operations, named from Dutch:
+
+| Operation | Name Origin | Atomic Execution |
+| :--- | :--- | :--- |
+| **$P(S)$** | *Passeren* (to pass) | [cite_start]**If $S > 0$, decrement $S$; else, wait** for $S$ to become positive[cite: 1387, 1390]. |
+| **$V(S)$** | *Vrygeven* (to release) | [cite_start]**If threads are waiting, wake one up; else, increment $S$**[cite: 1406, 1409]. |
+
+#### Using Semaphores for Mutual Exclusion
+
+To use a semaphore as a **Mutex** (ensuring only one thread can enter the critical section):
+
+1.  Initialize the semaphore $S$ to $1$.
+2.  [cite_start]A thread calls **$P(S)$** before entering the critical section[cite: 1416].
+3.  [cite_start]A thread calls **$V(S)$** after leaving the critical section[cite: 1419].
+
+[cite_start]This approach guarantees **mutual exclusion**, **freedom from starvation**, and **freedom from deadlock**[cite: 1440, 1441, 1442].
+
+```java
+// Conceptual Semaphore Usage (S initialized to 1)
+
+public class ConcurrentUpdate {
+    // Shared variable prone to race conditions
+    private int counter = 0;
+    
+    // Assume S is an initialized Semaphore
+    
+    public void criticalSection() {
+        // Thread 1
+        // ... code
+        
+        // ENTER critical section
+        // P(S); // This is an atomic operation provided by the OS/language
+        
+        counter = counter + 1; // Critical update
+        
+        // LEAVE critical section
+        // V(S); // This is an atomic operation provided by the OS/language
+        
+        // ... code
+    }
+}
+```
+
+-----
+
+### 3\. Problems with Semaphores and Conclusion 🛑
+
+[cite_start]While semaphores are technically correct, they are rarely used directly in high-level Java code because they have significant drawbacks[cite: 1499]:
+
+  * [cite_start]**Too Low Level:** They are not directly related to the code structure they protect[cite: 1456, 1462].
+  * [cite_start]**Error Prone:** The programmer must manually ensure that every call to $P(S)$ has a matching call to $V(S)$[cite: 1482].
+  * [cite_start]**Lack of Enforcement:** The programming language cannot enforce this pairing; a thread could execute $V(S)$ without having first called $P(S)$[cite: 1491].
+
+[cite_start]Because solutions based on low-level primitives like semaphores are prone to programming errors, high-level languages like Java provide better, built-in synchronization features (like the `synchronized` keyword, which will be covered in later topics)[cite: 1499, 1289].
