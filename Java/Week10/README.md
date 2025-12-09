@@ -99,3 +99,86 @@ t.start();               // Start off p.run()
 
   * **`sleep(t)`:** This is a **static function** that suspends the **current thread** for $t$ milliseconds. It must be enclosed in a `try-catch` block because it throws an `InterruptedException`. Use **`Thread.sleep(t)`** if your class does not extend `Thread`.
 
+## 📝 Week 10 Java Notes: Race Conditions and Mutual Exclusion ⚠️
+
+This lecture details the problems arising from concurrent execution, specifically **Race Conditions**, and introduces the fundamental concept for solving them: **Mutual Exclusion**.
+
+-----
+
+### 1\. Threads and Shared Variables 🤝
+
+Concurrency allows multiple **lightweight processes (threads)** to run seemingly in parallel, often relying on **shared variables** for communication and state management.
+
+  * **Problem:** When these threads access and update shared variables simultaneously, it can lead to **unpredictable outcomes** and data inconsistency—a situation known as a **Race Condition**.
+  * **Requirement:** Shared variables must be updated **consistently**.
+
+-----
+
+### 2\. Example: Data Consistency in Banking 🏦
+
+The lecture uses a banking scenario with a shared array `double accounts[100]` to illustrate a race condition involving data inconsistency.
+
+#### The Functions
+
+1.  **`transfer()`:** Moves an `amount` from a `source` account to a `target` account.
+      * It involves multiple steps: checking balance, subtracting from source, and adding to target.
+      * ```java
+        accounts[source] -= amount;
+        accounts[target] += amount;
+        ```
+2.  **`audit()`:** Calculates the **total balance** across all accounts.
+      * The total balance should remain constant throughout the system's operation, regardless of transfers.
+
+#### The Race Condition Scenario
+
+Consider two threads executing concurrently:
+
+  * **Thread 1:** Executes `status = transfer(500.00, 7, 8);`
+  * **Thread 2:** Executes `System.out.print(audit());`
+
+If the operating system's time-slicing **interleaves** the actions of `transfer()` and `audit()`, the `audit()` function can report an incorrect total balance.
+
+| Execution Step | Thread | Action | Accounts State | Total Balance Reported by Audit |
+| :---: | :---: | :--- | :--- | :--- |
+| **1** | Thread 2 | `audit()` starts its loop. | (Correct, Initial Total) | N/A |
+| **2** | Thread 1 | `accounts[source] -= 500.00;` | $\text{Source}-500, \text{Target}$ | N/A |
+| **3** | **Context Switch** | Thread 2 resumes. | | N/A |
+| **4** | Thread 2 | `audit()` continues, summing up $\text{Source}-500$. | | $(\text{Initial Total}) - 500$ |
+| **5** | **Context Switch** | Thread 1 resumes. | | N/A |
+| **6** | Thread 1 | `accounts[target] += 500.00;` | $\text{Source}-500, \text{Target}+500$ | N/A |
+| **7** | Thread 2 | `audit()` finishes (after Thread 1 completed the transfer). | | $(\text{Initial Total}) - 500$ |
+
+  * **Result:** The `audit()` (Thread 2) reports a total that is **500 less** than the actual system assets because it read the source account *after* the subtraction but finished summing *before* the corresponding addition to the target account. Similarly, it could report **500 more** if the interleaving was different.
+
+-----
+
+### 3\. Example: Atomicity of Updates 🧪
+
+A classic example of a race condition involves two threads concurrently incrementing a shared variable, $n$.
+
+| Thread 1 | Thread 2 | **Comments (if $n=10$ initially)** |
+| :---: | :---: | :--- |
+| $m = n; \quad (m=10)$ | | **Thread 1 reads $n$** |
+| | $k = n; \quad (k=10)$ | **Thread 2 reads the same $n$** |
+| $m++; \quad (m=11)$ | | Thread 1 prepares the update |
+| | $k++; \quad (k=11)$ | Thread 2 prepares the update |
+| $n = m; \quad (n=11)$ | | **Thread 1 updates $n$ to 11** |
+| | $n = k; \quad (n=11)$ | **Thread 2 overwrites $n$ with its own value (11).** |
+
+  * **Expected Outcome:** If two threads increment $n$ once, $n$ should increase by $2$.
+  * **Actual Outcome (due to race condition):** $n$ only increased by **$1$**. The second thread's increment was "lost" because it read an outdated value of $n$ before Thread 1's update was committed.
+
+-----
+
+### 4\. Solving Race Conditions: Mutual Exclusion 🔒
+
+The issue is that the operations within `transfer()` and `audit()` are **not atomic** (they can be broken down into steps that are interleaved by the OS).
+
+To solve this:
+
+  * **Critical Section:** A segment of code where **shared variables are updated**.
+      * In the banking example, the bodies of both `transfer()` and `audit()` are critical sections.
+  * **Mutual Exclusion:** The mechanism that guarantees that at most **one thread at a time** can be executing within a critical section.
+  * **Goal:** Insist that **`transfer()` and `audit()` do not interleave**. Control must never simultaneously be within `transfer()` for one thread and within `audit()` for another.
+
+
