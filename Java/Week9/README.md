@@ -421,3 +421,131 @@ public class StreamCollectingDemo {
     }
 }
 ```
+
+
+## Lecture 3
+This lecture covers Java's fundamental approach to handling data transfer—reading data **into** the program and writing data **out** of it—using I/O Streams.
+
+### Layman's Terms Explanation
+
+In Java I/O, a **Stream** is like a hose or a pipe connecting your program to an external resource (like a file, the internet, or memory).
+
+1. **Data is Raw Bytes:** At the most basic level, everything flowing through the pipe is just a sequence of uninterpreted $\mathbf{raw\ bytes}$[cite: 363, 382]. Your program doesn't know if these bytes represent a letter, a number, or part of an image.
+2.  **The Stream Pipeline:** To make sense of the raw bytes, you stack different tools (called **Stream Transformers**) onto the pipe in a sequence, creating a **pipeline**[cite: 387, 781].
+      * The first tool connects to the **source** (e.g., a file) and handles the raw bytes[cite: 388].
+      * The next tool interprets the bytes as **text** (e.g., converting bytes to Unicode characters)[cite: 364, 383].
+      * The tool after that might read the characters and group them into **words** or **lines** (like the `Scanner` tool)[cite: 544].
+
+This separation of concerns—connecting, interpreting, and formatting—makes the system flexible[cite: 790, 798].
+
+
+### Technical Explanation
+
+Java's I/O system is built around two abstract classes, **`InputStream`** (for reading) and **`OutputStream`** (for writing), which handle the transfer of **raw bytes**[cite: 393, 400]. These are distinct from the `java.util.stream.Stream` class used for collections[cite: 349, 378].
+
+#### 2.1. Reading and Writing Raw Bytes
+
+The basic byte streams are the foundation for I/O[cite: 393].
+
+| Stream Type | Purpose | Abstract Methods (Examples) | Management |
+| :--- | :--- | :--- | :--- |
+| **`InputStream`** | Reads sequences of raw bytes[cite: 331, 400]. | `read()`, `read(byte[] b)`, `readAllBytes()`, `available()`[cite: 402, 412, 413, 414, 419]. | Must be **closed** to release resources (`in.close()`)[cite: 446, 451]. |
+| **`OutputStream`** | Writes sequences of raw bytes[cite: 334, 400]. | `write(int b)`, `write(byte[] b)`[cite: 433, 447]. | Must be **closed** and **flushed** (`out.flush()`) because output is often buffered[cite: 462, 468]. |
+
+#### 2.2. Connecting to External Sources (Files)
+
+Subclasses of `InputStream` and `OutputStream` connect to specific sources like files[cite: 474, 476].
+
+  * **File Input:** `var in = new FileInputStream("input.class");`[cite: 486].
+  * **File Output:** `var out = new FileOutputStream("output.bin");`[cite: 498].
+      * The `FileOutputStream` constructor can take a second `boolean` argument: `false` to **overwrite** (default) or `true` to **append** to the file[cite: 509, 510, 514, 516].
+
+#### 2.3. Stream Transformers for Interpretation
+
+To interpret the raw bytes as meaningful data (text or binary), you chain the raw streams with specialized **decorator** streams[cite: 387, 791].
+
+| Data Type | Class Used for Reading | Class Used for Writing | Key Methods |
+| :--- | :--- | :--- | :--- |
+| **Text** | **`Scanner`** (applied to an `InputStream`)[cite: 523, 526]. | **`PrintWriter`** (applied to an `OutputStream`)[cite: 557, 558]. | `scin.nextLine()`, `scin.nextInt()`[cite: 544]; `pout.println(msg)`[cite: 572]. |
+| **Binary Data** | **`DataInputStream`**[cite: 618]. | **`DataOutputStream`**[cite: 648]. | `readInt()`, `readDouble()`, `readUTF()`[cite: 636, 637, 638]; `writeInt()`, `writeDouble()`[cite: 670]. |
+| **Efficiency/Feature** | **`BufferedInputStream`**[cite: 698]. | **`BufferedOutputStream`** | Reads/writes blocks of data for better performance[cite: 699, 701]. |
+| **Feature** | **`PushbackInputStream`**[cite: 720]. | N/A | Allows **speculative reads** by reading a byte and potentially pushing it back into the stream (`unread`)[cite: 713, 724]. |
+
+#### 2.4. Exception Handling
+
+All I/O operations are highly prone to exceptions (e.g., file not found, permission denied, unexpected end of stream). Therefore, Java I/O code **must be wrapped in `try` blocks** to handle exceptions[cite: 606, 607, 687].
+
+-----
+
+### 3\. Illustrative Java Code Examples 💻
+
+#### Example 1: Stream Chaining for Text Copying
+
+This example shows how to chain `FileInputStream` and `PrintWriter` to copy a text file line by line, demonstrating the interpretation of raw bytes as text[cite: 591, 592]. Note that in real Java code, you would use a `try-with-resources` block to automatically handle the `close()` operations.
+
+```java
+import java.io.*;
+import java.util.Scanner;
+
+public class TextFileCopy {
+    public static void main(String[] args) {
+        // I/O operations must handle exceptions, usually IOException
+        try {
+            // 1. Connect raw byte streams to files
+            var fin = new FileInputStream("input.txt"); 
+            var fout = new FileOutputStream("output.txt"); // Overwrites by default
+
+            // 2. Wrap raw streams with text interpretation streams
+            var in = new Scanner(fin);           // Scanner reads the text
+            var out = new PrintWriter(fout);     // PrintWriter writes the text
+
+            // 3. Process the data
+            System.out.println("Copying file...");
+            while (in.hasNextLine()) { // Check if there's another line
+                String line = in.nextLine();
+                out.println(line); // Writes the line and a newline character
+            }
+
+            // Must close streams to release resources (manual close is dangerous, use try-with-resources)
+            in.close();
+            out.close(); 
+            System.out.println("Copying complete.");
+
+        } catch (IOException e) {
+            System.err.println("An I/O error occurred: " + e.getMessage());
+        }
+    }
+}
+```
+
+#### Example 2: Stream Chaining for Binary Data Writing
+
+This example demonstrates chaining a raw `FileOutputStream` with a `DataOutputStream` to write primitive types (integers and doubles) directly as binary data[cite: 648, 651].
+
+```java
+import java.io.*;
+
+public class BinaryDataWriter {
+    public static void main(String[] args) {
+        try (
+            // Use try-with-resources to ensure streams are closed automatically
+            var fout = new FileOutputStream("data.bin");
+            var dout = new DataOutputStream(fout);
+        ) {
+            System.out.println("Writing binary data...");
+            
+            // Writing primitive types directly
+            dout.writeInt(12345);
+            dout.writeDouble(3.14159);
+            dout.writeUTF("Java Binary Data"); // Writes String using UTF-8 encoding
+
+            // flush is automatically called on closing/try-with-resources completion
+            System.out.println("Binary data written to data.bin");
+
+        } catch (IOException e) {
+            System.err.println("An I/O error occurred: " + e.getMessage());
+        }
+    }
+}
+```
+
