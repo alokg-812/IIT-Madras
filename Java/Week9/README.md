@@ -422,8 +422,7 @@ public class StreamCollectingDemo {
 }
 ```
 
-
-## Lecture 3
+## Lecture 3: IO Streams
 This lecture covers Java's fundamental approach to handling data transfer—reading data **into** the program and writing data **out** of it—using I/O Streams.
 
 ### Layman's Terms Explanation
@@ -549,3 +548,75 @@ public class BinaryDataWriter {
 }
 ```
 
+## Lecture 4: Serialization
+
+**Serialization** - Java's mechanism for converting an object's state into a format that can be stored or transmitted, and then later reconstructed.
+
+### Serialization Concept and Purpose
+
+**Serialization** is the process of converting an object's state (its instance fields) into a sequence of bytes. **Deserialization** is the reverse process: reconstructing the object from those bytes.
+
+#### Why Use Serialization?
+
+*   **Persistence:** To **backup objects onto disk** along with their internal state, and later **restore** them (e.g., saving game progress).
+*   **Communication:** To **send objects across a network** to another Java Virtual Machine (JVM).
+
+### Implementation in Java
+
+#### Enabling Serialization
+
+For a class to allow its objects to be serialized, it must:
+
+1.  **Implement the `Serializable` Interface:** This is a **marker interface**, meaning it contains no methods. Its presence simply signals to the JVM that the class is safe and intended for serialization.
+    > `public class Employee implements Serializable {...}`
+
+#### Reading and Writing Objects
+
+Serialization is implemented using specialized decorator streams built on top of the basic I/O streams:
+
+| Operation | Class Used | Key Method | Stream Chaining Example |
+| :--- | :--- | :--- | :--- |
+| **Writing (Exporting)** | **`ObjectOutputStream`** | `writeObject(Object obj)` | `var out = new ObjectOutputStream(new FileOutputStream("data.dat"));` |
+| **Reading (Importing)** | **`ObjectInputStream`** | `readObject()` | `var in = new ObjectInputStream(new FileInputStream("data.dat"));` |
+
+**Reading Objects:**
+
+*   Objects must be **read back in the exact same order** they were written.
+*   The `readObject()` method returns an `Object` reference, so it must be **explicitly cast** back to the expected class type.
+    > `var e1 = (Employee) in.readObject();` (Note: `readObject()` throws `ClassNotFoundException` and `IOException`).
+
+### How Serialization Works Internally
+
+When an object is serialized, `ObjectOutputStream` performs a crucial operation to maintain data integrity:
+
+*   **Serial Numbers:** The stream assigns a unique **serial number** to every object written.
+*   **Handling Shared Objects:** If the stream encounters a field that references an object it has **already written** (e.g., two `Manager` objects sharing the same `Secretary` object), it **does not duplicate the object's data**. Instead, it writes only the object's serial number.
+*   **Deserialization:** When reading, `ObjectInputStream` uses these serial numbers to ensure that all references to the same object are restored correctly, effectively **reconstructing the object's internal structure and shared references**. This is the reason for the term "serialization."
+
+### Customizing Serialization (Transient Fields) 🎛️
+
+Sometimes, an object contains fields that shouldn't be saved, such as file handles, network sockets, or calculated values that can be re-derived.
+
+#### **Marking Fields as `transient`**
+
+*   By marking a field with the **`transient`** keyword, you instruct `ObjectOutputStream` to **skip** that field during serialization.
+    > `private transient Point2D.Double point;`
+
+#### **Custom `writeObject()` and `readObject()`**
+
+If a `transient` field holds important data that can't be automatically serialized (like a `Point2D.Double`), you can take manual control:
+
+1.  **Override `writeObject(ObjectOutputStream out)`:**
+    *   Call **`out.defaultWriteObject();`** to serialize all non-transient fields normally.
+    *   Explicitly use `DataOutputStream` methods (like `out.writeDouble()`) to write the necessary state of the transient field.
+2.  **Override `readObject(ObjectInputStream in)`:**
+    *   Call **`in.defaultReadObject();`** to deserialize all non-transient fields normally.
+    *   Explicitly use `DataInputStream` methods (like `in.readDouble()`) to read the data needed to **reconstruct** the transient field.
+
+
+### Cautions and Risks
+
+While serialization is convenient, it should be handled with care:
+
+*   **Version Control:** Objects serialized with an older class version may become **incompatible** with newer versions of the class, leading to deserialization failures. Java has mechanisms for version control, but compatibility issues are common.
+*   **Security Risk:** Deserialization **implicitly reconstructs an object**, which can run arbitrary code defined in the object's class constructors or methods (`readObject()` is effectively invoking code). If an object stream is read from an **untrusted source**, it poses a significant **security risk** (known as *deserialization attacks*).
