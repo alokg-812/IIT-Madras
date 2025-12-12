@@ -2,9 +2,8 @@
 
 ## Lecture 1: Cloning
 
-### 1. The Problem: Normal Assignment ≠ Copy
+### The Problem: Normal Assignment ≠ Copy
 
-**Layman Explanation**  
 When we do `e2 = e1`, we are not copying the employee — we are just giving a second remote control to the same person. If one remote changes the name, both see the change.
 
 **Code Proof**
@@ -17,14 +16,14 @@ System.out.println(e1.getName());   // Prints "Eknath" → Oops!
 
 We want a real photocopy → two independent employees with same initial data.
 
-### 2. Two Ways to Make a Real Copy in Java
+### Two Ways to Make a Real Copy in Java
 
 | Method                    | How it works                                   | Pros                              | Cons / Warnings                          |
 |---------------------------|------------------------------------------------|-----------------------------------|------------------------------------------|
 | **Copy Constructor**      | Write a constructor that takes same-type object| Simple, clear, safe               | You have to write it manually            |
 | **clone() method**        | Java’s built-in mechanism (Object.clone())    | Standard, works with collections  | Tricky, easy to get wrong → shallow copy |
 
-### 3. Way 1: Copy Constructor (Recommended & Safest)
+### Way 1: Copy Constructor (Recommended & Safest)
 
 ```java
 public class Employee {
@@ -52,9 +51,7 @@ Employee e1 = new Employee("Dhruv", 21500, new Date());
 Employee e2 = new Employee(e1);     // Real independent copy
 ```
 
-### 4. Way 2: clone() + Cloneable (Java’s Official Way – But Tricky)
-
-**Step-by-step (must remember exactly)**
+### Way 2: clone() + Cloneable (Java’s Official Way – But Tricky)
 
 1. Implement **Cloneable** interface (it’s a marker interface – empty)
 2. Override **clone()** and make it **public**
@@ -85,7 +82,7 @@ public Employee clone() throws CloneNotSupportedException {
 }
 ```
 
-### 5. Shallow Copy vs Deep Copy (Golden Table – Draw in Exam!)
+### Shallow Copy vs Deep Copy
 
 | Type          | What gets copied                          | Reference fields (like Date, List) | Safe?          |
 |---------------|-------------------------------------------|------------------------------------|----------------|
