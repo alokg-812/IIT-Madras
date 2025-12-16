@@ -162,7 +162,7 @@ Works with all generic classes (ArrayList, HashSet, custom classes, etc.)
 ### 4. `var` – Local Variable Type Inference (Java 10+)
 
 **Layman Rule**  
-You can write `var` instead of the type when declaring local variables — but only if the compiler can clearly see the type from the right-hand side.
+We can write `var` instead of the type when declaring local variables — but only if the compiler can clearly see the type from the right-hand side.
 
 **Correct Usage**
 ```java
@@ -205,7 +205,10 @@ we can even add annotations:
 | try-with-resources: `try (var in = new FileInputStream(...))` | `var` in array: `var[] arr = new int[5];`           |
 | Lambda parameters (with parentheses)          | `var x = null;`                                          |
 
-### 7. One-Page Cheat Sheet
+### Summary
+“Java gradually added type inference to reduce boilerplate:  
+Diamond `<>` (Java 7) → lambdas (Java 8) → `var` for local variables (Java 10) → `var` in lambdas (Java 11).  
+It makes code cleaner without losing type safety.”
 
 | Feature                | Syntax Example                                    | Java Version | What the compiler infers                     |
 |------------------------|---------------------------------------------------|--------------|----------------------------------------------|
@@ -215,24 +218,18 @@ we can even add annotations:
 | var in loops           | `for (var i = 0; i < 10; i++)`                    | 10+          | int                                          |
 | var in lambda          | `(var x, var y) -> x + y`                         | 11+          | Type from target functional interface       |
 
-### 8. Final Summary (One-Liner for Exams)
-
-“Java gradually added type inference to reduce boilerplate:  
-Diamond `<>` (Java 7) → lambdas (Java 8) → `var` for local variables (Java 10) → `var` in lambdas (Java 11).  
-It makes code cleaner without losing type safety.”
 
 ## Lecture 3: Higher Order Functions
 ### 1. What is a Higher-Order Function?
 
-**Layman Explanation**  
 A function that does at least one of these two things:  
 1. Accepts another function as parameter  
 2. Returns a function  
 
-Just like you can pass a String or int to a method, higher-order functions let you pass behavior (code) itself.
+Just like we can pass a String or int to a method, higher-order functions let us pass behavior (code) itself.
 
-**Old Java way (before Java 8)** → Use interfaces  
-**New Java 8+ way** → Use lambda expressions & functional interfaces
+* **Old Java way (before Java 8)** → Use interfaces  
+* **New Java 8+ way** → Use lambda expressions & functional interfaces
 
 ### 2. The Old Painful Way (Pre-Java 8) – Anonymous Inner Classes
 
@@ -254,7 +251,7 @@ list.sort(new Comparator<String>() {
 
 → Extremely verbose for one-line logic!
 
-### 3. The Magic of Java 8: Lambda Expressions
+### 3. Java 8: Lambda Expressions
 
 **Same examples with lambdas (100% standard now)**
 
@@ -269,7 +266,7 @@ list.sort((a, b) -> a.length() - b.length());
 timer.setCallback(() -> System.out.println("Time's up!"));
 ```
 
-### 4. Lambda Syntax – Memorize This Table
+### 4. Lambda Syntax
 
 | Number of params | Syntax                          | Example                                      |
 |------------------|---------------------------------|----------------------------------------------|
@@ -280,11 +277,9 @@ timer.setCallback(() -> System.out.println("Time's up!"));
 | Multi-statement  | `(x, y) -> { stmt1; stmt2; return value; }` | `(x, y) -> { log.info("Adding"); return x+y; }` |
 
 ### 5. Functional Interfaces – The Key to Lambdas
-
-**Definition**  
 An interface with exactly ONE abstract method → can be used with lambda.
 
-**Built-in Functional Interfaces You Must Know (java.util.function)**
+**Built-in Functional Interfaces(java.util.function)**
 
 | Interface          | Abstract Method                  | Common Use Case                          | Example Lambda                          |
 |-------------------|----------------------------------|------------------------------------------|-----------------------------------------|
@@ -296,7 +291,7 @@ An interface with exactly ONE abstract method → can be used with lambda.
 | Comparator<T>      | int compare(T o1, T o2)          | Sorting                                  | `(a,b) -> a.length() - b.length()`      |
 | Runnable           | void run()                       | Threads, timers                          | `() -> System.out.println("Hi")`        |
 
-### 6. Real Examples (Write These in Exams)
+### 6. Real Examples
 
 ```java
 // 1. Filter only long names
@@ -333,7 +328,10 @@ list.stream().map(String::toUpperCase);
 Supplier<ArrayList<String>> supplier = ArrayList::new;
 ```
 
-### 8. One-Page Golden Summary
+### 8. Summary
+“Higher-order functions = passing behavior as data.  
+Java 8 introduced lambda expressions and functional interfaces (Predicate, Function, Consumer, Supplier) to make it clean and concise.  
+Method references (::) are syntactic sugar for common lambdas.”
 
 | Concept                    | Old Way (Pre-8)               | Modern Way (Java 8+)                     |
 |----------------------------|-------------------------------|------------------------------------------|
@@ -343,23 +341,11 @@ Supplier<ArrayList<String>> supplier = ArrayList::new;
 | Sort with custom logic     | Comparator anonymous class   | `list.sort((a,b) -> ...)`                |
 | Timer/callback             | Interface + inner class       | `timer.setCallback(() -> doSomething())` |
 
-### Final Summary
-
-“Higher-order functions = passing behavior as data.  
-Java 8 introduced lambda expressions and functional interfaces (Predicate, Function, Consumer, Supplier) to make it clean and concise.  
-Method references (::) are syntactic sugar for common lambdas.”
-
-
-We’ve completed the three core topics of Week 8:
-1. Cloning
-2. Type Inference (var, diamond)
-3. Higher-Order Functions & Lambdas
-
 ## Lecture 4: Streams
 ### 1. What is a Stream?
 A **Stream** is a sequence of elements that supports functional-style operations (filter, map, reduce, etc.) in a pipeline, without modifying the original data source.
 
-**Key Points (Memorize)**
+**Key Points**
 - Streams are NOT collections
 - Streams do NOT store data
 - Streams are lazy when possible
@@ -374,7 +360,7 @@ A **Stream** is a sequence of elements that supports functional-style operations
 | Intermediate Operations | filter(), map(), sorted(), distinct(), limit() | Stream<T> | YES (lazy)  | 0 or many      |
 | Terminal Operation      | collect(), forEach(), count(), anyMatch(), reduce() | Result / void | NO (eager) | Exactly 1      |
 
-### 3. Most Important Stream Operations (Golden Table)
+### 3. Most Important Stream Operations
 
 | Category        | Operation         | Lambda Type      | Meaning                                      | Example                                      |
 |-----------------|-------------------|------------------|----------------------------------------------|----------------------------------------------|
@@ -393,7 +379,7 @@ A **Stream** is a sequence of elements that supports functional-style operations
 | Reduce          | reduce()          | BinaryOperator   | Combine all into one value                   | `.reduce(0, Integer::sum)`                   |
 | Collect         | collect()         | Collector        | Gather results into List/Set/Map/etc.        | `.collect(Collectors.toList())`              |
 
-### 4. Real-Life Examples (Write Any 3 in Exam – Full Marks)
+### 4. Real-Life Examples
 
 ```java
 List<String> names = Arrays.asList("Alice", "Bob", "Ankit", "Priya", "Amit");
@@ -456,10 +442,3 @@ DoubleStream.of(1.1, 2.2, 3.3)
 | Sum / Max / Min                       | `.mapToInt(ToIntFunction).sum()`                                 |
 | Group by property                     | `.collect(Collectors.groupingBy(Class::getProp))`                |
 | Parallel (just add one word!)         | `.parallelStream()` or `.stream().parallel()`                    |
-
-### Final Exam Mantra
-
-“Streams = lazy, functional-style pipelines on collections.  
-Intermediate operations (filter, map, sorted) return Stream and are lazy.  
-Terminal operation (collect, forEach, reduce) triggers execution.  
-Never reuse a stream after terminal operation.”
