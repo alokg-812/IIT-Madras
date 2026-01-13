@@ -12,3 +12,5 @@ Thumbs.db # Windows
 *~
 # Logs and other generated output
 /logs/
+
+__pycache__
