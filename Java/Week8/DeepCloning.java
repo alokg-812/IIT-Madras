@@ -22,7 +22,7 @@ public class DeepCloning {
         Employee em = new Employee(null);
         em.name = "Ram";
         m1.emp = em;
-       m1.emp.name = "Shyam";
+        m1.emp.name = "Shyam";
         Manager m2 = (Manager) m1.clone();
         m2.post= "AM";
         System.out.println(m1.post);
