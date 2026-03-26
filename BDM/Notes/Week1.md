@@ -11,3 +11,5 @@
 ### Need of Government
 
 <img width="574" height="419" alt="image" src="https://github.com/user-attachments/assets/200585d8-df8a-406c-820d-9f4fec8a4a8f" />
+
+<img width="640" height="447" alt="image" src="https://github.com/user-attachments/assets/f136552b-583d-4692-8341-d9374d530cfc" />
